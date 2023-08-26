@@ -3,7 +3,7 @@ import { funciones } from "../controllers/auth.controller.js";
 
 const router = Router()
 
-router.get("/", funciones)
+// router.get("/", funciones)
 
 export default router
 
