@@ -1,0 +1,22 @@
+.abajo > .swiper {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.abajo > .swiper > .swiper-wrapper {
+    width: 100%;
+    height: 55px;
+}
+
+.abajo > .swiper > .swiper-wrapper > .swiper-slide {
+    width: 80px;
+    height: 90%;
+    margin: 0 10px;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
