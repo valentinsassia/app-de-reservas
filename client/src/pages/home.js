@@ -5,7 +5,6 @@ function Home() {
   return (
     <div className="home">
       <div className="contenedor arriba"></div>
-      <div className="contenedor menu"></div>
       <div className="contenedor medio">
         {<Slider />}
       </div>
