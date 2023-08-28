@@ -24,7 +24,6 @@ function Slider() {
         pagination={{
           el: ".pagination",
           clickable: true,
-          dynamicBullets: true,
         }}
         navigation={{
           nextEl: ".swiper-button-next",

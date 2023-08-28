@@ -25,18 +25,19 @@
 }
 
 .medio {
-    top: 3%;
+    top: 2%;
     width: 100%;
-    height: 56%;
+    height: 50%;
 }
 
 .abajo {
     bottom: 0;
     width: 100%;
-    height: 48%;
-    border-top-left-radius: 60px;
-    border-top-right-radius: 60px;
+    height: 55%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
     z-index: 10;
     align-items: center;
+    flex-direction: column;
 }
 
