@@ -8,6 +8,9 @@ function Home() {
   return (
     <div className="home">
       <div className="contenedor arriba">{<Navegacion />}</div>
+      <div className="contenedor menu">
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </div>
       <div className="contenedor medio">{<Slider />}</div>
       <div className="contenedor abajo">{<Horarios />}</div>
     </div>

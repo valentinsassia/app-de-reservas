@@ -14,7 +14,7 @@ function Horarios() {
     <>
       <div className="contenedor_informacion">
         <ion-icon name="caret-up-outline"></ion-icon>
-        <div className="informacion cancha">Cancha</div>
+        <div className="informacion cancha">Cancha 1</div>
         <div className="informacion dia">
           <div className="flecha izquierda">
             <ion-icon name="caret-back-outline"></ion-icon>
@@ -55,10 +55,8 @@ function Horarios() {
         })}
       </Swiper>
 
-      <div className="boton">
-        Continuar
-      </div>
-    </> 
+      <div className="boton">Continuar</div>
+    </>
   );
 }
 
