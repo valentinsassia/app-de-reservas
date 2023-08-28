@@ -13,6 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 0 4px black;
 }
 
 .arriba {
@@ -22,6 +23,7 @@
     border-bottom-left-radius: 60px;
     border-bottom-right-radius: 60px;
     z-index: 10;
+    justify-content: space-evenly !important;
 }
 
 .medio {
@@ -40,4 +42,3 @@
     align-items: center;
     flex-direction: column;
 }
-

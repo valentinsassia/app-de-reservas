@@ -1,0 +1,26 @@
+.arriba > div {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #ffffff57;
+}
+
+.arriba > div > p {
+    margin-bottom: 2px;
+}
+
+.arriba > div > span {
+    width: 40px !important;
+    height: 2px;
+    background-color: #ffffff57;
+}
+
+.elegido {
+    color: #ffffffb5 !important;
+}
+
+.elegido > span {
+    background-color: #ffffffb5 !important;
+}

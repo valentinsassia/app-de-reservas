@@ -25,6 +25,7 @@ function Horarios() {
           </div>
         </div>
       </div>
+
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
@@ -32,8 +33,8 @@ function Horarios() {
         slidesPerView={"auto"}
         coverflowEffect={{
           rotate: 0,
-          stretch: 0,
-          depth: 200,
+          stretch: -20,
+          depth: 400,
           modifier: 1,
           slideShadows: true,
         }}
@@ -53,7 +54,11 @@ function Horarios() {
           );
         })}
       </Swiper>
-    </>
+
+      <div className="boton">
+        Continuar
+      </div>
+    </> 
   );
 }
 
