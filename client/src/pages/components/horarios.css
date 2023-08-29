@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: .9em;
+    font-size: 1em;
 }
 
 .contenedor_informacion>ion-icon {
@@ -20,8 +20,8 @@
 }
 
 .cancha {
-    width: 116px;
-    height: 29px;
+    width: 120px;
+    height: 33px;
     border-top-right-radius: 100px;
     border-top-left-radius: 100px;
     color: #252525b8;
@@ -30,8 +30,8 @@
 
 .dia {
     position: relative;
-    width: 190px;
-    height: 35px;
+    width: 194px;
+    height: 39px;
     border-radius: 100px;
     z-index: 1;
 }
@@ -95,7 +95,7 @@
 
 .boton {
     width: 150px;
-    height: 40px;
+    height: 42px;
     background-color: #6c6c6c;
     opacity: .6;
     border-radius: 5px;
