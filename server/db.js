@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { MONGODB_URL } from "./config.js";
+// import { MONGODB_URL } from "./config.js";
 
 export async function connectDB() {
   try {
-    await mongoose.connect(MONGODB_URL);
+    await mongoose.connect("mongodb+srv://appreservas:DezM1ODEnueAZZCP@app-reservas.uerhgnm.mongodb.net/app?retryWrites=true&w=majority");
     console.log("Connected to db");
   } catch (error) {
     console.log(error);
