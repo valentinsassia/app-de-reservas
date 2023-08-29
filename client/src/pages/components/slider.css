@@ -31,14 +31,7 @@
 .swiper-pagination-bullet {
     transform: scale(0.8);
     background-color: white !important;
-}
-
-.button {
-    transform: scale(0.6);
-    color: #ffffff66 !important;
-    outline-color: transparent !important;
-}
-
+};
 
 * {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

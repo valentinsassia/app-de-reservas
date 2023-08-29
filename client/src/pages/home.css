@@ -28,15 +28,15 @@
 .medio {
     top: 2%;
     width: 100%;
-    height: 50%;
+    height: 55%;
 }
 
 .abajo {
     bottom: 0;
     width: 100%;
-    height: 51%;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+    height: 52%;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
     z-index: 10;
     align-items: center;
     flex-direction: column;

@@ -25,10 +25,6 @@ function Slider() {
           el: ".pagination",
           clickable: true,
         }}
-        navigation={{
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        }}
         loop={true}
       >
         {img.map((imagen, index) => {
@@ -39,8 +35,6 @@ function Slider() {
           );
         })}
         <div className="pagination"></div>
-        <div className="button swiper-button-next"></div>
-        <div className="button swiper-button-prev"></div>
       </Swiper>
     </div>
   );
