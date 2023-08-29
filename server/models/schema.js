@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose";
 
 const infocomplejo = new mongoose.Schema({
   nombre: {

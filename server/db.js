@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose";
 // import { MONGODB_URL } from "./config.js";
 
 export async function connectDB() {
