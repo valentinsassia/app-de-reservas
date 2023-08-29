@@ -1,5 +1,9 @@
 import app from "./app.js";
- 
-app.listen(4000)
+import { PORT } from "./config.js";
+import { connectDB } from "./db.js";
 
-console.log("server esta corriendoo")
+connectDB()
+ 
+app.listen(PORT)
+
+console.log("server esta corriendo en el puerto",  PORT)
