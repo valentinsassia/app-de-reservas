@@ -4,7 +4,23 @@ import Horarios from "./components/horarios";
 import Slider from "./components/slider";
 import Navegacion from "./components/navegacion";
 
+import { useEffect } from "react";
+
+import io from "socket.io-client";
+// const socket = io("http://localhost:4000");
+const socket = io();
+
 function Home() {
+
+  useEffect(() => {
+    socket.emit("prueba", {
+      numero: 4
+    })
+    socket.on("respuesta", (respuesta) => {
+      console.log(respuesta)
+    })
+  }, [])
+
   return (
     <div className="home">
       <div className="contenedor arriba">{<Navegacion />}</div>
