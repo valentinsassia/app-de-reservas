@@ -22,6 +22,7 @@ function Home() {
     });
     socket.on("info-complejo-res", (respuesta) => {
       setRespuesta(respuesta[0]);
+      console.log(respuesta[0])
     });
   }, []);
 

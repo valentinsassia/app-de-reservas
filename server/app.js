@@ -18,15 +18,6 @@ const io = new SocketServer(server, {
   },
 });
 
-const prueba2 = async () => {
-  const aver = await infocomplejo.find()
-  console.log(aver)
-}
-
-prueba2()
-
-app.use(cors());
-
 io.on("connection", (socket) => {
   try {
     socket.on("info-complejo", (peticion) => {
