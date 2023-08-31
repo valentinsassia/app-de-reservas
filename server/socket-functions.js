@@ -49,5 +49,7 @@ export const prueba = async (datos) => {
     );
   }
 
+  console.log(complejo)
+
   socket.emit("info-complejo-res", complejo);
 };

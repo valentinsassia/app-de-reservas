@@ -8,8 +8,6 @@ import { fileURLToPath } from "url";
 
 import { prueba } from "./socket-functions.js";
 
-import infocomplejo from "./models/schema.js";
-
 const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server, {
@@ -23,6 +21,9 @@ io.on("connection", (socket) => {
     socket.on("info-complejo", (peticion) => {
         prueba({peticion,socket})
     });
+    socket.on("prueba", (peticion) => {
+      socket.emit("prueba-res", peticion)
+  });
   } catch (error) {
     console.log(error);
   }

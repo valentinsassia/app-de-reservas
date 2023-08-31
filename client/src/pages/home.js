@@ -22,8 +22,14 @@ function Home() {
     });
     socket.on("info-complejo-res", (respuesta) => {
       setRespuesta(respuesta[0]);
-      console.log(respuesta[0])
     });
+
+    socket.emit("prueba", {
+      num: 4
+    })
+    socket.on("prueba-res", (respuesta) => {
+      console.log(respuesta)
+    })
   }, []);
 
   const horarios_contenedor = () => {
