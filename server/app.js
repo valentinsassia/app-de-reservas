@@ -8,6 +8,8 @@ import { fileURLToPath } from "url";
 
 import { prueba } from "./socket-functions.js";
 
+import infocomplejo from "./models/schema.js";
+
 const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server, {
@@ -15,6 +17,13 @@ const io = new SocketServer(server, {
     // origin: "http://localhost:3000",
   },
 });
+
+const prueba2 = async () => {
+  const aver = await infocomplejo.find()
+  console.log(aver)
+}
+
+prueba2()
 
 app.use(cors());
 

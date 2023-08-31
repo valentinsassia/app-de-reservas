@@ -25,8 +25,6 @@ function Home() {
     });
   }, []);
 
-  console.log(horarios)
-
   const horarios_contenedor = () => {
     if (horarios !== undefined) {
       return <Horarios horarios={horarios} />;
