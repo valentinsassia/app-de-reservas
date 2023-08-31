@@ -6,11 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css";
 
-function Slider() {
-  const img = [
-    "https://www.quepasaweb.com.ar/wp-content/uploads/2020/10/cancha-futbol-5-autorizada-cuarentena.jpg",
-    "https://cdn.elobservador.com.uy/102019/1570231150178.jpg"
-  ];
+function Slider({imagenes}) {
 
   return (
     <div className="swiperContenedor">
@@ -27,7 +23,7 @@ function Slider() {
         }}
         loop={true}
       >
-        {img.map((imagen, index) => {
+        {imagenes.map((imagen, index) => {
           return (
             <SwiperSlide key={index}>
               <img src={imagen}></img>

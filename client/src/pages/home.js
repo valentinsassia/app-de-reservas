@@ -11,6 +11,8 @@ import io from "socket.io-client";
 const socket = io();
 
 function Home() {
+  const [condicion, setCondicion] = useState(false);
+
   const [respuesta, setRespuesta] = useState("0");
 
   const horarios = respuesta.horarios;
@@ -31,14 +33,33 @@ function Home() {
     }
   };
 
+  const imagenes_contenedor = () => {
+    if (imagenes !== undefined) {
+      return <Slider imagenes={imagenes} />;
+    }
+  };
+
   return (
     <div className="home">
       <div className="contenedor arriba">{<Navegacion />}</div>
-      <div className="contenedor menu">
-        <ion-icon name="chevron-down-outline"></ion-icon>
+
+      <div
+        className={`contenedor menu ${condicion ? `modificar` : ``}`}
+        onClick={() => setCondicion(!condicion)}
+      >
+        <ion-icon
+          name={`${condicion ? `close-outline` : `chevron-down-outline`}`}
+        ></ion-icon>
       </div>
-      <div className="contenedor medio">{<Slider />}</div>
+      <div className={`contenedor ${condicion ? `menu_oculto` : ``}`}></div>
+
+      <div className="contenedor medio">{imagenes_contenedor()}</div>
       <div className="contenedor abajo">{horarios_contenedor()}</div>
+
+      <div
+        className={`${condicion ? `cortina` : ``}`}
+        onClick={() => setCondicion(!condicion)}
+      ></div>
     </div>
   );
 }

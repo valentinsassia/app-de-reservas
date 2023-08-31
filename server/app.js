@@ -6,7 +6,7 @@ import http from "http";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
-import { prueba } from "./socket-functions.js";
+import { info_complejo } from "./socket-functions.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -19,7 +19,7 @@ const io = new SocketServer(server, {
 io.on("connection", (socket) => {
   try {
     socket.on("info-complejo", (peticion) => {
-        prueba({peticion,socket})
+        info_complejo({peticion,socket})
     });
   } catch (error) {
     console.log(error);
