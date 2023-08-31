@@ -21,9 +21,6 @@ io.on("connection", (socket) => {
     socket.on("info-complejo", (peticion) => {
         prueba({peticion,socket})
     });
-    socket.on("prueba", (peticion) => {
-      socket.emit("prueba-res", peticion)
-  });
   } catch (error) {
     console.log(error);
   }
