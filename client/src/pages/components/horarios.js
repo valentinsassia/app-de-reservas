@@ -83,8 +83,6 @@ function Horarios({ horarios }) {
     return elem.dia == dia;
   });
 
-  console.log(informacion_dia);
-
   let horas = informacion_dia[0].horas;
 
   return (
