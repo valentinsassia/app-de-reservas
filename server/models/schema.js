@@ -16,7 +16,7 @@ const infocomplejo = new mongoose.Schema({
   imagenes: {
     type: Array,
   },
-  Horarios: [
+  horarios: [
     {
       cancha: { type: Number },
       costo: { type: Number },

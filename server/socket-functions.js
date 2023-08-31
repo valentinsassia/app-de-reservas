@@ -5,9 +5,6 @@ export const prueba = async (datos) => {
 
   let nombre = datos.peticion.nombre;
 
-  console.log(datos)
-  console.log(nombre)
-
   const fecha = new Date();
   let dias = [
     "Domingo",
@@ -26,8 +23,6 @@ export const prueba = async (datos) => {
   let complejo = await infocomplejo.find({
     nombre: { $eq: nombre },
   });
-
-  console.log(complejo)
 
   const ayer_mongo = complejo[0].ayer;
 
