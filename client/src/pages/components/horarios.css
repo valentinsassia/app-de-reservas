@@ -26,6 +26,7 @@
     border-top-left-radius: 100px;
     color: #252525b8;
     padding: 2px 0 0 0;
+    font-size: .9em ;
 }
 
 .dia {
@@ -80,7 +81,6 @@
 .abajo>.swiper>.swiper-wrapper>.swiper-slide {
     width: 100px;
     height: 100%;
-    background-color: red;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -88,7 +88,16 @@
 }
 
 .seleccionada {
-    border: 1px solid #c0c0c0;
+    background-color: #05ff0bdb !important;
+    border: 1px solid #ffffff87;
+}
+
+.true {
+    background-color: #009b04db;
+}
+
+.false {
+    background-color: #d20000d6 !important;
 }
 
 /* // Empieza el Boton */
@@ -96,11 +105,16 @@
 .boton {
     width: 150px;
     height: 42px;
-    background-color: #6c6c6c;
-    opacity: .6;
+    background-color: #ffffff87;
+    opacity: .4;
     border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #111111;
+}
+
+.boton_activado {
+    opacity: 1 !important;
+    background-color: #00be00;
 }

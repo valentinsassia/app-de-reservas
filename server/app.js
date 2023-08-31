@@ -20,7 +20,7 @@ app.use(cors());
 
 io.on("connection", (socket) => {
   try {
-    socket.on("prueba", (peticion) => {
+    socket.on("info-complejo", (peticion) => {
         prueba({peticion,socket})
     });
   } catch (error) {
