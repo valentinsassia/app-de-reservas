@@ -56,14 +56,14 @@ function Home() {
         >
           {horarios.map((elem) => {
             return (
-              <p
+              <div className={`${num_cancha == elem.cancha ? `cancha_seleccionada` : ``}`}
                 onClick={() => {
                   setNum_cancha(elem.cancha);
                   setCondicion_cancha(false);
                 }}
               >
                 Cancha {elem.cancha}
-              </p>
+              </div>
             );
           })}
         </div>
