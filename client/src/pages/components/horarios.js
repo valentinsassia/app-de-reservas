@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
 
-function Horarios({ horarios }) {
+function Horarios({ horarios, num_cancha, setCondicion_cancha }) {
   const [horaseleccionada, setHoraseleccionada] = useState();
   const [Index, setIndex] = useState(0);
 
@@ -73,8 +73,6 @@ function Horarios({ horarios }) {
 
   // Termina Codigo de Fecha
 
-  let num_cancha = 1;
-
   let cancha = horarios.filter((elem) => {
     return elem.cancha == num_cancha;
   });
@@ -89,7 +87,12 @@ function Horarios({ horarios }) {
     <>
       <div className="contenedor_informacion">
         <ion-icon name="caret-up-outline"></ion-icon>
-        <div className="informacion cancha">Cancha 1</div>
+        <div
+          className="informacion cancha"
+          onClick={() => setCondicion_cancha(true)}
+        >
+          Cancha {num_cancha}
+        </div>
         <div className="informacion dia">
           <div className="flecha izquierda" onClick={restar}>
             <ion-icon name="caret-back-outline"></ion-icon>

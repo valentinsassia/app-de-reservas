@@ -11,15 +11,13 @@ import { info_complejo } from "./socket-functions.js";
 const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server, {
-  cors: {
-    // origin: "http://localhost:3000",
-  },
+  cors: {},
 });
 
 io.on("connection", (socket) => {
   try {
     socket.on("info-complejo", (peticion) => {
-        info_complejo({peticion,socket})
+      info_complejo({ peticion, socket });
     });
   } catch (error) {
     console.log(error);

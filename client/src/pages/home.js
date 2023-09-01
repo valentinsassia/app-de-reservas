@@ -3,15 +3,18 @@ import "./home.css";
 import Horarios from "./components/horarios";
 import Slider from "./components/slider";
 import Navegacion from "./components/navegacion";
+import Menu from "./components/menu";
 
 import { useEffect, useState } from "react";
 
 import io from "socket.io-client";
-// const socket = io("http://localhost:4000");
 const socket = io();
 
 function Home() {
-  const [condicion, setCondicion] = useState(false);
+  const [condicion_menu, setCondicion_menu] = useState(false);
+  const [condicion_cancha, setCondicion_cancha] = useState(false);
+
+  const [num_cancha, setNum_cancha] = useState(1);
 
   const [respuesta, setRespuesta] = useState("0");
 
@@ -29,7 +32,13 @@ function Home() {
 
   const horarios_contenedor = () => {
     if (horarios !== undefined) {
-      return <Horarios horarios={horarios} />;
+      return (
+        <Horarios
+          horarios={horarios}
+          num_cancha={num_cancha}
+          setCondicion_cancha={setCondicion_cancha}
+        />
+      );
     }
   };
 
@@ -39,26 +48,51 @@ function Home() {
     }
   };
 
+  const elegir_canchas = () => {
+    if (horarios !== undefined) {
+      return (
+        <div
+          className={`contenedor ${condicion_cancha ? `elegir_canchas` : ``}`}
+        >
+          {horarios.map((elem) => {
+            return (
+              <p
+                onClick={() => {
+                  setNum_cancha(elem.cancha);
+                  setCondicion_cancha(false);
+                }}
+              >
+                Cancha {elem.cancha}
+              </p>
+            );
+          })}
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="home">
       <div className="contenedor arriba">{<Navegacion />}</div>
 
-      <div
-        className={`contenedor menu ${condicion ? `modificar` : ``}`}
-        onClick={() => setCondicion(!condicion)}
-      >
-        <ion-icon
-          name={`${condicion ? `close-outline` : `chevron-down-outline`}`}
-        ></ion-icon>
-      </div>
-      <div className={`contenedor ${condicion ? `menu_oculto` : ``}`}></div>
+      {
+        <Menu
+          condicion_menu={condicion_menu}
+          setCondicion_menu={setCondicion_menu}
+        />
+      }
 
       <div className="contenedor medio">{imagenes_contenedor()}</div>
       <div className="contenedor abajo">{horarios_contenedor()}</div>
 
+      {elegir_canchas()}
+
       <div
-        className={`${condicion ? `cortina` : ``}`}
-        onClick={() => setCondicion(!condicion)}
+        className={`${condicion_menu || condicion_cancha ? `cortina` : ``}`}
+        onClick={() => {
+          setCondicion_menu(false);
+          setCondicion_cancha(false);
+        }}
       ></div>
     </div>
   );
