@@ -1,0 +1,20 @@
+.contenedor_datos {
+    position: absolute;
+    top: 15%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding-left: 15px;
+}
+
+.primario {
+    font-size: 1em;
+    color: #e1e1e1;
+}
+
+.secundario {
+    font-size: .9em;
+    color: #cccc;
+    margin-bottom: 10px;
+}

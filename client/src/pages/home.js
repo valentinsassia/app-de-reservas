@@ -4,6 +4,7 @@ import Horarios from "./components/horarios";
 import Slider from "./components/slider";
 import Navegacion from "./components/navegacion";
 import Menu from "./components/menu";
+import Informacion from "./components/informacion";
 
 import { useEffect, useState } from "react";
 
@@ -14,6 +15,7 @@ function Home() {
   const [condicion_menu, setCondicion_menu] = useState(false);
   const [condicion_cancha, setCondicion_cancha] = useState(false);
   const [num_cancha, setNum_cancha] = useState(1);
+  const [navegacion, setNavegacion] = useState(true);
 
   const [respuesta, setRespuesta] = useState("0");
 
@@ -30,7 +32,7 @@ function Home() {
   }, []);
 
   const horarios_contenedor = () => {
-    if (horarios !== undefined) {
+    if (horarios !== undefined && navegacion) {
       return (
         <Horarios
           horarios={horarios}
@@ -38,6 +40,11 @@ function Home() {
           setCondicion_cancha={setCondicion_cancha}
         />
       );
+    }
+    else if (respuesta !== "0" && !navegacion) {
+      return (
+        <Informacion informacion={respuesta}/>
+      )
     }
   };
 
@@ -55,7 +62,10 @@ function Home() {
         >
           {horarios.map((elem) => {
             return (
-              <div className={`${num_cancha == elem.cancha ? `cancha_seleccionada` : ``}`}
+              <div
+                className={`${
+                  num_cancha == elem.cancha ? `cancha_seleccionada` : ``
+                }`}
                 onClick={() => {
                   setNum_cancha(elem.cancha);
                   setCondicion_cancha(false);
@@ -72,7 +82,9 @@ function Home() {
 
   return (
     <div className="home">
-      <div className="contenedor arriba">{<Navegacion />}</div>
+      <div className="contenedor arriba">
+        {<Navegacion navegacion={navegacion} setNavegacion={setNavegacion} />}
+      </div>
 
       {
         <Menu

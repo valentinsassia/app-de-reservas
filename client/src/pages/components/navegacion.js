@@ -1,9 +1,6 @@
 import "./navegacion.css";
 
-import { useState } from "react";
-
-function Navegacion() {
-  const [navegacion, setNavegacion] = useState(true);
+function Navegacion({navegacion, setNavegacion}) {
 
   return (
     <>
