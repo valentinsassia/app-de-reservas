@@ -3,9 +3,13 @@ import "./menu.css";
 function Menu({ condicion_menu, setCondicion_menu }) {
   return (
     <>
-      <div className={`menu_desactivado ${condicion_menu ? `menu_activado` : ``}`}>
-        <p>Soporte</p>
-        <p>Mi complejo</p>
+      <div
+        className={`menu_desactivado ${condicion_menu ? `menu_activado` : ``}`}
+      >
+        <div>
+          <p>Soporte</p>
+          <p>Mi complejo</p>
+        </div>
       </div>
       <div
         className={`menu ${condicion_menu ? `modificar` : ``}`}
