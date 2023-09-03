@@ -13,7 +13,6 @@ const socket = io();
 function Home() {
   const [condicion_menu, setCondicion_menu] = useState(false);
   const [condicion_cancha, setCondicion_cancha] = useState(false);
-
   const [num_cancha, setNum_cancha] = useState(1);
 
   const [respuesta, setRespuesta] = useState("0");
