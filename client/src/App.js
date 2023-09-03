@@ -1,4 +1,5 @@
 import Home from "./pages/home";
+import Confirmar from "./pages/confirmar";
 
 import { Route, Routes } from "react-router-dom";
 
@@ -7,6 +8,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/:nombre/:hora/:cancha" element={<Confirmar />} />
       </Routes>
     </div>
   );

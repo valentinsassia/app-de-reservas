@@ -35,16 +35,14 @@ function Home() {
     if (horarios !== undefined && navegacion) {
       return (
         <Horarios
+          nombre={respuesta.nombre}
           horarios={horarios}
           num_cancha={num_cancha}
           setCondicion_cancha={setCondicion_cancha}
         />
       );
-    }
-    else if (respuesta !== "0" && !navegacion) {
-      return (
-        <Informacion informacion={respuesta}/>
-      )
+    } else if (respuesta !== "0" && !navegacion) {
+      return <Informacion informacion={respuesta} />;
     }
   };
 
@@ -60,7 +58,7 @@ function Home() {
         <div
           className={`contenedor ${condicion_cancha ? `elegir_canchas` : ``}`}
         >
-          {horarios.map((elem) => {
+          {horarios.map((elem, index) => {
             return (
               <div
                 className={`${
@@ -70,6 +68,7 @@ function Home() {
                   setNum_cancha(elem.cancha);
                   setCondicion_cancha(false);
                 }}
+                key={index}
               >
                 Cancha {elem.cancha}
               </div>

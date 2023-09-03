@@ -1,11 +1,12 @@
 import "./horarios.css";
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
 
-function Horarios({ horarios, num_cancha, setCondicion_cancha }) {
+function Horarios({ nombre, horarios, num_cancha, setCondicion_cancha }) {
   const [horaseleccionada, setHoraseleccionada] = useState();
   const [Index, setIndex] = useState(0);
 
@@ -83,6 +84,19 @@ function Horarios({ horarios, num_cancha, setCondicion_cancha }) {
 
   let horas = informacion_dia[0].horas;
 
+  const Boton = () => {
+    if (horaseleccionada) {
+      return (
+        <Link
+          className="boton boton_activado"
+          to={`/${nombre}/${horaseleccionada}/${num_cancha}`}
+        >
+          Continuar
+        </Link>
+      );
+    } else return <div className="boton">Continuar</div>;
+  };
+
   return (
     <>
       <div className="contenedor_informacion">
@@ -141,9 +155,7 @@ function Horarios({ horarios, num_cancha, setCondicion_cancha }) {
         })}
       </Swiper>
 
-      <div className={`boton ${horaseleccionada ? `boton_activado` : ``}`}>
-        Continuar
-      </div>
+      {Boton()}
     </>
   );
 }
