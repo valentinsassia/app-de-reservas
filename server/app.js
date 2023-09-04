@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 
 import { info_complejo, reservar } from "./socket-functions.js";
 
-import {router} from "./routes/auth.routes.js"
+import rutas from "./routes/locations.routes.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -30,7 +30,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.json());
 
-app.use(router)
+app.use(rutas)
 
 app.use(express.static(join(__dirname, "./../client/build")));
 
