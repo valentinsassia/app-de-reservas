@@ -51,8 +51,36 @@ export const info_complejo = async (datos) => {
     }
 
     socket.emit("info-complejo-res", complejo);
-    
   } catch (error) {
-    console.log(error)
+    console.log(error);
+  }
+};
+
+export const reservar = async (datos) => {
+  try {
+    let socket = datos.socket;
+
+    const nombre = datos.peticion.nombre;
+    const hora = datos.peticion.hora;
+    const dia = datos.peticion.dia;
+    const cancha = datos.peticion.cancha;
+
+    await infocomplejo.updateOne(
+      {
+        nombre: { $eq: nombre },
+      },
+      { $set: { "horarios.$[a].horario.$[e].horas.$[i].estado": false } },
+      {
+        arrayFilters: [
+          { "a.cancha": cancha },
+          { "e.dia": dia },
+          { "i.hora": hora },
+        ],
+      }
+    );
+
+    socket.broadcast.emit("La Esquina", "");
+  } catch (error) {
+    console.log(error);
   }
 };

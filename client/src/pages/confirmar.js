@@ -2,6 +2,9 @@ import "./confirmar.css";
 
 import { useParams, useNavigate } from "react-router-dom";
 
+import io from "socket.io-client";
+const socket = io();
+
 function Confirmar() {
   const params = useParams();
   const navigate = useNavigate();
@@ -42,7 +45,19 @@ function Confirmar() {
           <p className="secundario">{cancha}</p>
         </div>
       </div>
-      <div className="boton boton_activado">Confirmar</div>
+      <div
+        className="boton boton_activado"
+        onClick={() => {
+          socket.emit("reservar", {
+            nombre,
+            cancha,
+            hora,
+            dia: params.dia,
+          });
+        }}
+      >
+        Confirmar
+      </div>
     </div>
   );
 }

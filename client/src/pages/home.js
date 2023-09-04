@@ -29,6 +29,10 @@ function Home() {
     socket.on("info-complejo-res", (respuesta) => {
       setRespuesta(respuesta[0]);
     });
+    console.log(respuesta[0].nombre)
+    socket.on("La Esquina", () => {
+      console.log(5)
+    });
   }, []);
 
   const horarios_contenedor = () => {

@@ -1,23 +1,25 @@
 import express from "express";
-import cors from "cors";
 import { Server as SocketServer } from "socket.io";
 import http from "http";
 
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
-import { info_complejo } from "./socket-functions.js";
+import { info_complejo, reservar } from "./socket-functions.js";
+
+import {router} from "./routes/auth.routes.js"
 
 const app = express();
 const server = http.createServer(app);
-const io = new SocketServer(server, {
-  cors: {},
-});
+const io = new SocketServer(server);
 
 io.on("connection", (socket) => {
   try {
     socket.on("info-complejo", (peticion) => {
       info_complejo({ peticion, socket });
+    });
+    socket.on("reservar", (peticion) => {
+      reservar({ peticion, socket });
     });
   } catch (error) {
     console.log(error);
@@ -27,6 +29,8 @@ io.on("connection", (socket) => {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.json());
+
+app.use(router)
 
 app.use(express.static(join(__dirname, "./../client/build")));
 
