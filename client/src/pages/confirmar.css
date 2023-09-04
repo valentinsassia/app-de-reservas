@@ -9,6 +9,14 @@
     background-color: #0f0f0f;
 }
 
+.back {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 1.3em;
+    color: white;
+}
+
 .contenedor_confirmar > div {
     text-align: center
 }

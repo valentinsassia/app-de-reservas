@@ -1,9 +1,10 @@
 import "./confirmar.css";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function Confirmar() {
   const params = useParams();
+  const navigate = useNavigate();
 
   let nombre = params.nombre;
   let hora = params.hora;
@@ -12,6 +13,9 @@ function Confirmar() {
 
   return (
     <div className="contenedor_confirmar">
+      <div onClick={() => navigate(-1)} className="back">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </div>
       <div>
         <p>¡Ya casi terminamos!</p>
         <p>Revisa y Confirma</p>
