@@ -74,6 +74,8 @@ function Horarios({ nombre, horarios, num_cancha, setCondicion_cancha }) {
 
   // Termina Codigo de Fecha
 
+  let fecha = `${dia} ${fecha_de_hoy + contador}`
+
   let cancha = horarios.filter((elem) => {
     return elem.cancha == num_cancha;
   });
@@ -89,7 +91,7 @@ function Horarios({ nombre, horarios, num_cancha, setCondicion_cancha }) {
       return (
         <Link
           className="boton boton_activado"
-          to={`/${nombre}/${horaseleccionada}/${num_cancha}`}
+          to={`/${nombre}/${horaseleccionada}/${num_cancha}/${dia}/${fecha_de_hoy + contador}`}
         >
           Continuar
         </Link>
@@ -111,7 +113,7 @@ function Horarios({ nombre, horarios, num_cancha, setCondicion_cancha }) {
           <div className="flecha izquierda" onClick={restar}>
             <ion-icon name="caret-back-outline"></ion-icon>
           </div>
-          {dia} {fecha_de_hoy + contador}
+          {fecha}
           <div className="flecha derecha" onClick={sumar}>
             <ion-icon name="caret-forward-outline"></ion-icon>
           </div>

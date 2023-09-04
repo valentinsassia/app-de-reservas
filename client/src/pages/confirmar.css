@@ -1,6 +1,38 @@
 .contenedor_confirmar {
     position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     background-color: #0f0f0f;
+}
+
+.contenedor_confirmar > div {
+    text-align: center
+}
+
+.contenedor_confirmar > div > p:first-child {
+    font-size: 1.3em;
+    color: white;
+}
+
+.contenedor_confirmar > div > p {
+    font-size: 1em;
+    color: #cccc;
+}
+
+.informacion_contenedor {
+    width: 90%;
+    padding: 20px;
+    background-color: #080808;
+    border-radius: 30px;
+    font-size: .9em;
+}
+
+.informacion_contenedor > div {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
 }
