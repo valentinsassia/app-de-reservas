@@ -30,7 +30,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.json());
 
-// app.use(rutas)
+app.use(rutas)
 
 app.use(express.static(join(__dirname, "./../client/build")));
 
