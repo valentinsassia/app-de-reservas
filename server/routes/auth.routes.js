@@ -1,7 +1,17 @@
 import { Router } from "express";
-const router = Router()
+const router = Router();
 
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export default router
+router.get("/", (req, res) => {
+  res.redirect("/La%20Esquina");
+});
 
+router.get("/:nombre", (req, res) => {
+  res.sendFile(join(__dirname, "../../client/build", "index.html"));
+});
+
+export default router;
