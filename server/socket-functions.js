@@ -79,7 +79,7 @@ export const reservar = async (datos) => {
       }
     );
 
-    socket.broadcast.emit("La Esquina", "");
+    socket.broadcast.emit(nombre, "");
   } catch (error) {
     console.log(error);
   }

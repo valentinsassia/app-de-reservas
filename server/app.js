@@ -30,8 +30,8 @@ io.on("connection", (socket) => {
 
 app.use(express.json());
 
-app.use(express.static(join(__dirname, "./../client/build")));
-
 app.use(rutas)
+
+app.use(express.static(join(__dirname, "./../client/build")));
 
 export default server;

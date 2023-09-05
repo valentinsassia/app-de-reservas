@@ -7,39 +7,44 @@ import Menu from "./components/menu";
 import Informacion from "./components/informacion";
 
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import io from "socket.io-client";
 const socket = io();
 
 function Home() {
+  const params = useParams();
+
   const [condicion_menu, setCondicion_menu] = useState(false);
   const [condicion_cancha, setCondicion_cancha] = useState(false);
   const [num_cancha, setNum_cancha] = useState(1);
   const [navegacion, setNavegacion] = useState(true);
 
   const [respuesta, setRespuesta] = useState("0");
+  const [reiniciar, setReiniciar] = useState(0);
 
+  const nombre = params.nombre;
   const horarios = respuesta.horarios;
   const imagenes = respuesta.imagenes;
 
   useEffect(() => {
     socket.emit("info-complejo", {
-      nombre: "La Esquina",
+      nombre,
     });
     socket.on("info-complejo-res", (respuesta) => {
       setRespuesta(respuesta[0]);
     });
-    console.log(respuesta[0].nombre)
-    socket.on("La Esquina", () => {
-      console.log(5)
+    socket.on(nombre, () => {
+      let numero = reiniciar;
+      setReiniciar(numero + 1);
     });
-  }, []);
+  }, [reiniciar]);
 
   const horarios_contenedor = () => {
     if (horarios !== undefined && navegacion) {
       return (
         <Horarios
-          nombre={respuesta.nombre}
+          nombre={nombre}
           horarios={horarios}
           num_cancha={num_cancha}
           setCondicion_cancha={setCondicion_cancha}
