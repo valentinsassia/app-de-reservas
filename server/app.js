@@ -7,11 +7,11 @@ import { fileURLToPath } from "url";
 
 import { info_complejo, reservar } from "./socket-functions.js";
 
-import rutas from "./routes/auth.routes.js";
-
 const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server);
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 io.on("connection", (socket) => {
   try {
@@ -26,12 +26,16 @@ io.on("connection", (socket) => {
   }
 });
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
 app.use(express.json());
 
-app.use(rutas)
-
 app.use(express.static(join(__dirname, "./../client/build")));
+
+app.get("/prueba", (req,res) => {
+  res.sendFile(join(__dirname, "./../client/build"))
+})
+
+app.get("/enviar", (req, res) => {
+  res.redirect("/")
+})
 
 export default server;
