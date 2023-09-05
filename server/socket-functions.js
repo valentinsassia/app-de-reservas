@@ -65,7 +65,7 @@ export const reservar = async (datos) => {
     const dia = datos.peticion.dia;
     const cancha = datos.peticion.cancha;
 
-    await infocomplejo.updateOne(
+    let complejo = await infocomplejo.updateOne(
       {
         nombre: { $eq: nombre },
       },
@@ -79,7 +79,10 @@ export const reservar = async (datos) => {
       }
     );
 
-    socket.broadcast.emit(nombre, "");
+    if (complejo.modifiedCount) {
+      socket.broadcast.emit(nombre, "");
+      socket.emit("resultado", true);
+    } else socket.emit("resultado", false);
   } catch (error) {
     console.log(error);
   }

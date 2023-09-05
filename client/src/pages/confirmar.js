@@ -6,13 +6,20 @@ import io from "socket.io-client";
 const socket = io();
 
 function Confirmar() {
+  socket.on("resultado", (condicion) => {
+    if (condicion) {
+      navigate(-1);
+    }
+  });
+
   const params = useParams();
   const navigate = useNavigate();
 
   let nombre = params.nombre;
   let hora = params.hora;
   let cancha = params.cancha;
-  let fecha = params.dia + " " + params.fecha;
+  let dia = params.dia;
+  let fecha = dia + " " + params.fecha;
 
   return (
     <div className="contenedor_confirmar">
@@ -52,7 +59,7 @@ function Confirmar() {
             nombre,
             cancha,
             hora,
-            dia: params.dia,
+            dia,
           });
         }}
       >
