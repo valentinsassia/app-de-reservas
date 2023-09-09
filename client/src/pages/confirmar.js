@@ -8,7 +8,7 @@ const socket = io();
 function Confirmar() {
   socket.on("resultado", (condicion) => {
     if (condicion) {
-      navigate(-1);
+      navigate(`/${nombre}`);
     }
   });
 
@@ -23,7 +23,7 @@ function Confirmar() {
 
   return (
     <div className="contenedor_confirmar">
-      <div onClick={() => navigate(-1)} className="back">
+      <div onClick={() => navigate(`/${nombre}`)} className="back">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </div>
       <div>
