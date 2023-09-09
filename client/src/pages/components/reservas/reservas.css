@@ -1,0 +1,77 @@
+.reservas_contenedor {
+    margin-top: 5px;
+    width: 280px;
+    height: 190px;
+    overflow-y: scroll;
+    padding: 0 15px;
+}
+
+.con_reservas {
+    width: 100%;
+    height: 43.65px;
+    margin-top: 5px;
+    padding: 0 10px;
+    font-weight: 200;
+    border-radius: 15px;
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cambiar_bordes {
+    border-radius: 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.con_reservas:first-child {
+    margin-top: 0;
+}
+
+.con_reservas>ion-icon:first-child {
+    font-size: 1.7em;
+    color: #00d600d4
+}
+
+.con_reservas>ion-icon:last-child {
+    font-size: 1.2em;
+    color: #ffffffcf;
+}
+
+.desplegar {
+    width: 100%;
+    height: 43.75px;
+    padding: 0 10px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #0000007a;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+
+.sin_reservas {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    border-radius: 40px;
+    color: #cccccc;
+    opacity: .5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sin_reservas>p {
+    margin-top: 10px;
+    font-size: 1.2em !important;
+    font-weight: 200;
+}
+
+.sin_reservas>ion-icon {
+    font-size: 3em;
+}

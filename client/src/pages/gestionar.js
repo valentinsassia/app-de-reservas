@@ -49,6 +49,16 @@ function Gestionar() {
     }
   };
 
+  const reservar_contenedor = () => {
+    if (horarios !== undefined) {
+      return (
+        <div className="reservas_contenedor">
+          <Reservas />
+        </div>
+      );
+    }
+  };
+
   const elegir_canchas = () => {
     if (condicion_cancha) {
       return (
@@ -76,10 +86,9 @@ function Gestionar() {
 
   return (
     <div className="gestionar">
-      <div className="horarios_contenedor">{horarios_contenedor()}</div>
-
-      <div className="reservas_contenedor">
-        <Reservas />
+      <div className="info_contenedor">
+        <div className="horarios_contenedor">{horarios_contenedor()}</div>
+        <>{reservar_contenedor()}</>
       </div>
 
       <>{elegir_canchas()}</>

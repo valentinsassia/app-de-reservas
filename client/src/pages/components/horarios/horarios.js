@@ -95,7 +95,7 @@ function Horarios({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
 
   useEffect(() => {
     setReservas(informacion_dia[0].reservas);
-  }, [horarios, Index]);
+  }, [horarios, Index, num_cancha]);
 
   const Boton = () => {
     if (horaseleccionada && tipo !== "auto-reservar") {
