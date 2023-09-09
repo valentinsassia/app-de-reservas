@@ -79,6 +79,22 @@ export const reservar = async (datos) => {
       }
     );
 
+    await infocomplejo.updateOne(
+      {
+        nombre: { $eq: nombre },
+      },
+      {
+        $addToSet: {
+          "horarios.$[a].horario.$[e].reservas": {
+            hora,
+          },
+        },
+      },
+      {
+        arrayFilters: [{ "a.cancha": cancha }, { "e.dia": dia }],
+      }
+    );
+
     if (complejo.modifiedCount) {
       socket.broadcast.emit(nombre, "");
       socket.emit("resultado", true);

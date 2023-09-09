@@ -1,14 +1,20 @@
 import "./menu.css";
 
-function Menu({ condicion_menu, setCondicion_menu }) {
+import { Link } from "react-router-dom";
+
+function Menu({ condicion_menu, setCondicion_menu, nombre }) {
   return (
     <>
       <div
         className={`menu_desactivado ${condicion_menu ? `menu_activado` : ``}`}
       >
         <div>
-          <p>Soporte</p>
-          <p>Mi complejo</p>
+          <Link>
+            <p className="opciones">Soporte</p>
+          </Link>
+          <Link to={`/${nombre}/gestionar`}>
+            <p className="opciones">Mi complejo</p>
+          </Link>
         </div>
       </div>
       <div

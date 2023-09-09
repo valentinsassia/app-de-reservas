@@ -1,31 +1,26 @@
-import "./home.css";
+import "./gestionar.css";
 
-import Horarios from "./components/horarios";
-import Slider from "./components/slider";
-import Navegacion from "./components/navegacion";
-import Menu from "./components/menu";
-import Informacion from "./components/informacion";
+import Horarios from "./components/horarios/horarios.js";
+import Barrainferior from "./components/barrainferior/barrainferior.js";
+import Reservas from "./components/reservas/reservas.js";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import io from "socket.io-client";
 const socket = io();
 
-function Home() {
+function Gestionar() {
   const params = useParams();
 
-  const [condicion_menu, setCondicion_menu] = useState(false);
   const [condicion_cancha, setCondicion_cancha] = useState(false);
   const [num_cancha, setNum_cancha] = useState(1);
-  const [navegacion, setNavegacion] = useState(true);
 
   const [respuesta, setRespuesta] = useState("0");
   const [reiniciar, setReiniciar] = useState(0);
 
   const nombre = params.nombre;
   const horarios = respuesta.horarios;
-  const imagenes = respuesta.imagenes;
 
   useEffect(() => {
     socket.emit("info-complejo", {
@@ -41,32 +36,23 @@ function Home() {
   }, [reiniciar]);
 
   const horarios_contenedor = () => {
-    if (horarios !== undefined && navegacion) {
+    if (horarios !== undefined) {
       return (
         <Horarios
           nombre={nombre}
           horarios={horarios}
+          tipo={"auto-reservar"}
           num_cancha={num_cancha}
           setCondicion_cancha={setCondicion_cancha}
         />
       );
-    } else if (respuesta !== "0" && !navegacion) {
-      return <Informacion informacion={respuesta} />;
-    }
-  };
-
-  const imagenes_contenedor = () => {
-    if (imagenes !== undefined) {
-      return <Slider imagenes={imagenes} />;
     }
   };
 
   const elegir_canchas = () => {
-    if (horarios !== undefined) {
+    if (condicion_cancha) {
       return (
-        <div
-          className={`contenedor ${condicion_cancha ? `elegir_canchas` : ``}`}
-        >
+        <div className="contenedor elegir_canchas">
           {horarios.map((elem, index) => {
             return (
               <div
@@ -89,27 +75,22 @@ function Home() {
   };
 
   return (
-    <div className="home">
-      <div className="contenedor arriba">
-        {<Navegacion navegacion={navegacion} setNavegacion={setNavegacion} />}
+    <div className="gestionar">
+      <div className="horarios_contenedor">{horarios_contenedor()}</div>
+
+      <div className="reservas_contenedor">
+        <Reservas />
       </div>
 
-      {
-        <Menu
-          condicion_menu={condicion_menu}
-          setCondicion_menu={setCondicion_menu}
-        />
-      }
+      <>{elegir_canchas()}</>
 
-      <div className="contenedor medio">{imagenes_contenedor()}</div>
-      <div className="contenedor abajo">{horarios_contenedor()}</div>
-
-      {elegir_canchas()}
+      <>
+        <Barrainferior />
+      </>
 
       <div
-        className={`${condicion_menu || condicion_cancha ? `cortina` : ``}`}
+        className={`${condicion_cancha ? `cortina` : ``}`}
         onClick={() => {
-          setCondicion_menu(false);
           setCondicion_cancha(false);
         }}
       ></div>
@@ -117,4 +98,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Gestionar;

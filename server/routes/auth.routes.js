@@ -14,4 +14,12 @@ router.get("/:nombre", (req, res) => {
   res.sendFile(join(__dirname, "../../client/build", "index.html"));
 });
 
+router.get("/:nombre/:hora/:cancha/:dia/:fecha", (req, res) => {
+  res.redirect("/La%20Esquina");
+});
+
+router.get("/:nombre/gestionar", (req, res) => {
+  res.sendFile(join(__dirname, "../../client/build", "index.html"));
+});
+
 export default router;

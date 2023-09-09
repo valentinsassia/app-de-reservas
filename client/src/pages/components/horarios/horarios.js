@@ -1,12 +1,19 @@
 import "./horarios.css";
 
-import { useState } from "react";
+import { Contextos } from "../../../context/context";
+
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
 
-function Horarios({ nombre, horarios, num_cancha, setCondicion_cancha }) {
+import io from "socket.io-client";
+const socket = io();
+
+function Horarios({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
+  const { setReservas } = useContext(Contextos);
+
   const [horaseleccionada, setHoraseleccionada] = useState();
   const [Index, setIndex] = useState(0);
 
@@ -74,7 +81,7 @@ function Horarios({ nombre, horarios, num_cancha, setCondicion_cancha }) {
 
   // Termina Codigo de Fecha
 
-  let fecha = `${dia} ${fecha_de_hoy + contador}`
+  let fecha = `${dia} ${fecha_de_hoy + contador}`;
 
   let cancha = horarios.filter((elem) => {
     return elem.cancha == num_cancha;
@@ -86,17 +93,44 @@ function Horarios({ nombre, horarios, num_cancha, setCondicion_cancha }) {
 
   let horas = informacion_dia[0].horas;
 
+  useEffect(() => {
+    setReservas(informacion_dia[0].reservas);
+  }, [horarios, Index]);
+
   const Boton = () => {
-    if (horaseleccionada) {
+    if (horaseleccionada && tipo !== "auto-reservar") {
       return (
         <Link
           className="boton boton_activado"
-          to={`/${nombre}/${horaseleccionada}/${num_cancha}/${dia}/${fecha_de_hoy + contador}`}
+          to={`/${nombre}/${horaseleccionada}/${num_cancha}/${dia}/${
+            fecha_de_hoy + contador
+          }`}
         >
           Continuar
         </Link>
       );
-    } else return <div className="boton">Continuar</div>;
+    } else if (horaseleccionada && tipo === "auto-reservar") {
+      return (
+        <div
+          className="boton boton_activado"
+          onClick={() => {
+            socket.emit("reservar", {
+              nombre,
+              cancha: num_cancha,
+              hora: horaseleccionada,
+              dia: dia[0],
+            });
+          }}
+        >
+          Auto-Reservar
+        </div>
+      );
+    } else
+      return (
+        <div className="boton">{`${
+          tipo === "auto-reservar" ? "Auto-Reservar" : "Continuar"
+        }`}</div>
+      );
   };
 
   return (
