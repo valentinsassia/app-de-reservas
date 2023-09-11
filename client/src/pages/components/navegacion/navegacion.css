@@ -4,23 +4,24 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: #ffffff57;
+    color: #8d8d8d;
 }
 
 .arriba > div > p {
     margin-bottom: 2px;
+    font-weight: 600;
 }
 
 .arriba > div > span {
     width: 40px !important;
     height: 2px;
-    background-color: #ffffff57;
+    background-color: #8d8d8d;
 }
 
 .elegido {
-    color: #ffffffb5 !important;
+    color: black !important;
 }
 
 .elegido > span {
-    background-color: #ffffffb5 !important;
+    background-color: black !important;
 }
