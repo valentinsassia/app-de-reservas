@@ -21,26 +21,26 @@
 .arriba {
     top: 0;
     width: 100%;
-    height: 11%;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
+    height: 12%;
+    border-bottom-left-radius: 70px;
+    border-bottom-right-radius: 70px;
     font-size: .9em;
     z-index: 20;
     justify-content: space-evenly !important;
 }
 
 .medio {
-    top: 7%;
+    top: 2%;
     width: 100%;
-    height: 38%;
+    height: 45%;
 }
 
 .abajo {
     bottom: 0;
     width: 100%;
-    height: 62%;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+    height: 61%;
+    border-top-left-radius: 70px;
+    border-top-right-radius: 70px;
     z-index: 10;
     flex-direction: column;
     font-size: .9em;

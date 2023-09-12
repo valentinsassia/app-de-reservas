@@ -162,7 +162,7 @@ function Horarios({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
         coverflowEffect={{
           rotate: 0,
           stretch: -20,
-          depth: 400,
+          depth: 550,
           modifier: 1,
           slideShadows: true,
         }}
