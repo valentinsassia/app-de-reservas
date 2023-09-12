@@ -123,14 +123,14 @@
 }
 
 .false {
-    background-color: #d20000d6 !important;
+    background-color: #ff0000f0 !important;
 }
 
 /* // Empieza el Boton */
 
 .boton {
     width: 140px;
-    height: 39px;
+    height: 38px;
     background-color: #ffffff87;
     opacity: .4;
     border-radius: 5px;
