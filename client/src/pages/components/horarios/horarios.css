@@ -19,8 +19,8 @@
 }
 
 .cancha {
-    width: 115px;
-    height: 31px;
+    width: 118px;
+    height: 34px;
     border-top-right-radius: 100px;
     border-top-left-radius: 100px;
     color: #101010b8;
@@ -54,8 +54,8 @@
 
 .dia {
     position: relative;
-    width: 189px;
-    height: 35px;
+    width: 192px;
+    height: 38px;
     border-radius: 100px;
     z-index: 1;
 }
