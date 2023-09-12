@@ -11,16 +11,18 @@
     margin-bottom: 2px;
 }
 
+/* 
 .arriba > div > span {
     width: 40px !important;
     height: 1px;
     background-color: #8d8d8d87;
-}
+} */
 
 .elegido {
     color: #b8b8b8 !important;
+    font-size: 1em;
 }
 
-.elegido > span {
+/* .elegido > span {
     background-color: #b8b8b8 !important;
-}
+} */

@@ -11,7 +11,7 @@ function Navegacion({navegacion, setNavegacion}) {
         }}
       >
         <p>Reservar</p>
-        <span></span>
+        {/* <span></span> */}
       </div>
 
       <div
@@ -21,7 +21,7 @@ function Navegacion({navegacion, setNavegacion}) {
         }}
       >
         <p>Ver más</p>
-        <span></span>
+        {/* <span></span> */}
       </div>
     </>
   );
