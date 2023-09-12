@@ -13,7 +13,7 @@
     padding: 0 10px;
     font-weight: 200;
     border-radius: 15px;
-    background-color: black;
+    background-color: #424242;
     color: white;
     display: flex;
     align-items: center;
@@ -46,7 +46,7 @@
     padding: 0 10px;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
-    background-color: #0000007a;
+    background-color: #4d4d4d7a;
     color: white;
     display: flex;
     align-items: center;
@@ -68,10 +68,10 @@
 
 .sin_reservas>p {
     margin-top: 10px;
-    font-size: 1.2em !important;
+    font-size: 1.1em !important;
     font-weight: 200;
 }
 
 .sin_reservas>ion-icon {
-    font-size: 3em;
+    font-size: 2.5em;
 }

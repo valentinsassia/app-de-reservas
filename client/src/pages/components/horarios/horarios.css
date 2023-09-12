@@ -7,7 +7,7 @@
 
 .contenedor_informacion>ion-icon {
     font-size: 1.2em;
-    color: #000000;
+    color: #cccccc;
 }
 
 .informacion {
@@ -15,7 +15,7 @@
     align-items: center;
     justify-content: center;
     background-color: #cccccc;
-    box-shadow: 0 0 6px black;
+    box-shadow: 0 0 3px black;
 }
 
 .cancha {
@@ -114,16 +114,16 @@
 }
 
 .seleccionada {
-    background-color: #00ff07 !important;
-    border: 1px solid black;
+    background-color: #05ff0bdb !important;
+    border: 1px solid #ffffff87;
 }
 
 .true {
-    background-color: #009b04;
+    background-color: #009b04db;
 }
 
 .false {
-    background-color: #ff0000 !important;
+    background-color: #d20000d6 !important;
 }
 
 /* // Empieza el Boton */
@@ -131,17 +131,16 @@
 .boton {
     width: 140px;
     height: 39px;
-    background-color: #000000;
-    opacity: .6;
+    background-color: #ffffff87;
+    opacity: .4;
     border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #4a4a4a
+    color: #111111;
 }
 
 .boton_activado {
     opacity: 1 !important;
     background-color: #00be00;
-    color: #000000;
 }
