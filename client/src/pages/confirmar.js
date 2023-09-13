@@ -28,7 +28,7 @@ function Confirmar() {
       </div>
       <div>
         <p>¡Ya casi terminamos!</p>
-        <p>Revisa y Confirma</p>
+        <p>Revisar y Confirmar</p>
       </div>
       <div className="informacion_contenedor">
         <div>
@@ -53,7 +53,7 @@ function Confirmar() {
         </div>
       </div>
       <div
-        className="boton boton_activado"
+        className="boton boton_activado boton_font"
         onClick={() => {
           socket.emit("reservar", {
             nombre,

@@ -1,5 +1,5 @@
 .reservas_contenedor {
-    margin-top: 5px;
+    margin-top: 9px;
     width: 280px;
     height: 175px;
     overflow-y: scroll;
@@ -46,7 +46,7 @@
     padding: 0 10px;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
-    background-color: #2929297a;
+    background-color: #3b3b3be3;
     color: white;
     display: flex;
     align-items: center;

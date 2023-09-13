@@ -5,13 +5,14 @@ import Barrainferior from "./components/barrainferior/barrainferior.js";
 import Reservas from "./components/reservas/reservas.js";
 
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import io from "socket.io-client";
 const socket = io();
 
 function Gestionar() {
   const params = useParams();
+  const navigate = useNavigate();
 
   const [condicion_cancha, setCondicion_cancha] = useState(false);
   const [num_cancha, setNum_cancha] = useState(1);
@@ -86,6 +87,10 @@ function Gestionar() {
 
   return (
     <div className="gestionar">
+      <div onClick={() => navigate(`/${nombre}`)} className="back">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </div>
+
       <div className="info_contenedor">
         <div className="horarios_contenedor">{horarios_contenedor()}</div>
         <>{reservar_contenedor()}</>
@@ -93,9 +98,9 @@ function Gestionar() {
 
       <>{elegir_canchas()}</>
 
-      <>
+      {/* <>
         <Barrainferior />
-      </>
+      </> */}
 
       <div
         className={`${condicion_cancha ? `cortina` : ``}`}
