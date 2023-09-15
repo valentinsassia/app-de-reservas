@@ -27,7 +27,12 @@ export const info_complejo = async (datos) => {
 
     const ayer_mongo = complejo[0].ayer;
 
+    console.log("ayer" + ayer)
+
+    console.log("ayer mongo" + ayer_mongo)
+
     if (ayer_mongo !== ayer) {
+      console.log("estoy en la funcion")
       let horas = complejo[0].horarios[0].horario[0].horas.map((e) => {
         return { hora: e.hora, estado: true };
       });

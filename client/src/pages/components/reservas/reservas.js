@@ -29,12 +29,19 @@ function Reservas() {
               >
                 <ion-icon name="checkmark-circle-outline"></ion-icon>
                 <p>{elem.hora}:00</p>
-                <ion-icon name="chevron-down-outline"></ion-icon>
+                <ion-icon
+                  name={`${
+                    seleccionado === elem.hora
+                      ? `chevron-up-outline`
+                      : `chevron-down-outline`
+                  }`}
+                ></ion-icon>
               </div>
               <div
                 key={index + 1}
                 className={`${seleccionado === elem.hora ? "desplegar" : ""}`}
-              ></div>
+              >
+              </div>
             </>
           );
         });

@@ -139,7 +139,10 @@ function Horarios({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
         <ion-icon name="caret-up-outline"></ion-icon>
         <div
           className="informacion cancha"
-          onClick={() => setCondicion_cancha(true)}
+          onClick={() => {
+            setCondicion_cancha(true);
+            setHoraseleccionada();
+          }}
         >
           Cancha {num_cancha}
         </div>
