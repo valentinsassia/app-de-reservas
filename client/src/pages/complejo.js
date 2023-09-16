@@ -9,6 +9,9 @@ import Informacion from "./components/informacion/informacion.js";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import io from "socket.io-client";
 const socket = io();
 
@@ -39,6 +42,21 @@ function Complejo() {
       setReiniciar(numero + 1);
     });
   }, [reiniciar]);
+
+  const sin_informacion = () => {
+    if (horarios === undefined) {
+      return (
+        <div>
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={true}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </div>
+      );
+    }
+  };
 
   const horarios_contenedor = () => {
     if (horarios !== undefined && navegacion) {
@@ -88,6 +106,8 @@ function Complejo() {
 
   return (
     <div className="complejo">
+      {sin_informacion()}
+
       <div className="contenedor arriba">
         {<Navegacion navegacion={navegacion} setNavegacion={setNavegacion} />}
       </div>

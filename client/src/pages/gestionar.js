@@ -4,6 +4,9 @@ import Horarios from "./components/horarios/horarios.js";
 import Barrainferior from "./components/barrainferior/barrainferior.js";
 import Reservas from "./components/reservas/reservas.js";
 
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -35,6 +38,21 @@ function Gestionar() {
       setReiniciar(numero + 1);
     });
   }, [reiniciar]);
+
+  const sin_informacion = () => {
+    if (horarios === undefined) {
+      return (
+        <div>
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={true}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </div>
+      );
+    }
+  };
 
   const horarios_contenedor = () => {
     if (horarios !== undefined) {
@@ -87,6 +105,8 @@ function Gestionar() {
 
   return (
     <div className="gestionar">
+      {sin_informacion()}
+
       <div onClick={() => navigate(`/${nombre}`)} className="back">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </div>

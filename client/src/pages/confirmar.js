@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./confirmar.css";
 
 import { useParams, useNavigate } from "react-router-dom";
@@ -6,11 +7,13 @@ import io from "socket.io-client";
 const socket = io();
 
 function Confirmar() {
-  socket.on("resultado", (condicion) => {
-    if (condicion) {
-      navigate(`/${nombre}`);
-    }
-  });
+  useEffect(() => {
+    socket.on("resultado", (condicion) => {
+      if (condicion) {
+        navigate(`/${nombre}`);
+      }
+    });
+  }, []);
 
   const params = useParams();
   const navigate = useNavigate();
