@@ -4,14 +4,21 @@ import { useContext, useState } from "react";
 
 import { Contextos } from "../../../context/context.js";
 
-function Reservas() {
+import io from "socket.io-client";
+const socket = io();
+
+function Reservas({ nombre }) {
   const { reservas } = useContext(Contextos);
+
+  let horas = reservas.horas;
+  let dia = reservas.dia;
+  let cancha = reservas.num_cancha;
 
   const [seleccionado, setSeleccionado] = useState("");
 
   const con_reservas = () => {
-    if (reservas.length) {
-      return reservas
+    if (horas.length) {
+      return horas
         .sort((x, y) => x.hora - y.hora)
         .map((elem, index) => {
           return (
@@ -43,8 +50,24 @@ function Reservas() {
               </div>
               <div
                 key={index + 1}
-                className={`${seleccionado === elem.hora ? "desplegar" : ""}`}
-              ></div>
+                className={`${
+                  seleccionado === elem.hora ? "desplegar" : "none"
+                }`}
+              >
+                <p
+                  onClick={() => {
+                    socket.emit("fijar_hora", {
+                      dia: dia[0],
+                      cancha,
+                      hora: elem.hora,
+                      nombre,
+                      accion: elem.fijado
+                    });
+                  }}
+                >
+                  {`${elem.fijado ? `Quitar fijado` : `Fijar horario`}`}
+                </p>
+              </div>
             </>
           );
         });
@@ -52,7 +75,7 @@ function Reservas() {
   };
 
   const sin_reservas = () => {
-    if (!reservas.length) {
+    if (!horas.length) {
       return (
         <div className="sin_reservas">
           <ion-icon name="close-circle-outline"></ion-icon>

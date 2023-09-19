@@ -101,3 +101,33 @@ export const reservar = async (datos) => {
     console.log(error);
   }
 };
+
+export const fijar_hora = async (datos) => {
+  let socket = datos.socket;
+  const nombre = datos.peticion.nombre;
+  const hora = datos.peticion.hora;
+  const dia = datos.peticion.dia;
+  const cancha = datos.peticion.cancha;
+  const accion = datos.peticion.accion
+
+  let complejo = await infocomplejo.updateOne(
+    {
+      nombre: { $eq: nombre },
+    },
+    {
+      $set: {
+        "horarios.$[a].horario.$[e].horas.$[i].fijado": !accion,
+      },
+    },
+    {
+      arrayFilters: [
+        { "a.cancha": cancha },
+        { "e.dia": dia },
+        { "i.hora": hora },
+      ],
+    }
+  );
+  if (complejo.modifiedCount) {
+    socket.broadcast.emit(nombre, "");
+  }
+};

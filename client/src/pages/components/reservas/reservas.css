@@ -47,11 +47,15 @@
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     background-color: #5f5f5fc2;
-    color: white;
+    color: #b8b8b8;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
+.none {
+    display: none;
+}
 
 .sin_reservas {
     width: 100%;

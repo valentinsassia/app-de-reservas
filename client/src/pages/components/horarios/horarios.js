@@ -94,9 +94,13 @@ function Horarios({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
   let horas = informacion_dia[0].horas;
 
   useEffect(() => {
-    setReservas(horas.filter(e => {
-      return e.estado === false
-    }));
+    setReservas({
+      horas: horas.filter((e) => {
+        return e.estado === false;
+      }),
+      dia,
+      num_cancha,
+    });
   }, [horarios, Index, num_cancha]);
 
   const Boton = () => {

@@ -72,7 +72,7 @@ function Gestionar() {
     if (horarios !== undefined) {
       return (
         <div className="reservas_contenedor">
-          <Reservas />
+          <Reservas nombre={nombre} />
         </div>
       );
     }
