@@ -27,6 +27,7 @@ const infocomplejo = new mongoose.Schema({
           horas: [
             {
               estado: { type: Boolean },
+              fijado: { type: Boolean },
               hora: { type: Number },
             },
           ],
@@ -36,7 +37,7 @@ const infocomplejo = new mongoose.Schema({
   ],
   ayer: {
     type: String,
-  }
+  },
 });
 
 export default mongoose.model("infocomplejo", infocomplejo);

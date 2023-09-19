@@ -30,8 +30,6 @@ function Complejo() {
   const horarios = respuesta.horarios;
   const imagenes = respuesta.imagenes;
 
-  console.log(horarios)
-
   useEffect(() => {
     socket.emit("info-complejo", {
       nombre,

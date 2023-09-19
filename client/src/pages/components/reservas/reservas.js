@@ -27,7 +27,11 @@ function Reservas() {
                   } else setSeleccionado(elem.hora);
                 }}
               >
-                <ion-icon name="checkmark-circle-outline"></ion-icon>
+                <ion-icon
+                  name={`${
+                    elem.fijado ? `eyedrop-outline` : `checkmark-circle-outline`
+                  }`}
+                ></ion-icon>
                 <p>{elem.hora}:00</p>
                 <ion-icon
                   name={`${
@@ -40,8 +44,7 @@ function Reservas() {
               <div
                 key={index + 1}
                 className={`${seleccionado === elem.hora ? "desplegar" : ""}`}
-              >
-              </div>
+              ></div>
             </>
           );
         });
