@@ -1,4 +1,10 @@
-import infocomplejo from "./models/schema.js";
+import infocomplejo from "./models/infocomplejo.js";
+import infousuarios from "./models/infousuarios.js";
+
+import jwt from "jsonwebtoken";
+
+import { Resend } from "resend";
+const resend = new Resend("re_15SgTHEr_NZnQbK8wD8yb9RJeamhb33gT");
 
 export const info_complejo = async (datos) => {
   try {
@@ -22,8 +28,8 @@ export const info_complejo = async (datos) => {
       ayer = "Sabado";
     }
 
-    console.log(fecha)
-    console.log(fecha.getDate())
+    console.log(fecha);
+    console.log(fecha.getDate());
 
     let complejo = await infocomplejo.find({
       nombre: { $eq: nombre },
@@ -135,6 +141,31 @@ export const fijar_hora = async (datos) => {
       socket.broadcast.emit(nombre, "");
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
+  }
+};
+
+export const register = async (datos) => {
+  try {
+    const socket = datos.socket;
+    let email = datos.peticion.email;
+
+    const newUsuario = new infousuarios({
+      email,
+    });
+
+    const usuarioSave = await newUsuario.save();
+
+    jwt.sign({ id: usuarioSave._id }, "secreto", async (error, token) => {
+      if (error) console.log(error);
+      const data = await resend.emails.send({
+        from: "Acme <onboarding@resend.dev>",
+        to: ["valensassia2003@outlook.com"],
+        subject: "Hello World",
+        html: `<strong>${token}</strong>`,
+      });
+    });
+  } catch (error) {
+    console.log(error);
   }
 };

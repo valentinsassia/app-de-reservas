@@ -5,7 +5,7 @@ import http from "http";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
-import { fijar_hora, info_complejo, reservar } from "./socket-functions.js";
+import { fijar_hora, info_complejo, register, reservar } from "./socket-functions.js";
 
 import rutas from "./routes/auth.routes.js";
 
@@ -25,6 +25,9 @@ io.on("connection", (socket) => {
     });
     socket.on("fijar_hora", (peticion) => {
       fijar_hora({ peticion, socket });
+    });
+    socket.on("register", (peticion) => {
+      register({ peticion, socket });
     });
   } catch (error) {
     console.log(error);
