@@ -22,6 +22,9 @@ export const info_complejo = async (datos) => {
       ayer = "Sabado";
     }
 
+    console.log(fecha)
+    console.log(fecha.getDate())
+
     let complejo = await infocomplejo.find({
       nombre: { $eq: nombre },
     });
@@ -103,31 +106,35 @@ export const reservar = async (datos) => {
 };
 
 export const fijar_hora = async (datos) => {
-  let socket = datos.socket;
-  const nombre = datos.peticion.nombre;
-  const hora = datos.peticion.hora;
-  const dia = datos.peticion.dia;
-  const cancha = datos.peticion.cancha;
-  const accion = datos.peticion.accion
+  try {
+    let socket = datos.socket;
+    const nombre = datos.peticion.nombre;
+    const hora = datos.peticion.hora;
+    const dia = datos.peticion.dia;
+    const cancha = datos.peticion.cancha;
+    const accion = datos.peticion.accion;
 
-  let complejo = await infocomplejo.updateOne(
-    {
-      nombre: { $eq: nombre },
-    },
-    {
-      $set: {
-        "horarios.$[a].horario.$[e].horas.$[i].fijado": !accion,
+    let complejo = await infocomplejo.updateOne(
+      {
+        nombre: { $eq: nombre },
       },
-    },
-    {
-      arrayFilters: [
-        { "a.cancha": cancha },
-        { "e.dia": dia },
-        { "i.hora": hora },
-      ],
+      {
+        $set: {
+          "horarios.$[a].horario.$[e].horas.$[i].fijado": !accion,
+        },
+      },
+      {
+        arrayFilters: [
+          { "a.cancha": cancha },
+          { "e.dia": dia },
+          { "i.hora": hora },
+        ],
+      }
+    );
+    if (complejo.modifiedCount) {
+      socket.broadcast.emit(nombre, "");
     }
-  );
-  if (complejo.modifiedCount) {
-    socket.broadcast.emit(nombre, "");
+  } catch (error) {
+    console.log(error)
   }
 };
