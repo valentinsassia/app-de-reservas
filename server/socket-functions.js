@@ -4,6 +4,8 @@ import infousuarios from "./models/infousuarios.js";
 import { Resend } from "resend";
 import jwt from "jsonwebtoken";
 
+console.log(Resend);
+
 export const info_complejo = async (datos) => {
   try {
     let socket = datos.socket;
@@ -142,7 +144,6 @@ export const fijar_hora = async (datos) => {
 
 export const register = async (datos) => {
   try {
-    console.log(new Resend("re_7deY2ScB_JUy1gMv84XYHLwzEHpcc66zR"));
     const socket = datos.socket;
     let email = datos.peticion.email;
 
