@@ -1,6 +1,7 @@
 import express from "express";
 import { Server as SocketServer } from "socket.io";
 import http from "http";
+import { Resend } from "resend";
 
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
@@ -8,6 +9,9 @@ import { fileURLToPath } from "url";
 import { fijar_hora, info_complejo, register, reservar } from "./socket-functions.js";
 
 import rutas from "./routes/auth.routes.js";
+
+const resend = new Resend("re_15SgTHEr_NZnQbK8wD8yb9RJeamhb33gT");
+console.log(resend)
 
 const app = express();
 const server = http.createServer(app);
