@@ -4,7 +4,7 @@ import infousuarios from "./models/infousuarios.js";
 import { Resend } from "resend";
 import jwt from "jsonwebtoken";
 
-console.log(Resend);
+console.log(new Resend("123"));
 
 export const info_complejo = async (datos) => {
   try {
