@@ -3,8 +3,10 @@ import infousuarios from "./models/infousuarios.js";
 
 import jwt from "jsonwebtoken";
 
-// import { Resend } from "resend";
-// const resend = new Resend("re_15SgTHEr_NZnQbK8wD8yb9RJeamhb33gT");
+import { Resend } from "resend";
+const resend = new Resend("re_15SgTHEr_NZnQbK8wD8yb9RJeamhb33gT");
+
+console.log(resend)
 
 export const info_complejo = async (datos) => {
   try {
