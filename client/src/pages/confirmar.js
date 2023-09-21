@@ -109,7 +109,7 @@ function Confirmar() {
 
   return (
     <div className="contenedor_confirmar">
-      {permitido()}
+      {/* {permitido()} */}
       {denegado()}
     </div>
   );
