@@ -1,10 +1,10 @@
 import infocomplejo from "./models/infocomplejo.js";
 import infousuarios from "./models/infousuarios.js";
 
-import { Resend } from "resend";
 import jwt from "jsonwebtoken";
 
-console.log(new Resend("123"));
+import { transporter } from "./helpers/mail.js";
+import { EMAIL } from "./config.js";
 
 export const info_complejo = async (datos) => {
   try {
@@ -155,14 +155,12 @@ export const register = async (datos) => {
 
     jwt.sign({ id: usuarioSave._id }, "secreto", async (error, token) => {
       if (error) console.log(error);
-      //   const data = await resend.emails.send({
-      //     from: "Acme <onboarding@resend.dev>",
-      //     to: ["valensassia2003@outlook.com"],
-      //     subject: "Hello World",
-      //     html: `<strong>${token}</strong>`,
-      //   });
-      // }
-      console.log(token);
+      transporter.sendMail({
+        from: EMAIL,
+        to: "valensassia2003@outlook.com",
+        subject: `${token}`,
+        body: "hola",
+      });
     });
   } catch (error) {
     console.log(error);
