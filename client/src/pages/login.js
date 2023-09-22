@@ -1,5 +1,8 @@
 import "./login.css";
 
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,22 +11,12 @@ import io from "socket.io-client";
 const socket = io();
 
 function Login() {
+  const [permiso, setPermiso] = useState(false);
+
   let data_localStorage = localStorage.getItem("data");
 
-  if (data_localStorage) {
-    navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
-  }
-
-  useEffect(() => {
-    socket.on("login_codigo_res", (respuesta) => {
-      if (respuesta.condicion) {
-        navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
-        localStorage.setItem("data", respuesta.token);
-      } else if (!respuesta.condicion) {
-        setCodigofail(true);
-      }
-    });
-  }, []);
+  const [condicion, setCondicion] = useState(true);
+  const [codigofail, setCodigofail] = useState(false);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -34,8 +27,34 @@ function Login() {
   let cancha = params.cancha;
   let fecha = params.fecha;
 
-  const [condicion, setCondicion] = useState(true);
-  const [codigofail, setCodigofail] = useState(false)
+  useEffect(() => {
+    if (data_localStorage) {
+      return navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
+    } else setPermiso(true);
+    socket.on("login_codigo_res", (respuesta) => {
+      if (respuesta.condicion) {
+        navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
+        localStorage.setItem("data", respuesta.token);
+      } else if (!respuesta.condicion) {
+        setCodigofail(true);
+      }
+    });
+  }, []);
+
+  const sin_permiso = () => {
+    if (permiso) {
+      return (
+        <div>
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={true}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </div>
+      );
+    }
+  };
 
   const {
     register,
@@ -49,19 +68,27 @@ function Login() {
   });
 
   const formulario_email = () => {
-    if (condicion) {
+    if (condicion && permiso) {
       return (
-        <form onSubmit={onSubmit_email}>
-          <label>Email</label>
-          <input
-            type="text"
-            {...register("email", {
-              required: true,
-            })}
-          ></input>
-          {errors.email && <span className="error">Email es requerido</span>}
-          <button className="boton boton_activado">Enviar</button>
-        </form>
+        <>
+          <p>Inicia Sesion</p>
+          <div className="formulario">
+            <form onSubmit={onSubmit_email}>
+              <label>Email</label>
+              <input
+                type="text"
+                {...register("email", {
+                  required: true,
+                })}
+                autoComplete="off"
+              ></input>
+              {errors.email && (
+                <span className="error">Email es requerido</span>
+              )}
+              <button className="boton boton_activado">Enviar</button>
+            </form>
+          </div>
+        </>
       );
     }
   };
@@ -73,27 +100,32 @@ function Login() {
   const formulario_codigo = () => {
     if (!condicion) {
       return (
-        <form onSubmit={onSubmit_codigo}>
-          <label>Codigo</label>
-          <input
-            type="text"
-            {...register("codigo", {
-              required: true,
-            })}
-          ></input>
-          {codigofail && <span className="error">Codigo incorrecto</span>}
-          <button className="boton boton_activado">Verificar codigo</button>
-        </form>
+        <div className="formulario">
+          <form onSubmit={onSubmit_codigo}>
+            <label>Codigo</label>
+            <input
+              type="text"
+              {...register("codigo", {
+                required: true,
+              })}
+              autoComplete="off"
+            ></input>
+            {codigofail && <span className="error">Codigo incorrecto</span>}
+            <button className="boton boton_activado">Verificar codigo</button>
+          </form>
+        </div>
       );
     }
   };
 
   return (
     <div className="contenedor_login">
-      <div className="formulario">
-        {formulario_email()}
-        {formulario_codigo()}
+      {sin_permiso()}
+      <div onClick={() => navigate(`/${nombre}`)} className="back">
+        <ion-icon name="arrow-back-outline"></ion-icon>
       </div>
+      {formulario_email()}
+      {formulario_codigo()}
     </div>
   );
 }

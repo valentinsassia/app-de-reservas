@@ -18,8 +18,6 @@ function Confirmar() {
   const params = useParams();
   const navigate = useNavigate();
 
-  localStorage.removeItem("data")
-
   let nombre = params.nombre;
   let hora = params.hora;
   let cancha = params.cancha;
