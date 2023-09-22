@@ -2,26 +2,40 @@ import "./login.css";
 
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import io from "socket.io-client";
 const socket = io();
 
 function Login() {
+  let data_localStorage = localStorage.getItem("data");
+
+  if (data_localStorage) {
+    navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
+  }
+
   useEffect(() => {
     socket.on("login_codigo_res", (respuesta) => {
       if (respuesta.condicion) {
-        navigate(`/`);
-      }
-      else if (!respuesta.condicion) {
-        alert(54454)
+        navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
+        localStorage.setItem("data", respuesta.token);
+      } else if (!respuesta.condicion) {
+        setCodigofail(true);
       }
     });
   }, []);
 
   const navigate = useNavigate();
+  const params = useParams();
+
+  let nombre = params.nombre;
+  let hora = params.hora;
+  let dia = params.dia;
+  let cancha = params.cancha;
+  let fecha = params.fecha;
 
   const [condicion, setCondicion] = useState(true);
+  const [codigofail, setCodigofail] = useState(false)
 
   const {
     register,
@@ -33,7 +47,7 @@ function Login() {
     socket.emit("login_email", email);
     setCondicion(false);
   });
-  
+
   const formulario_email = () => {
     if (condicion) {
       return (
@@ -52,7 +66,6 @@ function Login() {
     }
   };
 
-
   const onSubmit_codigo = handleSubmit((datos) => {
     socket.emit("login_codigo", { email: datos.email, codigo: datos.codigo });
   });
@@ -68,6 +81,7 @@ function Login() {
               required: true,
             })}
           ></input>
+          {codigofail && <span className="error">Codigo incorrecto</span>}
           <button className="boton boton_activado">Verificar codigo</button>
         </form>
       );

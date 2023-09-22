@@ -108,10 +108,10 @@ function Horarios({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
       return (
         <Link
           className="boton boton_activado"
-          // to={`/${nombre}/${horaseleccionada}/${num_cancha}/${dia}/${
-          //   fecha_de_hoy + contador}
-          // `}
-          to={`/${nombre}/login`}
+          to={`/${nombre}/login/${horaseleccionada}/${num_cancha}/${dia}/${
+            fecha_de_hoy + contador
+          }
+          `}
         >
           Continuar
         </Link>
