@@ -5,7 +5,13 @@ import http from "http";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
-import { fijar_hora, info_complejo, register, reservar } from "./socket-functions.js";
+import {
+  fijar_hora,
+  info_complejo,
+  login_codigo,
+  login_email,
+  reservar,
+} from "./socket-functions.js";
 
 import rutas from "./routes/auth.routes.js";
 
@@ -26,8 +32,11 @@ io.on("connection", (socket) => {
     socket.on("fijar_hora", (peticion) => {
       fijar_hora({ peticion, socket });
     });
-    socket.on("register", (peticion) => {
-      register({ peticion, socket });
+    socket.on("login_email", (peticion) => {
+      login_email({ peticion });
+    });
+    socket.on("login_codigo", (peticion) => {
+      login_codigo({ peticion, socket });
     });
   } catch (error) {
     console.log(error);

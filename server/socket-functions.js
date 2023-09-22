@@ -142,26 +142,56 @@ export const fijar_hora = async (datos) => {
   }
 };
 
-export const register = async (datos) => {
+export const login_email = async (datos) => {
   try {
-    const socket = datos.socket;
     let email = datos.peticion.email;
+
+    let codigo = "";
+
+    for (let index = 0; index <= 5; index++) {
+      let caracteres = Math.ceil(Math.random() * 9);
+      codigo += caracteres;
+    }
 
     const newUsuario = new infousuarios({
       email,
+      codigo_login: codigo,
     });
 
-    const usuarioSave = await newUsuario.save();
+    await newUsuario.save();
 
-    jwt.sign({ id: usuarioSave._id }, "secreto", async (error, token) => {
-      if (error) console.log(error);
-      transporter.sendMail({
-        from: EMAIL,
-        to: "valensassia2003@outlook.com",
-        subject: `${token}`,
-        body: "hola",
+    await transporter.sendMail({
+      from: EMAIL,
+      to: "valensassia2003@outlook.com",
+      subject: `${codigo}`,
+      body: "hola",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const login_codigo = async (datos) => {
+  try {
+    const socket = datos.socket;
+    let email = datos.peticion.email;
+    let codigo = datos.peticion.codigo;
+
+    const prueba = await infousuarios.find({
+      email: { $eq: email },
+      codigo_login: { $eq: codigo },
+    });
+
+    if (prueba.length) {
+      jwt.sign({ email }, "secreto", (error, token) => {
+        if (error) console.log(error);
+        socket.emit("login_codigo_res", { token, condicion: true });
       });
-    });
+    }
+
+    if (!prueba.length) {
+      socket.emit("login_codigo_res", { condicion: false });
+    }
   } catch (error) {
     console.log(error);
   }
