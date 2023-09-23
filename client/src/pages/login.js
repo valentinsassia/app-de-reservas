@@ -27,6 +27,12 @@ function Login() {
   let cancha = params.cancha;
   let fecha = params.fecha;
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   useEffect(() => {
     if (data_localStorage) {
       return navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
@@ -42,7 +48,7 @@ function Login() {
   }, []);
 
   const sin_permiso = () => {
-    if (permiso) {
+    if (!permiso) {
       return (
         <div>
           <Backdrop
@@ -56,25 +62,16 @@ function Login() {
     }
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit_email = handleSubmit((email) => {
-    socket.emit("login_email", email);
-    setCondicion(false);
-  });
-
   const formulario_email = () => {
     if (condicion && permiso) {
+      const onSubmit_email = handleSubmit((email) => {
+        socket.emit("login_email", email);
+        setCondicion(false);
+      });
       return (
         <>
-          <p>Inicia Sesion</p>
           <div className="formulario">
             <form onSubmit={onSubmit_email}>
-              <label>Email</label>
               <input
                 type="text"
                 {...register("email", {
@@ -82,38 +79,45 @@ function Login() {
                 })}
                 autoComplete="off"
               ></input>
+              <label>Email</label>
               {errors.email && (
                 <span className="error">Email es requerido</span>
               )}
-              <button className="boton boton_activado">Enviar</button>
+              <button className="boton_codigo">Enviar</button>
             </form>
           </div>
+          <p className="p_2">Te enviaremos un codigo para verificar el email</p>
         </>
       );
     }
   };
 
-  const onSubmit_codigo = handleSubmit((datos) => {
-    socket.emit("login_codigo", { email: datos.email, codigo: datos.codigo });
-  });
-
   const formulario_codigo = () => {
     if (!condicion) {
+      const onSubmit_codigo = handleSubmit((datos) => {
+        socket.emit("login_codigo", {
+          email: datos.email,
+          codigo: datos.codigo,
+        });
+      });
       return (
-        <div className="formulario">
-          <form onSubmit={onSubmit_codigo}>
-            <label>Codigo</label>
-            <input
-              type="text"
-              {...register("codigo", {
-                required: true,
-              })}
-              autoComplete="off"
-            ></input>
-            {codigofail && <span className="error">Codigo incorrecto</span>}
-            <button className="boton boton_activado">Verificar codigo</button>
-          </form>
-        </div>
+        <>
+          <div className="formulario">
+            <form onSubmit={onSubmit_codigo}>
+              <label>Codigo</label>
+              <input
+                type="text"
+                {...register("codigo", {
+                  required: true,
+                })}
+                autoComplete="off"
+              ></input>
+              {codigofail && <span className="error">Codigo incorrecto</span>}
+              <button className="boton_codigo">Verificar codigo</button>
+            </form>
+          </div>
+          <p className="p_2">¡Revisa a tu email!</p>
+        </>
       );
     }
   };

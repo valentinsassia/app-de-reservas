@@ -17,18 +17,18 @@
     color: white;
 }
 
-.contenedor_confirmar > div {
-    text-align: center
+.contenedor_principal {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.contenedor_confirmar > div > p:first-child {
-    font-size: 1.3em;
+.contenedor_principal > p {
+    font-size: 1.2em;
     color: white;
-}
-
-.contenedor_confirmar > div > p {
-    font-size: 1em;
-    color: #cccc;
+    margin-bottom: 30px;
 }
 
 .informacion_contenedor {
@@ -37,6 +37,7 @@
     background-color: #080808;
     border-radius: 30px;
     font-size: .9em;
+    margin-bottom: 30px;
 }
 
 .informacion_contenedor > div {
@@ -45,43 +46,11 @@
     margin: 5px 0;
 }
 
+.label {
+    background-color: #131313;
+    font-size: .9em;
+}
+
 .boton_font {
     font-size: .9em !important;
-}
-
-/* // denegado */
-
-.formulario {
-    width: 93%;
-    padding: 25px;
-    border-radius: 20px;
-    background-color: #181818;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-label {
-    align-self: start;
-    color: #cccc;
-    margin-bottom: 5px;
-}
-
-input {
-    width: 100%;
-    height: 40px;
-    border-radius: 10px;
-}
-
-.error {
-    align-self: start ;
-    color: #b70f0f;
-    margin-top: 5px;
-}
-
-.formulario > form > button {
-    margin-top: 25px;
 }
