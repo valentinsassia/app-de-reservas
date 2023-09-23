@@ -1,31 +1,45 @@
 import "./login.css";
 
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
-
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import io from "socket.io-client";
 const socket = io();
 
 function Login() {
+  const data_localStorage = localStorage.getItem("token");
   const [permiso, setPermiso] = useState(false);
 
-  let data_localStorage = localStorage.getItem("data");
-
-  const [condicion, setCondicion] = useState(true);
-  const [codigofail, setCodigofail] = useState(false);
+  const [incorrecto, setIncorrecto] = useState(false);
 
   const navigate = useNavigate();
   const params = useParams();
 
   let nombre = params.nombre;
-  let hora = params.hora;
-  let dia = params.dia;
-  let cancha = params.cancha;
-  let fecha = params.fecha;
+
+  useEffect(() => {
+    if (data_localStorage) {
+      socket.emit("comprobar_token", data_localStorage);
+      socket.on("comprobar_token_res", (res) => {
+        if (res) {
+          navigate(`/${nombre}/gestionar`);
+        } else setPermiso(true);
+      });
+    } else setPermiso(true);
+  });
+
+  useEffect(() => {
+    socket.on("login_res", (res) => {
+      if (res.condicion === true) {
+        localStorage.setItem("token", res.token);
+        navigate(`/${nombre}/gestionar`);
+      } else return setIncorrecto(true);
+    });
+  }, []);
 
   const {
     register,
@@ -33,19 +47,9 @@ function Login() {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    if (data_localStorage) {
-      return navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
-    } else setPermiso(true);
-    socket.on("login_codigo_res", (respuesta) => {
-      if (respuesta.condicion) {
-        navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
-        localStorage.setItem("data", respuesta.token);
-      } else if (!respuesta.condicion) {
-        setCodigofail(true);
-      }
-    });
-  }, []);
+  const onSubmit = handleSubmit((datos) => {
+    socket.emit("login", datos);
+  });
 
   const sin_permiso = () => {
     if (!permiso) {
@@ -62,62 +66,39 @@ function Login() {
     }
   };
 
-  const formulario_email = () => {
-    if (condicion && permiso) {
-      const onSubmit_email = handleSubmit((email) => {
-        socket.emit("login_email", email);
-        setCondicion(false);
-      });
+  const formulario_login = () => {
+    if (permiso) {
       return (
-        <>
-          <div className="formulario">
-            <form onSubmit={onSubmit_email}>
-              <input
-                type="text"
-                {...register("email", {
-                  required: true,
-                })}
-                autoComplete="off"
-              ></input>
-              <label>Email</label>
-              {errors.email && (
-                <span className="error">Email es requerido</span>
-              )}
-              <button className="boton_codigo">Enviar</button>
-            </form>
-          </div>
-          <p className="p_2">Te enviaremos un codigo para verificar el email</p>
-        </>
-      );
-    }
-  };
-
-  const formulario_codigo = () => {
-    if (!condicion) {
-      const onSubmit_codigo = handleSubmit((datos) => {
-        socket.emit("login_codigo", {
-          email: datos.email,
-          codigo: datos.codigo,
-        });
-      });
-      return (
-        <>
-          <div className="formulario">
-            <form onSubmit={onSubmit_codigo}>
-              <label>Codigo</label>
-              <input
-                type="text"
-                {...register("codigo", {
-                  required: true,
-                })}
-                autoComplete="off"
-              ></input>
-              {codigofail && <span className="error">Codigo incorrecto</span>}
-              <button className="boton_codigo">Verificar codigo</button>
-            </form>
-          </div>
-          <p className="p_2">¡Revisa a tu email!</p>
-        </>
+        <div className="formulario">
+          <form onSubmit={onSubmit}>
+            <input
+              type="text"
+              {...register("email", {
+                required: true,
+              })}
+              autoComplete="off"
+            ></input>
+            <label>Email</label>
+            {errors.email && <span className="error">Email incorrecto</span>}
+          </form>
+          <form onSubmit={onSubmit}>
+            <input
+              type="password"
+              {...register("password", {
+                required: true,
+              })}
+              autoComplete="off"
+            ></input>
+            <label>Contraseña</label>
+            {errors.password && (
+              <span className="error">Contraseña incorrecta</span>
+            )}
+            {incorrecto && (
+              <span className="error">La contraseña o el email son incorrectos</span>
+            )}
+            <button className="boton_formulario">Enviar</button>
+          </form>
+        </div>
       );
     }
   };
@@ -128,8 +109,7 @@ function Login() {
       <div onClick={() => navigate(`/${nombre}`)} className="back">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </div>
-      {formulario_email()}
-      {formulario_codigo()}
+      {formulario_login()}
     </div>
   );
 }

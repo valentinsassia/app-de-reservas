@@ -10,7 +10,7 @@ const infocomplejo = new mongoose.Schema({
   email: {
     type: String,
   },
-  contraseña: {
+  password: {
     type: String,
   },
   imagenes: {
@@ -38,6 +38,9 @@ const infocomplejo = new mongoose.Schema({
   ayer: {
     type: String,
   },
+  token: {
+    type: String
+  }
 });
 
 export default mongoose.model("infocomplejo", infocomplejo);

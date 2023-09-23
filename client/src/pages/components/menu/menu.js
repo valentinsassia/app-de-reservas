@@ -12,7 +12,7 @@ function Menu({ condicion_menu, setCondicion_menu, nombre }) {
           <Link>
             <p className="opciones desactivada">Soporte</p>
           </Link>
-          <Link to={`/${nombre}/gestionar`}>
+          <Link to={`/${nombre}/login/gestionar`}>
             <p className="opciones">Mi complejo</p>
           </Link>
         </div>

@@ -18,7 +18,7 @@ router.get("/:nombre/:hora/:cancha/:dia/:fecha", (req, res) => {
   res.redirect("/La%20Esquina");
 });
 
-router.get("/:nombre/login/:hora/:cancha/:dia/:fecha", (req, res) => {
+router.get("/:nombre/register/:hora/:cancha/:dia/:fecha", (req, res) => {
   res.sendFile(join(__dirname, "../../client/build", "index.html"));
 });
 

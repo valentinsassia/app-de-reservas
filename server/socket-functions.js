@@ -142,7 +142,7 @@ export const fijar_hora = async (datos) => {
   }
 };
 
-export const login_email = async (datos) => {
+export const register_email = async (datos) => {
   try {
     let email = datos.peticion.email;
 
@@ -171,26 +171,78 @@ export const login_email = async (datos) => {
   }
 };
 
-export const login_codigo = async (datos) => {
+export const confirmar_codigo = async (datos) => {
   try {
     const socket = datos.socket;
     let email = datos.peticion.email;
     let codigo = datos.peticion.codigo;
 
-    const prueba = await infousuarios.find({
+    const verificar = await infousuarios.find({
       email: { $eq: email },
       codigo_login: { $eq: codigo },
     });
 
-    if (prueba.length) {
+    if (verificar.length) {
       jwt.sign({ email }, "secreto", (error, token) => {
         if (error) console.log(error);
-        socket.emit("login_codigo_res", { token, condicion: true });
+        socket.emit("confirmar_codigo_res", { token, condicion: true });
       });
     }
 
-    if (!prueba.length) {
-      socket.emit("login_codigo_res", { condicion: false });
+    if (!verificar.length) {
+      socket.emit("confirmar_codigo_res", { condicion: false });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const login = async (datos) => {
+  try {
+    const socket = datos.socket;
+    let email = datos.peticion.email;
+    let password = datos.peticion.password;
+
+    const verificar = await infocomplejo.find({
+      email: { $eq: email },
+      password: { $eq: password },
+    });
+
+    if (verificar.length) {
+      jwt.sign({ email }, "secreto", async (error, token) => {
+        if (error) console.log(error);
+        await infocomplejo.updateOne(
+          { email: { $eq: email } },
+          {
+            $set: {
+              token: token,
+            },
+          }
+        );
+        socket.emit("login_res", { condicion: true, token });
+      });
+    }
+
+    if (!verificar.length) {
+      socket.emit("login_res", { condicion: false });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const comprobar_token = async (datos) => {
+  try {
+    const socket = datos.socket;
+    let token = datos.peticion;
+
+    const verificar = await infocomplejo.find({ token: { $eq: token } });
+
+    if (verificar.length) {
+      socket.emit("comprobar_token_res", true)
+    }
+    if (!verificar.length) {
+      socket.emit("comprobar_token_res", false)
     }
   } catch (error) {
     console.log(error);

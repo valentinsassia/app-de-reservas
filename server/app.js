@@ -6,10 +6,12 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 import {
+  comprobar_token,
+  confirmar_codigo,
   fijar_hora,
   info_complejo,
-  login_codigo,
-  login_email,
+  login,
+  register_email,
   reservar,
 } from "./socket-functions.js";
 
@@ -32,11 +34,17 @@ io.on("connection", (socket) => {
     socket.on("fijar_hora", (peticion) => {
       fijar_hora({ peticion, socket });
     });
-    socket.on("login_email", (peticion) => {
-      login_email({ peticion });
+    socket.on("register_email", (peticion) => {
+      register_email({ peticion });
     });
-    socket.on("login_codigo", (peticion) => {
-      login_codigo({ peticion, socket });
+    socket.on("confirmar_codigo", (peticion) => {
+      confirmar_codigo({ peticion, socket });
+    });
+    socket.on("login", (peticion) => {
+      login({ peticion, socket });
+    });
+    socket.on("comprobar_token", (peticion) => {
+      comprobar_token({ peticion, socket });
     });
   } catch (error) {
     console.log(error);
