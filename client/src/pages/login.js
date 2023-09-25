@@ -30,14 +30,17 @@ function Login() {
         } else setPermiso(true);
       });
     } else setPermiso(true);
-  });
+  }, []);
 
   useEffect(() => {
     socket.on("login_res", (res) => {
       if (res.condicion === true) {
         localStorage.setItem("token", res.token);
         navigate(`/${nombre}/gestionar`);
-      } else return setIncorrecto(true);
+      } else {
+        setIncorrecto(true);
+        setPermiso(true);
+      }
     });
   }, []);
 
@@ -49,6 +52,7 @@ function Login() {
 
   const onSubmit = handleSubmit((datos) => {
     socket.emit("login", datos);
+    setPermiso(false);
   });
 
   const sin_permiso = () => {
@@ -67,40 +71,42 @@ function Login() {
   };
 
   const formulario_login = () => {
-    if (permiso) {
-      return (
-        <div className="formulario">
-          <form onSubmit={onSubmit}>
-            <input
-              type="text"
-              {...register("email", {
-                required: true,
-              })}
-              autoComplete="off"
-            ></input>
-            <label>Email</label>
-            {errors.email && <span className="error">Email incorrecto</span>}
-          </form>
-          <form onSubmit={onSubmit}>
-            <input
-              type="password"
-              {...register("password", {
-                required: true,
-              })}
-              autoComplete="off"
-            ></input>
-            <label>Contraseña</label>
-            {errors.password && (
-              <span className="error">Contraseña incorrecta</span>
-            )}
-            {incorrecto && (
-              <span className="error">La contraseña o el email son incorrectos</span>
-            )}
-            <button className="boton_formulario">Enviar</button>
-          </form>
-        </div>
-      );
-    }
+    return (
+      <div className="formulario">
+        <form onSubmit={onSubmit}>
+          <input
+            type="text"
+            {...register("email", {
+              required: true,
+            })}
+            autoComplete="off"
+          ></input>
+          <label>Email</label>
+          {errors.email && (
+            <span className="error">Contraseña no es valido</span>
+          )}
+        </form>
+        <form onSubmit={onSubmit}>
+          <input
+            type="password"
+            {...register("password", {
+              required: true,
+            })}
+            autoComplete="off"
+          ></input>
+          <label>Contraseña</label>
+          {errors.password && (
+            <span className="error">Contraseña no es valida</span>
+          )}
+          {incorrecto && (
+            <span className="error">
+              La contraseña o el email son incorrectos
+            </span>
+          )}
+          <button className="boton_formulario">Enviar</button>
+        </form>
+      </div>
+    );
   };
 
   return (

@@ -12,7 +12,7 @@ import io from "socket.io-client";
 const socket = io();
 
 function Horarios({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
-  const { setReservas } = useContext(Contextos);
+  const { setInfoReservas } = useContext(Contextos);
 
   const [horaseleccionada, setHoraseleccionada] = useState();
   const [Index, setIndex] = useState(0);
@@ -94,10 +94,8 @@ function Horarios({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
   let horas = informacion_dia[0].horas;
 
   useEffect(() => {
-    setReservas({
-      horas: horas.filter((e) => {
-        return e.estado === false;
-      }),
+    setInfoReservas({
+      reservas: informacion_dia[0].reservas,
       dia,
       num_cancha,
     });

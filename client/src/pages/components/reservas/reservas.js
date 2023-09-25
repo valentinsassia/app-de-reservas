@@ -8,17 +8,17 @@ import io from "socket.io-client";
 const socket = io();
 
 function Reservas({ nombre }) {
-  const { reservas } = useContext(Contextos);
+  const { infoReservas } = useContext(Contextos);
 
-  let horas = reservas.horas;
-  let dia = reservas.dia;
-  let cancha = reservas.num_cancha;
+  let reservas = infoReservas.reservas;
+  let dia = infoReservas.dia;
+  let cancha = infoReservas.num_cancha;
 
   const [seleccionado, setSeleccionado] = useState("");
 
   const con_reservas = () => {
-    if (horas.length) {
-      return horas
+    if (reservas.length) {
+      return reservas
         .sort((x, y) => x.hora - y.hora)
         .map((elem, index) => {
           return (
@@ -54,19 +54,29 @@ function Reservas({ nombre }) {
                   seleccionado === elem.hora ? "desplegar" : "none"
                 }`}
               >
-                <p
-                  onClick={() => {
-                    socket.emit("fijar_hora", {
-                      dia: dia[0],
-                      cancha,
-                      hora: elem.hora,
-                      nombre,
-                      accion: elem.fijado
-                    });
-                  }}
-                >
-                  {`${elem.fijado ? `Quitar fijado` : `Fijar horario`}`}
-                </p>
+                <div className="desplegar_informacion">
+                  <ion-icon name="person-outline"></ion-icon>
+                  <div>
+                    <p>{elem.usuario}</p>
+                    <p className="separador">/</p>
+                    <p>{elem.telefono}</p>
+                  </div>
+                </div>
+                <div className="desplegar_fijar">
+                  <p
+                    onClick={() => {
+                      socket.emit("fijar_hora", {
+                        dia: dia[0],
+                        cancha,
+                        hora: elem.hora,
+                        nombre,
+                        accion: elem.fijado,
+                      });
+                    }}
+                  >
+                    {`${elem.fijado ? `Quitar` : `Fijar`}`}
+                  </p>
+                </div>
               </div>
             </>
           );
@@ -75,7 +85,7 @@ function Reservas({ nombre }) {
   };
 
   const sin_reservas = () => {
-    if (!horas.length) {
+    if (!reservas.length) {
       return (
         <div className="sin_reservas">
           <ion-icon name="close-circle-outline"></ion-icon>

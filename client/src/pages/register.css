@@ -12,15 +12,15 @@
 
 .p_1 {
     margin-bottom: 60px;
-    color:  white;
+    color: white;
     font-size: 1.2em;
 }
 
 .formulario {
     width: 93%;
     padding: 50px 30px;
-    border-radius: 5px;
-    background-color: #181818;
+    border-radius: 30px;
+    background-color: #0a0a0a;
     font-size: .9em;
 }
 
@@ -51,7 +51,7 @@ label {
     transform: translateY(-50%);
     color: #9b9b9b;
     pointer-events: none;
-    background-color: #181818;
+    background-color: #0a0a0a;
 }
 
 input:focus {
@@ -81,5 +81,14 @@ input:focus~label {
     background-color: #00be00;
     border: 1px solid black;
     border-radius: 7px;
-    outline:none;
+    outline: none;
+}
+
+/* // Media Queris */
+
+@media screen and (min-width: 451px) {
+
+    .contenedor_register {
+        display: none;
+    }
 }

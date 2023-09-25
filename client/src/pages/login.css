@@ -9,6 +9,15 @@
     background-color: #131313;
 }
 
-.contenedor_login > .formulario > form {
+.contenedor_login>.formulario>form:nth-child(1) {
     margin-bottom: 20px;
+}
+
+/* // Media Queris */
+
+@media screen and (min-width: 451px) {
+
+    .contenedor_login {
+        display: none;
+    }
 }

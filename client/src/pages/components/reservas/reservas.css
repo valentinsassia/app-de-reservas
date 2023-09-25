@@ -1,5 +1,5 @@
 .reservas_contenedor {
-    margin-top: 9px;
+    margin: 9px 0 17px 0;
     width: 280px;
     height: 175px;
     overflow-y: scroll;
@@ -41,17 +41,54 @@
 }
 
 .desplegar {
+    position: relative;
     width: 100%;
-    height: 40.50px;
-    padding: 0 10px;
+    height: 81px;
     font-size: .9em;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     background-color: #5f5f5fc2;
     color: #b8b8b8;
     display: flex;
+    flex-direction: column;
+}
+
+.desplegar_informacion {
+    width: 100%;
+    height: 50%;
+    padding: 0 10px 0 12px;
+    display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.desplegar_informacion>ion-icon {
+    font-size: 1.7em;
+    align-self: start;
+}
+
+.desplegar_informacion>div {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    height: 100%;
+}
+
+.separador {
+    margin: 0 4px;
+}
+
+.desplegar_fijar {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #303030;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 
 .none {

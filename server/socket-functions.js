@@ -68,6 +68,8 @@ export const reservar = async (datos) => {
     const hora = datos.peticion.hora;
     const dia = datos.peticion.dia;
     const cancha = datos.peticion.cancha;
+    const usuario = datos.peticion.usuario;
+    const telefono = datos.peticion.telefono;
 
     let complejo = await infocomplejo.updateOne(
       {
@@ -91,6 +93,9 @@ export const reservar = async (datos) => {
         $addToSet: {
           "horarios.$[a].horario.$[e].reservas": {
             hora,
+            usuario,
+            telefono,
+            fijo: false
           },
         },
       },
@@ -135,6 +140,9 @@ export const fijar_hora = async (datos) => {
         ],
       }
     );
+    if (accion === true) {
+      console.log("desfijar")
+    }
     if (complejo.modifiedCount) {
       socket.broadcast.emit(nombre, "");
     }
@@ -148,7 +156,6 @@ export const register_email = async (datos) => {
     let email = datos.peticion.email;
 
     let codigo = "";
-
     for (let index = 0; index <= 5; index++) {
       let caracteres = Math.ceil(Math.random() * 9);
       codigo += caracteres;
@@ -156,7 +163,7 @@ export const register_email = async (datos) => {
 
     const newUsuario = new infousuarios({
       email,
-      codigo_login: codigo,
+      codigo: codigo,
     });
 
     await newUsuario.save();
@@ -180,7 +187,7 @@ export const confirmar_codigo = async (datos) => {
 
     const verificar = await infousuarios.find({
       email: { $eq: email },
-      codigo_login: { $eq: codigo },
+      codigo: { $eq: codigo },
     });
 
     if (verificar.length) {
@@ -240,10 +247,10 @@ export const comprobar_token = async (datos) => {
     const verificar = await infocomplejo.find({ token: { $eq: token } });
 
     if (verificar.length) {
-      socket.emit("comprobar_token_res", true)
+      socket.emit("comprobar_token_res", true);
     }
     if (!verificar.length) {
-      socket.emit("comprobar_token_res", false)
+      socket.emit("comprobar_token_res", false);
     }
   } catch (error) {
     console.log(error);

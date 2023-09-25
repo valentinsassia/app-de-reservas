@@ -11,12 +11,11 @@ import io from "socket.io-client";
 const socket = io();
 
 function Register() {
+  let data_localStorage = localStorage.getItem("token");
   const [permiso, setPermiso] = useState(false);
 
-  let data_localStorage = localStorage.getItem("token");
-
   const [condicion, setCondicion] = useState(true);
-  const [codigofail, setCodigofail] = useState(false);
+  const [incorrecto, setIncorrecto] = useState(false);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -45,7 +44,8 @@ function Register() {
         navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
         localStorage.setItem("token", respuesta.token);
       } else if (!respuesta.condicion) {
-        setCodigofail(true);
+        setIncorrecto(true);
+        setPermiso(true)
       }
     });
   }, []);
@@ -102,6 +102,7 @@ function Register() {
           email: datos.email,
           codigo: datos.codigo,
         });
+        setPermiso(false)
       });
       return (
         <>
@@ -115,7 +116,7 @@ function Register() {
                 })}
                 autoComplete="off"
               ></input>
-              {codigofail && <span className="error">Codigo incorrecto</span>}
+              {incorrecto && <span className="error">Codigo incorrecto</span>}
               <button className="boton_formulario">Verificar codigo</button>
             </form>
           </div>

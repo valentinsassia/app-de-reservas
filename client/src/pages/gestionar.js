@@ -120,7 +120,6 @@ function Gestionar() {
   return (
     <div className="gestionar">
       {sin_informacion()}
-
       <div onClick={() => navigate(`/${nombre}`)} className="back">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </div>

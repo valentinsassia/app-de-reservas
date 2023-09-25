@@ -23,7 +23,14 @@ const infocomplejo = new mongoose.Schema({
       horario: [
         {
           dia: { type: String },
-          reservas: { type: Array },
+          reservas: [
+            {
+              hora: { type: String },
+              usuario: { type: String },
+              telefono: { type: Number },
+              fijo: {type: Boolean}
+            },
+          ],
           horas: [
             {
               estado: { type: Boolean },
@@ -39,8 +46,8 @@ const infocomplejo = new mongoose.Schema({
     type: String,
   },
   token: {
-    type: String
-  }
+    type: String,
+  },
 });
 
 export default mongoose.model("infocomplejo", infocomplejo);

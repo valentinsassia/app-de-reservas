@@ -46,6 +46,14 @@
     margin: 5px 0;
 }
 
+.form {
+    margin-top: 15px;
+}
+
+.form > input {
+    margin-bottom: 40px;
+}
+
 .label {
     background-color: #131313;
     font-size: .9em;
@@ -53,4 +61,13 @@
 
 .boton_font {
     font-size: .9em !important;
+}
+
+/* // Media Queris */
+
+@media screen and (min-width: 451px) {
+
+    .contenedor_confirmar {
+        display: none;
+    }
 }

@@ -32,7 +32,14 @@ function Confirmar() {
   let fecha = dia + " " + params.fecha;
 
   const onSubmit = handleSubmit((datos) => {
-    console.log(datos);
+    socket.emit("reservar", {
+      nombre,
+      cancha,
+      hora,
+      dia,
+      usuario: datos.nombre,
+      telefono: datos.telefono
+    });
   });
 
   return (
@@ -76,20 +83,20 @@ function Confirmar() {
           <label className="label">Nombre</label>
           {errors.nombre && <span className="error">Nombre es requerido</span>}
         </form>
-      </div>
-
-      <div
-        className="boton boton_activado boton_font"
-        onClick={() => {
-          socket.emit("reservar", {
-            nombre,
-            cancha,
-            hora,
-            dia,
-          });
-        }}
-      >
-        Confirmar
+        <form onSubmit={onSubmit} className="form">
+          <input
+            type="text"
+            {...register("telefono", {
+              required: true,
+            })}
+            autoComplete="off"
+          ></input>
+          <label className="label">Telefono</label>
+          {errors.nombre && (
+            <span className="error">Telefono es requerido</span>
+          )}
+          <button className="boton_formulario">Confirmar</button>
+        </form>
       </div>
     </div>
   );

@@ -25,3 +25,12 @@
     justify-content: center;
     flex-direction: column;
 }
+
+/* // Media Queris */
+
+@media screen and (min-width: 451px) {
+
+    .gestionar {
+        display: none;
+    }
+}
