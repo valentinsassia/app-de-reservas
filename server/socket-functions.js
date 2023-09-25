@@ -124,6 +124,7 @@ export const fijar_hora = async (datos) => {
       {
         $set: {
           "horarios.$[a].horario.$[e].horas.$[i].fijado": !accion,
+          "horarios.$[a].horario.$[e].horas.$[i].estado": accion,
         },
       },
       {

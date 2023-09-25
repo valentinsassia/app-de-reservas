@@ -14,6 +14,9 @@ import io from "socket.io-client";
 const socket = io();
 
 function Gestionar() {
+  const data_localStorage = localStorage.getItem("token");
+  const [permiso, setPermiso] = useState(false);
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -25,6 +28,17 @@ function Gestionar() {
 
   const nombre = params.nombre;
   const horarios = respuesta.horarios;
+
+  //   useEffect(() => {
+  //   if (data_localStorage) {
+  //     socket.emit("comprobar_token", data_localStorage);
+  //     socket.on("comprobar_token_res", (res) => {
+  //       if (res) {
+  //         setPermiso(true);
+  //       } else navigate(`/${nombre}`);
+  //     });
+  //   } else navigate(`/${nombre}`);
+  // });
 
   useEffect(() => {
     socket.emit("info-complejo", {
@@ -40,7 +54,7 @@ function Gestionar() {
   }, [reiniciar]);
 
   const sin_informacion = () => {
-    if (horarios === undefined) {
+    if (horarios === undefined && permiso) {
       return (
         <div>
           <Backdrop
@@ -55,7 +69,7 @@ function Gestionar() {
   };
 
   const horarios_contenedor = () => {
-    if (horarios !== undefined) {
+    if (horarios !== undefined && !permiso) {
       return (
         <Horarios
           nombre={nombre}
@@ -69,7 +83,7 @@ function Gestionar() {
   };
 
   const reservar_contenedor = () => {
-    if (horarios !== undefined) {
+    if (horarios !== undefined && !permiso) {
       return (
         <div className="reservas_contenedor">
           <Reservas nombre={nombre} />
