@@ -80,6 +80,7 @@ input:focus~label {
     width: 150px;
     background-color: #00be00;
     border: 1px solid black;
+    color: #111111;
     border-radius: 7px;
     outline: none;
 }

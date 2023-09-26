@@ -43,8 +43,9 @@ export const info_complejo = async (datos) => {
           {
             $set: {
               ayer: ayer,
-              "horarios.$[].horario.$[a].reservas": [],
               "horarios.$[].horario.$[a].horas.$[e].estado": true,
+              "horarios.$[].horario.$[a].horas.$[e].usuario": "",
+              "horarios.$[].horario.$[a].horas.$[e].telefono": "",
             },
           },
           {
@@ -75,7 +76,13 @@ export const reservar = async (datos) => {
       {
         nombre: { $eq: nombre },
       },
-      { $set: { "horarios.$[a].horario.$[e].horas.$[i].estado": false } },
+      {
+        $set: {
+          "horarios.$[a].horario.$[e].horas.$[i].estado": false,
+          "horarios.$[a].horario.$[e].horas.$[i].usuario": usuario,
+          "horarios.$[a].horario.$[e].horas.$[i].telefono": telefono,
+        },
+      },
       {
         arrayFilters: [
           { "a.cancha": cancha },
@@ -84,68 +91,10 @@ export const reservar = async (datos) => {
         ],
       }
     );
-
-    await infocomplejo.updateOne(
-      {
-        nombre: { $eq: nombre },
-      },
-      {
-        $addToSet: {
-          "horarios.$[a].horario.$[e].reservas": {
-            hora,
-            usuario,
-            telefono,
-            fijo: false
-          },
-        },
-      },
-      {
-        arrayFilters: [{ "a.cancha": cancha }, { "e.dia": dia }],
-      }
-    );
-
     if (complejo.modifiedCount) {
       socket.broadcast.emit(nombre, "");
       socket.emit("resultado", true);
     } else socket.emit("resultado", false);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const fijar_hora = async (datos) => {
-  try {
-    let socket = datos.socket;
-    const nombre = datos.peticion.nombre;
-    const hora = datos.peticion.hora;
-    const dia = datos.peticion.dia;
-    const cancha = datos.peticion.cancha;
-    const accion = datos.peticion.accion;
-
-    let complejo = await infocomplejo.updateOne(
-      {
-        nombre: { $eq: nombre },
-      },
-      {
-        $set: {
-          "horarios.$[a].horario.$[e].horas.$[i].fijado": !accion,
-          "horarios.$[a].horario.$[e].horas.$[i].estado": accion,
-        },
-      },
-      {
-        arrayFilters: [
-          { "a.cancha": cancha },
-          { "e.dia": dia },
-          { "i.hora": hora },
-        ],
-      }
-    );
-    if (accion === true) {
-      console.log("desfijar")
-    }
-    if (complejo.modifiedCount) {
-      socket.broadcast.emit(nombre, "");
-    }
   } catch (error) {
     console.log(error);
   }

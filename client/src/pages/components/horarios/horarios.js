@@ -95,7 +95,9 @@ function Horarios({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
 
   useEffect(() => {
     setInfoReservas({
-      reservas: informacion_dia[0].reservas,
+      reservas: horas.filter((elem) => {
+        return elem.estado === false;
+      }),
       dia,
       num_cancha,
     });

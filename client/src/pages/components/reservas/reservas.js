@@ -11,8 +11,6 @@ function Reservas({ nombre }) {
   const { infoReservas } = useContext(Contextos);
 
   let reservas = infoReservas.reservas;
-  let dia = infoReservas.dia;
-  let cancha = infoReservas.num_cancha;
 
   const [seleccionado, setSeleccionado] = useState("");
 
@@ -54,28 +52,13 @@ function Reservas({ nombre }) {
                   seleccionado === elem.hora ? "desplegar" : "none"
                 }`}
               >
-                <div className="desplegar_informacion">
+                <div>
                   <ion-icon name="person-outline"></ion-icon>
-                  <div>
-                    <p>{elem.usuario}</p>
-                    <p className="separador">/</p>
-                    <p>{elem.telefono}</p>
-                  </div>
+                  <p>{elem.usuario === undefined ? "-" : elem.usuario}</p>
                 </div>
-                <div className="desplegar_fijar">
-                  <p
-                    onClick={() => {
-                      socket.emit("fijar_hora", {
-                        dia: dia[0],
-                        cancha,
-                        hora: elem.hora,
-                        nombre,
-                        accion: elem.fijado,
-                      });
-                    }}
-                  >
-                    {`${elem.fijado ? `Quitar` : `Fijar`}`}
-                  </p>
+                <div>
+                  <ion-icon name="call-outline"></ion-icon>
+                  <p>{elem.telefono === undefined ? "-" : elem.telefono}</p>
                 </div>
               </div>
             </>

@@ -8,7 +8,6 @@ import { fileURLToPath } from "url";
 import {
   comprobar_token,
   confirmar_codigo,
-  fijar_hora,
   info_complejo,
   login,
   register_email,
@@ -30,9 +29,6 @@ io.on("connection", (socket) => {
     });
     socket.on("reservar", (peticion) => {
       reservar({ peticion, socket });
-    });
-    socket.on("fijar_hora", (peticion) => {
-      fijar_hora({ peticion, socket });
     });
     socket.on("register_email", (peticion) => {
       register_email({ peticion });

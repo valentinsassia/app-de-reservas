@@ -36,6 +36,8 @@ const infocomplejo = new mongoose.Schema({
               estado: { type: Boolean },
               fijado: { type: Boolean },
               hora: { type: Number },
+              usuario: { type: String },
+              telefono: { type: Number },
             },
           ],
         },
