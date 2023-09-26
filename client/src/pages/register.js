@@ -41,8 +41,8 @@ function Register() {
   useEffect(() => {
     socket.on("confirmar_codigo_res", (respuesta) => {
       if (respuesta.condicion) {
-        navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
         localStorage.setItem("token", respuesta.token);
+        navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
       } else if (!respuesta.condicion) {
         setIncorrecto(true);
         setPermiso(true)

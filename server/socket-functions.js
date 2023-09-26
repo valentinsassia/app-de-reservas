@@ -44,8 +44,8 @@ export const info_complejo = async (datos) => {
             $set: {
               ayer: ayer,
               "horarios.$[].horario.$[a].horas.$[e].estado": true,
-              "horarios.$[].horario.$[a].horas.$[e].usuario": "",
-              "horarios.$[].horario.$[a].horas.$[e].telefono": "",
+              "horarios.$[].horario.$[a].horas.$[e].usuario": undefined,
+              "horarios.$[].horario.$[a].horas.$[e].telefono": undefined,
             },
           },
           {
@@ -71,30 +71,48 @@ export const reservar = async (datos) => {
     const cancha = datos.peticion.cancha;
     const usuario = datos.peticion.usuario;
     const telefono = datos.peticion.telefono;
+    const token = datos.peticion.token;
 
-    let complejo = await infocomplejo.updateOne(
+    let Usuario = await infousuarios.updateOne(
       {
-        nombre: { $eq: nombre },
+        token: { $eq: token },
       },
       {
         $set: {
-          "horarios.$[a].horario.$[e].horas.$[i].estado": false,
-          "horarios.$[a].horario.$[e].horas.$[i].usuario": usuario,
-          "horarios.$[a].horario.$[e].horas.$[i].telefono": telefono,
+          usuario,
+          telefono,
+          dia,
+          hora,
+          cancha,
         },
-      },
-      {
-        arrayFilters: [
-          { "a.cancha": cancha },
-          { "e.dia": dia },
-          { "i.hora": hora },
-        ],
       }
     );
-    if (complejo.modifiedCount) {
-      socket.broadcast.emit(nombre, "");
-      socket.emit("resultado", true);
-    } else socket.emit("resultado", false);
+
+    if (Usuario.modifiedCount) {
+      let complejo = await infocomplejo.updateOne(
+        {
+          nombre: { $eq: nombre },
+        },
+        {
+          $set: {
+            "horarios.$[a].horario.$[e].horas.$[i].estado": false,
+            "horarios.$[a].horario.$[e].horas.$[i].usuario": usuario,
+            "horarios.$[a].horario.$[e].horas.$[i].telefono": telefono,
+          },
+        },
+        {
+          arrayFilters: [
+            { "a.cancha": cancha },
+            { "e.dia": dia },
+            { "i.hora": hora },
+          ],
+        }
+      );
+      if (complejo.modifiedCount) {
+        socket.broadcast.emit(nombre, "");
+        socket.emit("resultado", true);
+      } else socket.emit("resultado", false);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -134,21 +152,19 @@ export const confirmar_codigo = async (datos) => {
     let email = datos.peticion.email;
     let codigo = datos.peticion.codigo;
 
-    const verificar = await infousuarios.find({
-      email: { $eq: email },
-      codigo: { $eq: codigo },
-    });
-
-    if (verificar.length) {
-      jwt.sign({ email }, "secreto", (error, token) => {
-        if (error) console.log(error);
+    jwt.sign({ email }, "secreto", async (error, token) => {
+      if (error) console.log(error);
+      const verificar = await infousuarios.updateOne(
+        {
+          email: { $eq: email },
+          codigo: { $eq: codigo },
+        },
+        { $set: { token } }
+      );
+      if (verificar.modifiedCount) {
         socket.emit("confirmar_codigo_res", { token, condicion: true });
-      });
-    }
-
-    if (!verificar.length) {
-      socket.emit("confirmar_codigo_res", { condicion: false });
-    }
+      } else socket.emit("confirmar_codigo_res", { condicion: false });
+    });
   } catch (error) {
     console.log(error);
   }

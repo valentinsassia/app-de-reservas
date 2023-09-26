@@ -8,6 +8,8 @@ import io from "socket.io-client";
 const socket = io();
 
 function Confirmar() {
+  let token = localStorage.getItem("token")
+
   useEffect(() => {
     socket.on("resultado", (condicion) => {
       if (condicion) {
@@ -38,7 +40,8 @@ function Confirmar() {
       hora,
       dia,
       usuario: datos.nombre,
-      telefono: datos.telefono
+      telefono: datos.telefono,
+      token
     });
   });
 
