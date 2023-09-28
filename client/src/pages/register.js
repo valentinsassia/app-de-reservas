@@ -33,19 +33,24 @@ function Register() {
   } = useForm();
 
   useEffect(() => {
-    if (data_localStorage) {
+    if (data_localStorage && hora) {
       return navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
+    } else if (data_localStorage && !hora) {
+      return navigate(`/misreservas`);
     } else setPermiso(true);
   }, []);
 
   useEffect(() => {
     socket.on("confirmar_codigo_res", (respuesta) => {
-      if (respuesta.condicion) {
+      if (respuesta.condicion && hora) {
         localStorage.setItem("token", respuesta.token);
         navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
+      } else if (respuesta.condicion && !hora) {
+        localStorage.setItem("token", respuesta.token);
+        navigate(`/misreservas`);
       } else if (!respuesta.condicion) {
         setIncorrecto(true);
-        setPermiso(true)
+        setPermiso(true);
       }
     });
   }, []);
@@ -102,7 +107,7 @@ function Register() {
           email: datos.email,
           codigo: datos.codigo,
         });
-        setPermiso(false)
+        setPermiso(false);
       });
       return (
         <>
@@ -129,7 +134,17 @@ function Register() {
   return (
     <div className="contenedor_register">
       {sin_permiso()}
-      <div onClick={() => navigate(`/${nombre}`)} className="back">
+      <div
+        onClick={() => {
+          if (hora) {
+            navigate(`/${nombre}`);
+          }
+          if (!hora) {
+            navigate(-1);
+          }
+        }}
+        className="back"
+      >
         <ion-icon name="arrow-back-outline"></ion-icon>
       </div>
       {formulario_email()}

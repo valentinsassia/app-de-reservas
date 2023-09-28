@@ -16,6 +16,7 @@ const infousuarios = new mongoose.Schema(
     dia: { type: String },
     hora: { type: Number },
     cancha: { type: Number },
+    reserva: {type: Boolean}
   },
   {
     timestamps: true,

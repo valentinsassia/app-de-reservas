@@ -1,14 +1,30 @@
 import "./confirmar.css";
 
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import io from "socket.io-client";
 const socket = io();
 
 function Confirmar() {
-  let token = localStorage.getItem("token")
+  let token = localStorage.getItem("token");
+
+  const [permiso, setPermiso] = useState(false);
+
+  useEffect(() => {
+    socket.emit("comprobar_reserva", token);
+    socket.on("comprobar_reserva_res", (datos) => {
+      if (datos?.reserva === true) {
+        return navigate("/misreservas");
+      } else if (datos === "no hay reserva") {
+        setPermiso(true);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     socket.on("resultado", (condicion) => {
@@ -33,6 +49,21 @@ function Confirmar() {
   let dia = params.dia;
   let fecha = dia + " " + params.fecha;
 
+  const sin_informacion = () => {
+    if (!permiso) {
+      return (
+        <div>
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={true}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </div>
+      );
+    }
+  };
+
   const onSubmit = handleSubmit((datos) => {
     socket.emit("reservar", {
       nombre,
@@ -41,12 +72,13 @@ function Confirmar() {
       dia,
       usuario: datos.nombre,
       telefono: datos.telefono,
-      token
+      token,
     });
   });
 
   return (
     <div className="contenedor_confirmar">
+      {sin_informacion()}
       <div onClick={() => navigate(`/${nombre}`)} className="back">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </div>

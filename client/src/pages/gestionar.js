@@ -29,16 +29,16 @@ function Gestionar() {
   const nombre = params.nombre;
   const horarios = respuesta.horarios;
 
-  //   useEffect(() => {
-  //   if (data_localStorage) {
-  //     socket.emit("comprobar_token", data_localStorage);
-  //     socket.on("comprobar_token_res", (res) => {
-  //       if (res) {
-  //         setPermiso(true);
-  //       } else navigate(`/${nombre}`);
-  //     });
-  //   } else navigate(`/${nombre}`);
-  // });
+    useEffect(() => {
+    if (data_localStorage) {
+      socket.emit("comprobar_token", data_localStorage);
+      socket.on("comprobar_token_res", (res) => {
+        if (res) {
+          setPermiso(true);
+        } else navigate(`/${nombre}`);
+      });
+    } else navigate(`/${nombre}`);
+  });
 
   useEffect(() => {
     socket.emit("info-complejo", {
@@ -54,7 +54,7 @@ function Gestionar() {
   }, [reiniciar]);
 
   const sin_informacion = () => {
-    if (horarios === undefined && permiso) {
+    if (horarios === undefined && !permiso) {
       return (
         <div>
           <Backdrop
@@ -69,7 +69,7 @@ function Gestionar() {
   };
 
   const horarios_contenedor = () => {
-    if (horarios !== undefined && !permiso) {
+    if (horarios !== undefined && permiso) {
       return (
         <Horarios
           nombre={nombre}
@@ -83,7 +83,7 @@ function Gestionar() {
   };
 
   const reservar_contenedor = () => {
-    if (horarios !== undefined && !permiso) {
+    if (horarios !== undefined && permiso) {
       return (
         <div className="reservas_contenedor">
           <Reservas nombre={nombre} />

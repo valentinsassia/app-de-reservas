@@ -84,6 +84,7 @@ export const reservar = async (datos) => {
           dia,
           hora,
           cancha,
+          reserva: true,
         },
       }
     );
@@ -216,6 +217,30 @@ export const comprobar_token = async (datos) => {
     }
     if (!verificar.length) {
       socket.emit("comprobar_token_res", false);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const comprobar_reserva = async (datos) => {
+  try {
+    const socket = datos.socket;
+    let token = datos.peticion;
+
+    let usuario = await infousuarios.find({
+      token: { $eq: token },
+    });
+
+    let reserva = usuario[0]?.reserva;
+    let cancha = usuario[0]?.cancha;
+    let dia = usuario[0]?.dia;
+    let hora = usuario[0]?.hora;
+
+    if (reserva === true) {
+      socket.emit("comprobar_reserva_res", { reserva, dia, hora, cancha });
+    } else if (reserva !== true) {
+      socket.emit("comprobar_reserva_res", "no hay reserva");
     }
   } catch (error) {
     console.log(error);

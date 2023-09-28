@@ -15,6 +15,9 @@ function App() {
 
         <Route path="/:nombre" element={<Complejo />} />
 
+        <Route path="/register/misreservas" element={<Register />} />
+        <Route path="/misreservas" element={<Register />} />
+
         <Route
           path="/:nombre/register/:hora/:cancha/:dia/:fecha"
           element={<Register />}

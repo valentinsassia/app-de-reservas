@@ -9,8 +9,8 @@ function Menu({ condicion_menu, setCondicion_menu, nombre }) {
         className={`menu_desactivado ${condicion_menu ? `menu_activado` : ``}`}
       >
         <div>
-          <Link>
-            <p className="opciones desactivada">Soporte</p>
+          <Link to={`/register/misreservas`}>
+            <p className="opciones">Mis reservas</p>
           </Link>
           <Link to={`/${nombre}/login/gestionar`}>
             <p className="opciones">Mi complejo</p>
