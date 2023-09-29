@@ -1,0 +1,49 @@
+.contenedor_misreservas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #131313;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.contenedor_misreservas > ion-icon {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    top: 15%;
+    border-radius: 100px;
+    color: #1e1e1e;
+    background-color: #0a0a0a;
+}
+
+.contenedor_inferior {
+    width: 100%;
+    height: 78%;
+    background-color: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    padding: 70px 10px 10px 10px;
+}
+
+.contenedor_inferior > div {
+    display: flex;
+    align-items: center;
+    color: #6a6a6a;
+    margin-top: 10px;
+}
+
+.contenedor_inferior > div > ion-icon {
+    font-size: 1.7em; 
+    color: #ccccccb5;
+    margin-right: 10px ;
+}
+
+.contenedor_inferior > span {
+    width: 80%;
+    height: 1px;
+    margin-top: 20px;
+    background-color: #ffffff2e;
+    align-self: center;
+}

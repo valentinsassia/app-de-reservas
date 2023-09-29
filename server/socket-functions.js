@@ -54,6 +54,17 @@ export const info_complejo = async (datos) => {
           }
         ),
       ];
+      await infousuarios.updateMany(
+        {
+          dia: { $eq: ayer },
+          reserva: true,
+        },
+        {
+          $set: {
+            reserva: false,
+          },
+        }
+      );
     }
     socket.emit("info-complejo-res", complejo);
   } catch (error) {
@@ -228,19 +239,32 @@ export const comprobar_reserva = async (datos) => {
     const socket = datos.socket;
     let token = datos.peticion;
 
-    let usuario = await infousuarios.find({
+    let Usuario = await infousuarios.find({
       token: { $eq: token },
     });
 
-    let reserva = usuario[0]?.reserva;
-    let cancha = usuario[0]?.cancha;
-    let dia = usuario[0]?.dia;
-    let hora = usuario[0]?.hora;
+    let reserva = Usuario[0]?.reserva;
+    let cancha = Usuario[0]?.cancha;
+    let dia = Usuario[0]?.dia;
+    let hora = Usuario[0]?.hora;
+    let usuario = Usuario[0]?.usuario;
+    let telefono = Usuario[0]?.telefono;
 
     if (reserva === true) {
-      socket.emit("comprobar_reserva_res", { reserva, dia, hora, cancha });
+      socket.emit("comprobar_reserva_res", {
+        reserva,
+        dia,
+        hora,
+        cancha,
+        usuario,
+        telefono,
+      });
     } else if (reserva !== true) {
-      socket.emit("comprobar_reserva_res", "no hay reserva");
+      socket.emit("comprobar_reserva_res", {
+        respuesta: "no hay reserva",
+        usuario,
+        telefono,
+      });
     }
   } catch (error) {
     console.log(error);

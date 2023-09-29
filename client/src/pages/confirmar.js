@@ -20,8 +20,10 @@ function Confirmar() {
     socket.on("comprobar_reserva_res", (datos) => {
       if (datos?.reserva === true) {
         return navigate("/misreservas");
-      } else if (datos === "no hay reserva") {
+      } else if (datos?.respuesta === "no hay reserva") {
         setPermiso(true);
+        setValue("telefono", datos?.telefono);
+        setValue("nombre", datos?.usuario);
       }
     });
   }, []);
@@ -37,6 +39,7 @@ function Confirmar() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -127,7 +130,7 @@ function Confirmar() {
             autoComplete="off"
           ></input>
           <label className="label">Telefono</label>
-          {errors.nombre && (
+          {errors.telefono && (
             <span className="error">Telefono es requerido</span>
           )}
           <button className="boton_formulario">Confirmar</button>
