@@ -6,6 +6,7 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 import {
+  cancelar_reserva,
   comprobar_reserva,
   comprobar_token,
   confirmar_codigo,
@@ -45,6 +46,9 @@ io.on("connection", (socket) => {
     });
     socket.on("comprobar_reserva", (peticion) => {
       comprobar_reserva({ peticion, socket });
+    });
+    socket.on("cancelar_reserva", (peticion) => {
+      cancelar_reserva({ peticion, socket });
     });
   } catch (error) {
     console.log(error);

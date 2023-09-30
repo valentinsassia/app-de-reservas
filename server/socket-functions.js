@@ -96,6 +96,7 @@ export const reservar = async (datos) => {
           hora,
           cancha,
           reserva: true,
+          complejo: nombre,
         },
       }
     );
@@ -247,12 +248,14 @@ export const comprobar_reserva = async (datos) => {
     let cancha = Usuario[0]?.cancha;
     let dia = Usuario[0]?.dia;
     let hora = Usuario[0]?.hora;
+    let complejo = Usuario[0]?.complejo;
     let usuario = Usuario[0]?.usuario;
     let telefono = Usuario[0]?.telefono;
 
     if (reserva === true) {
       socket.emit("comprobar_reserva_res", {
         reserva,
+        complejo,
         dia,
         hora,
         cancha,
@@ -265,6 +268,58 @@ export const comprobar_reserva = async (datos) => {
         usuario,
         telefono,
       });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const cancelar_reserva = async (datos) => {
+  try {
+    const socket = datos.socket;
+
+    const nombre = datos.peticion.nombre;
+    const hora = datos.peticion.hora;
+    const dia = datos.peticion.dia;
+    const cancha = datos.peticion.cancha;
+
+    const token = datos.peticion.token;
+
+    let Usuario = await infousuarios.updateOne(
+      { token: { $eq: token } },
+      {
+        $set: {
+          complejo: "",
+          hora: "",
+          dia: "",
+          cancha: "",
+          reserva: false,
+        },
+      }
+    );
+
+    let complejo = await infocomplejo.updateOne(
+      {
+        nombre: { $eq: nombre },
+      },
+      {
+        $set: {
+          "horarios.$[a].horario.$[e].horas.$[i].estado": true,
+          "horarios.$[a].horario.$[e].horas.$[i].usuario": undefined,
+          "horarios.$[a].horario.$[e].horas.$[i].telefono": undefined,
+        },
+      },
+      {
+        arrayFilters: [
+          { "a.cancha": cancha },
+          { "e.dia": dia },
+          { "i.hora": hora },
+        ],
+      }
+    );
+    if (complejo.modifiedCount) {
+      socket.broadcast.emit(nombre, "");
+      socket.emit("cancelar_reserva_res", true);
     }
   } catch (error) {
     console.log(error);
