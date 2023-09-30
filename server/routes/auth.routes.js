@@ -22,7 +22,19 @@ router.get("/:nombre/register/:hora/:cancha/:dia/:fecha", (req, res) => {
   res.sendFile(join(__dirname, "../../client/build", "index.html"));
 });
 
+router.get("/:nombre/login/gestionar", (req, res) => {
+  res.sendFile(join(__dirname, "../../client/build", "index.html"));
+});
+
 router.get("/:nombre/gestionar", (req, res) => {
+  res.sendFile(join(__dirname, "../../client/build", "index.html"));
+});
+
+router.get("/register/misreservas", (req, res) => {
+  res.sendFile(join(__dirname, "../../client/build", "index.html"));
+});
+
+router.get("/misreservas", (req, res) => {
   res.sendFile(join(__dirname, "../../client/build", "index.html"));
 });
 

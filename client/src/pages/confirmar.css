@@ -20,6 +20,7 @@
 
 .contenedor_principal {
     width: 100%;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,7 +28,7 @@
 }
 
 .contenedor_principal > p {
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: white;
     margin-bottom: 30px;
 }
@@ -35,8 +36,8 @@
 .informacion_contenedor {
     width: 90%;
     padding: 20px;
-    background-color: #080808;
-    border-radius: 30px;
+    background-color: #0e0e0e;
+    border-radius: 20px;
     font-size: .9em;
     margin-bottom: 30px;
 }
@@ -44,15 +45,10 @@
 .informacion_contenedor > div {
     display: flex;
     justify-content: space-between;
-    margin: 5px 0;
 }
 
 .form {
-    margin-top: 15px;
-}
-
-.form > input {
-    margin-bottom: 40px;
+    margin-top: 17px;
 }
 
 .label {
@@ -60,8 +56,8 @@
     font-size: .9em;
 }
 
-.boton_font {
-    font-size: .9em !important;
+.boton_formulario {
+    margin-top: 30px !important;
 }
 
 /* // Media Queris */

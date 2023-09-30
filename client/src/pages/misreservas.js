@@ -111,11 +111,11 @@ function Misreservas() {
       <div className="contenedor_inferior">
         <div className="contenedor_informacion_">
           <ion-icon name="person-outline"></ion-icon>
-          <p>{`${informacion?.usuario ? informacion?.usuario : ""}`}</p>
+          <p>{`${informacion?.usuario ? informacion?.usuario : "Sin nombre"}`}</p>
         </div>
         <div className="contenedor_informacion_">
           <ion-icon name="call-outline"></ion-icon>
-          <p>{`${informacion?.telefono ? informacion?.telefono : ""}`}</p>
+          <p>{`${informacion?.telefono ? informacion?.telefono : "Sin telefono"}`}</p>
         </div>
         <span></span>
         {con_reserva()}

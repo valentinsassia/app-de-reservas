@@ -24,31 +24,32 @@
     background-color: #0a0a0a;
     display: flex;
     flex-direction: column;
-    padding: 70px 10px 10px 10px;
+    padding: 70px 13px 13px 13px;
 }
 
 .contenedor_informacion_ {
     display: flex;
     align-items: center;
     color: #6a6a6a;
-    margin-top: 10px;
+    margin-top: 17px;
 }
 
 .contenedor_informacion_ > ion-icon {
-    font-size: 1.7em; 
+    font-size: 1.5em; 
     color: #ccccccb5;
-    margin-right: 10px ;
+    margin-right: 15px ;
 }
 
 .contenedor_inferior > span {
     width: 80%;
     height: 1px;
-    margin-top: 20px;
+    margin-top: 13px;
     background-color: #ffffff2e;
     align-self: center;
 }
 
 .reserva {
+    width: 285px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -57,29 +58,31 @@
     color: #6a6a6a;
     border-radius: 20px;
     align-self: center;
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .con {
-    width: 285px;
-    padding: 10px;
+    padding: 20px;
 }
 
 .con_div {
     width: 100%;
-    padding: 0 15px;
+    margin-top: 8px;
     display: flex;
     justify-content: space-between;
+}
+
+.con_div:first-child {
+    margin-top: 0;
 }
 
 .boton_con {
     margin-top: 30px;
     align-self: center;
-    background-color: #de0000 !important;
+    background-color: #f10000 !important;
 }
 
 .sin {
-    width: 285px;
     height: 175px;
     font-size: 1.1em !important;
     font-weight: 200;
