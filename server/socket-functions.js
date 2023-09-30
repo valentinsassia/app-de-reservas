@@ -80,9 +80,11 @@ export const reservar = async (datos) => {
     const hora = datos.peticion.hora;
     const dia = datos.peticion.dia;
     const cancha = datos.peticion.cancha;
-    const usuario = datos.peticion?.usuario;
-    const telefono = datos.peticion?.telefono;
+    const usuario = datos.peticion?.usuario !== undefined ? datos.peticion?.usuario : "";
+    const telefono = datos.peticion?.telefono !== undefined ? datos.peticion?.telefono : null;
     const token = datos.peticion?.token;
+
+    console.log(telefono)
 
     let Usuario = await infousuarios.updateOne(
       {
@@ -101,7 +103,7 @@ export const reservar = async (datos) => {
       }
     );
 
-    if (Usuario.modifiedCount || usuario === undefined) {
+    if (Usuario.modifiedCount || telefono === null) {
       let complejo = await infocomplejo.updateOne(
         {
           nombre: { $eq: nombre },
