@@ -44,8 +44,8 @@ export const info_complejo = async (datos) => {
             $set: {
               ayer: ayer,
               "horarios.$[].horario.$[a].horas.$[e].estado": true,
-              "horarios.$[].horario.$[a].horas.$[e].usuario": undefined,
-              "horarios.$[].horario.$[a].horas.$[e].telefono": undefined,
+              "horarios.$[].horario.$[a].horas.$[e].usuario": "",
+              "horarios.$[].horario.$[a].horas.$[e].telefono": null,
             },
           },
           {
@@ -80,9 +80,9 @@ export const reservar = async (datos) => {
     const hora = datos.peticion.hora;
     const dia = datos.peticion.dia;
     const cancha = datos.peticion.cancha;
-    const usuario = datos.peticion.usuario;
-    const telefono = datos.peticion.telefono;
-    const token = datos.peticion.token;
+    const usuario = datos.peticion?.usuario;
+    const telefono = datos.peticion?.telefono;
+    const token = datos.peticion?.token;
 
     let Usuario = await infousuarios.updateOne(
       {
@@ -101,7 +101,7 @@ export const reservar = async (datos) => {
       }
     );
 
-    if (Usuario.modifiedCount) {
+    if (Usuario.modifiedCount || usuario === undefined) {
       let complejo = await infocomplejo.updateOne(
         {
           nombre: { $eq: nombre },
@@ -150,7 +150,7 @@ export const register_email = async (datos) => {
 
     await transporter.sendMail({
       from: EMAIL,
-      to: "valensassia2003@outlook.com",
+      to: `${email}`,
       subject: `${codigo}`,
       body: "hola",
     });
@@ -305,8 +305,8 @@ export const cancelar_reserva = async (datos) => {
       {
         $set: {
           "horarios.$[a].horario.$[e].horas.$[i].estado": true,
-          "horarios.$[a].horario.$[e].horas.$[i].usuario": undefined,
-          "horarios.$[a].horario.$[e].horas.$[i].telefono": undefined,
+          "horarios.$[a].horario.$[e].horas.$[i].usuario": "",
+          "horarios.$[a].horario.$[e].horas.$[i].telefono": null,
         },
       },
       {
