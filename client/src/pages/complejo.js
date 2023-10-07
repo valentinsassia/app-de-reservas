@@ -1,6 +1,7 @@
 import "./complejo.css";
 
 import Horarios from "./components/horarios/horarios.js";
+import Horarios_prueba from "./components/horarios_prueba/horarios_prueba";
 import Slider from "./components/slider/slider.js";
 import Navegacion from "./components/navegacion/navegacion.js";
 import Menu from "./components/menu/menu.js";
@@ -61,7 +62,13 @@ function Complejo() {
   const horarios_contenedor = () => {
     if (horarios !== undefined && navegacion) {
       return (
-        <Horarios
+        // <Horarios
+        //   nombre={nombre}
+        //   horarios={horarios}
+        //   num_cancha={num_cancha}
+        //   setCondicion_cancha={setCondicion_cancha}
+        // />
+        <Horarios_prueba
           nombre={nombre}
           horarios={horarios}
           num_cancha={num_cancha}
