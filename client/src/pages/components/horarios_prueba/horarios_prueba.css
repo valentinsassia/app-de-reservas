@@ -1,5 +1,5 @@
 .informacion {
-    background-color: #22222240 !important;
+    background-color: transparent !important;
     box-shadow: none !important;
 }
 
@@ -27,6 +27,7 @@
 }
 
 .seleccionarcancha {
+    margin-top: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
