@@ -11,7 +11,7 @@ import { EffectCoverflow } from "swiper/modules";
 import io from "socket.io-client";
 const socket = io();
 
-function Horarios_prueba({ horarios, num_cancha }) {
+function Horarios_prueba({ horarios, num_cancha, nombre }) {
   const { setInfoReservas } = useContext(Contextos);
 
   const [horaseleccionada, setHoraseleccionada] = useState();
@@ -161,10 +161,21 @@ function Horarios_prueba({ horarios, num_cancha }) {
           );
 
           return (
-            <div className={`${estado_cancha ? "disponible" : "nodisponible"}`}>
+            <Link
+              className={`${
+                estado_cancha ? "disponible" : "nodisponible"
+              } link_cancha`}
+              to={
+                estado_cancha === true &&
+                `/${nombre}/register/${horaseleccionada}/${num_cancha}/${dia}/${
+                  fecha_de_hoy + contador
+                }
+            `
+              }
+            >
               <p>Cancha {index + 1}</p>
               <ion-icon name="chevron-forward-outline"></ion-icon>
-            </div>
+            </Link>
           );
         })}
       </div>
