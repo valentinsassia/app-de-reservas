@@ -1,15 +1,12 @@
 .informacion {
-    background-color: transparent !important;
+    background-color: #22222240 !important;
     box-shadow: none !important;
-}
-
-.abajo>.swiper {
-    margin: 10px 0 20px 0;
 }
 
 .dia {
     width:165px;
     color: #b8b8b8;
+    border-radius: 0px;
 }
 
 .flecha {
@@ -34,7 +31,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 60%;
+    width: 64%;
 }
 
 .link_cancha {
@@ -49,7 +46,7 @@
     color: #b8b8b8;
 }
 
-.seleccionarcancha > div:first-child {
+.link_cancha:first-child {
     margin-top: 0;
 }
 
