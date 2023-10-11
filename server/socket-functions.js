@@ -80,11 +80,11 @@ export const reservar = async (datos) => {
     const hora = datos.peticion.hora;
     const dia = datos.peticion.dia;
     const cancha = datos.peticion.cancha;
-    const usuario = datos.peticion?.usuario !== undefined ? datos.peticion?.usuario : "";
-    const telefono = datos.peticion?.telefono !== undefined ? datos.peticion?.telefono : null;
+    const usuario =
+      datos.peticion?.usuario !== undefined ? datos.peticion?.usuario : "";
+    const telefono =
+      datos.peticion?.telefono !== undefined ? datos.peticion?.telefono : null;
     const token = datos.peticion?.token;
-
-    console.log(telefono)
 
     let Usuario = await infousuarios.updateOne(
       {
@@ -143,14 +143,29 @@ export const register_email = async (datos) => {
       codigo += caracteres;
     }
 
-    const newUsuario = new infousuarios({
-      email,
-      codigo: codigo,
+    const verificar = await infousuarios.find({
+      email: { $eq: email },
     });
+    if (verificar.length) {
+      await infousuarios.updateOne(
+        {
+          email: { $eq: email },
+        },
+        {
+          $set: { codigo },
+        }
+      );
+    }
+    if (!verificar.length) {
+      const newUsuario = new infousuarios({
+        email,
+        codigo: codigo,
+      });
 
-    await newUsuario.save();
+      await newUsuario.save();
+    }
 
-    await transporter.sendMail({
+    transporter.sendMail({
       from: EMAIL,
       to: `${email}`,
       subject: `${codigo}`,

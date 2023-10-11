@@ -14,11 +14,11 @@ router.get("/:nombre", (req, res) => {
   res.sendFile(join(__dirname, "../../client/build", "index.html"));
 });
 
-router.get("/:nombre/:hora/:cancha/:dia/:fecha", (req, res) => {
+router.get("/:nombre/:hora/:cancha/:dia/:fecha/:precio", (req, res) => {
   res.redirect("/La%20Esquina");
 });
 
-router.get("/:nombre/register/:hora/:cancha/:dia/:fecha", (req, res) => {
+router.get("/:nombre/register/:hora/:cancha/:dia/:fecha/:precio", (req, res) => {
   res.sendFile(join(__dirname, "../../client/build", "index.html"));
 });
 

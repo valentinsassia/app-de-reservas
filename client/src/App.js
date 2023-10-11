@@ -20,11 +20,11 @@ function App() {
         <Route path="/misreservas" element={<Misreservas />} />
 
         <Route
-          path="/:nombre/register/:hora/:cancha/:dia/:fecha"
+          path="/:nombre/register/:hora/:cancha/:dia/:fecha/:precio"
           element={<Register />}
         />
         <Route
-          path="/:nombre/:hora/:cancha/:dia/:fecha"
+          path="/:nombre/:hora/:cancha/:dia/:fecha/:precio"
           element={<Confirmar />}
         />
       </Routes>

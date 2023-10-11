@@ -51,6 +51,7 @@ function Confirmar() {
   let cancha = params.cancha;
   let dia = params.dia;
   let fecha = dia + " " + params.fecha;
+  let precio = params.precio
 
   const sin_informacion = () => {
     if (!permiso) {
@@ -108,6 +109,10 @@ function Confirmar() {
           <div>
             <p className="primario">Cancha</p>
             <p className="secundario">{cancha}</p>
+          </div>
+          <div>
+            <p className="primario">Precio</p>
+            <p className="secundario">${precio}</p>
           </div>
         </div>
         <form onSubmit={onSubmit}>

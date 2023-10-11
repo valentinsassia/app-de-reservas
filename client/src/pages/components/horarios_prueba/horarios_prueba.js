@@ -169,7 +169,7 @@ function Horarios_prueba({ horarios, num_cancha, nombre }) {
                 estado_cancha === true &&
                 `/${nombre}/register/${horaseleccionada}/${index + 1}/${dia}/${
                   fecha_de_hoy + contador
-                }
+                }/${elem.costo}
             `
               }
             >
