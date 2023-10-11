@@ -9,8 +9,8 @@
 }
 
 .contenedor_misreservas > ion-icon {
-    width: 120px;
-    height: 120px;
+    width: 110px;
+    height: 110px;
     position: absolute;
     top: 15%;
     border-radius: 100px;
@@ -35,13 +35,17 @@
 }
 
 .contenedor_informacion_ > ion-icon {
-    font-size: 1.5em; 
+    font-size: 1.4em; 
     color: #ccccccb5;
     margin-right: 15px ;
 }
 
+.contenedor_informacion_ > p {
+    font-size: .9em;
+}
+
 .contenedor_inferior > span {
-    width: 80%;
+    width: 90%;
     height: 1px;
     margin-top: 13px;
     background-color: #ffffff2e;

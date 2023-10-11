@@ -25,6 +25,7 @@ function Register() {
   let dia = params.dia;
   let cancha = params.cancha;
   let fecha = params.fecha;
+  let precio = params.precio
 
   const {
     register,
@@ -34,7 +35,7 @@ function Register() {
 
   useEffect(() => {
     if (data_localStorage && hora) {
-      return navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
+      return navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}/${precio}`);
     } else if (data_localStorage && !hora) {
       return navigate(`/misreservas`);
     } else setPermiso(true);
