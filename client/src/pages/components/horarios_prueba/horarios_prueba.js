@@ -8,9 +8,6 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
 
-import io from "socket.io-client";
-const socket = io();
-
 function Horarios_prueba({ horarios, num_cancha, nombre }) {
   const { setInfoReservas } = useContext(Contextos);
 
@@ -103,60 +100,6 @@ function Horarios_prueba({ horarios, num_cancha, nombre }) {
     });
   }, [horarios, Index, num_cancha]);
 
-  // const Boton = () => {
-  //   if (horaseleccionada && tipo !== "auto-reservar") {
-  //     return (
-  //       <Link
-  //         className="boton boton_activado"
-  //         to={`/${nombre}/register/${horaseleccionada}/${num_cancha}/${dia}/${
-  //           fecha_de_hoy + contador
-  //         }
-  //         `}
-  //       >
-  //         Continuar
-  //       </Link>
-  //     );
-  //   } else if (horaseleccionada && tipo === "auto-reservar") {
-  //     return (
-  //       <div
-  //         className="boton boton_activado"
-  //         onClick={() => {
-  //           socket.emit("reservar", {
-  //             nombre,
-  //             cancha: num_cancha,
-  //             hora: horaseleccionada,
-  //             dia: dia[0],
-  //           });
-  //         }}
-  //       >
-  //         Auto-Reservar
-  //       </div>
-  //     );
-  //   } else
-  //     return (
-  //       <div className="boton">{`${
-  //         tipo === "auto-reservar" ? "Auto-Reservar" : "Continuar"
-  //       }`}</div>
-  //     );
-  // };
-
-  // const ElegirCancha = () => {
-  //   return (
-  //     <>
-  //             <ion-icon name="caret-up-outline"></ion-icon>
-  //       <div
-  //         className="informacion cancha"
-  //         onClick={() => {
-  //           setCondicion_cancha(true);
-  //           setHoraseleccionada();
-  //         }}
-  //       >
-  //         Cancha {num_cancha}
-  //       </div>
-  //     </>
-  //   )
-  // }
-
   return (
     <>
       <div className="contenedor_informacion">
@@ -203,7 +146,7 @@ function Horarios_prueba({ horarios, num_cancha, nombre }) {
           );
         })}
       </Swiper>
-      <span className="span"></span>
+
       <div className="seleccionarcancha">
         {horarios.map((elem, index) => {
           let dia_cancha = elem.horario.filter((elem) => {

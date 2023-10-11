@@ -22,6 +22,12 @@ const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server);
 
+const fecha = new Date();
+
+fecha.setMinutes(fecha.getMinutes() - fecha.getTimezoneOffset());
+
+console.log(fecha)
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 io.on("connection", (socket) => {
