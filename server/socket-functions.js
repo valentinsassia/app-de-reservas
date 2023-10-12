@@ -29,11 +29,6 @@ export const info_complejo = async (datos) => {
       ayer = "Sabado";
     }
 
-    var fechaa = new Date(fecha.valueOf() - fecha.getTimezoneOffset() * 60000);
-
-    console.log(fecha);
-    console.log(fechaa);
-
     let complejo = await infocomplejo.find({
       nombre: { $eq: nombre },
     });

@@ -24,10 +24,9 @@ const io = new SocketServer(server);
 
 var fecha = new Date();
 
-var fechaa = new Date(fecha.valueOf() - fecha.getTimezoneOffset() * 60000);
+console.log(fecha.getHours())
+console.log(fecha.getUTCHours())
 
-console.log(fecha)
-console.log(fechaa)
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
