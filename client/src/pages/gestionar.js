@@ -1,8 +1,7 @@
 import "./gestionar.css";
 
-import Horarios from "./components/horarios/horarios.js";
-import Barrainferior from "./components/barrainferior/barrainferior.js";
 import Reservas from "./components/reservas/reservas.js";
+import Horarios_gestionar from "./components/horarios_gestionar/horarios_gestionar.js";
 
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -71,7 +70,7 @@ function Gestionar() {
   const horarios_contenedor = () => {
     if (horarios !== undefined && permiso) {
       return (
-        <Horarios
+        <Horarios_gestionar
           nombre={nombre}
           horarios={horarios}
           tipo={"auto-reservar"}
@@ -130,10 +129,6 @@ function Gestionar() {
       </div>
 
       <>{elegir_canchas()}</>
-
-      {/* <>
-        <Barrainferior />
-      </> */}
 
       <div
         className={`${condicion_cancha ? `cortina` : ``}`}

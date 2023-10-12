@@ -1,6 +1,4 @@
-import "./horarios_prueba.css";
-
-import { Contextos } from "../../../context/context";
+import "./horarios_complejo.css";
 
 import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -8,8 +6,7 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
 
-function Horarios_prueba({ horarios, num_cancha, nombre }) {
-  const { setInfoReservas } = useContext(Contextos);
+function Horarios_complejo({ horarios, num_cancha, nombre }) {
 
   const [horaseleccionada, setHoraseleccionada] = useState();
   const [Index, setIndex] = useState(0);
@@ -90,20 +87,10 @@ function Horarios_prueba({ horarios, num_cancha, nombre }) {
 
   let horas = informacion_dia[0].horas;
 
-  useEffect(() => {
-    setInfoReservas({
-      reservas: horas.filter((elem) => {
-        return elem.estado === false;
-      }),
-      dia,
-      num_cancha,
-    });
-  }, [horarios, Index, num_cancha]);
-
   return (
     <>
       <div className="contenedor_informacion">
-        <div className="informacion dia">
+        <div className="informacion Complejo">
           <div className="flecha izquierda" onClick={restar}>
             <ion-icon name="caret-back-outline"></ion-icon>
           </div>
@@ -180,4 +167,4 @@ function Horarios_prueba({ horarios, num_cancha, nombre }) {
   );
 }
 
-export default Horarios_prueba;
+export default Horarios_complejo;

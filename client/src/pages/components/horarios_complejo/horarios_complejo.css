@@ -1,19 +1,18 @@
-.informacion {
-    background-color: transparent !important;
-    box-shadow: none !important;
-}
-
-.dia {
+.Complejo {
+    position: relative;
     width:165px;
     color: #b8b8b8;
     border-radius: 0px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    z-index: 1;
 }
 
-.flecha {
+.Complejo>.flecha {
     color: #747474 !important;
 }
 
-.izquierda, .derecha {
+.Complejo>.izquierda, .Complejo>.derecha {
     border: none;
 }
 

@@ -1,7 +1,6 @@
 import "./complejo.css";
 
-import Horarios from "./components/horarios/horarios.js";
-import Horarios_prueba from "./components/horarios_prueba/horarios_prueba";
+import Horarios_complejo from "./components/horarios_complejo/horarios_complejo";
 import Slider from "./components/slider/slider.js";
 import Navegacion from "./components/navegacion/navegacion.js";
 import Menu from "./components/menu/menu.js";
@@ -20,7 +19,6 @@ function Complejo() {
   const params = useParams();
 
   const [condicion_menu, setCondicion_menu] = useState(false);
-  const [condicion_cancha, setCondicion_cancha] = useState(false);
   const [num_cancha, setNum_cancha] = useState(1);
   const [navegacion, setNavegacion] = useState(true);
 
@@ -62,17 +60,10 @@ function Complejo() {
   const horarios_contenedor = () => {
     if (horarios !== undefined && navegacion) {
       return (
-        // <Horarios
-        //   nombre={nombre}
-        //   horarios={horarios}
-        //   num_cancha={num_cancha}
-        //   setCondicion_cancha={setCondicion_cancha}
-        // />
-        <Horarios_prueba
+        <Horarios_complejo
           nombre={nombre}
           horarios={horarios}
           num_cancha={num_cancha}
-          setCondicion_cancha={setCondicion_cancha}
         />
       );
     } else if (respuesta !== "0" && !navegacion) {
@@ -83,31 +74,6 @@ function Complejo() {
   const imagenes_contenedor = () => {
     if (imagenes !== undefined) {
       return <Slider imagenes={imagenes} />;
-    }
-  };
-
-  const elegir_canchas = () => {
-    if (condicion_cancha) {
-      return (
-        <div className="contenedor elegir_canchas">
-          {horarios.map((elem, index) => {
-            return (
-              <div
-                className={`${
-                  num_cancha == elem.cancha ? `cancha_seleccionada` : ``
-                }`}
-                onClick={() => {
-                  setNum_cancha(elem.cancha);
-                  setCondicion_cancha(false);
-                }}
-                key={index}
-              >
-                Cancha {elem.cancha}
-              </div>
-            );
-          })}
-        </div>
-      );
     }
   };
 
@@ -130,13 +96,10 @@ function Complejo() {
       <div className="contenedor medio">{imagenes_contenedor()}</div>
       <div className="contenedor abajo">{horarios_contenedor()}</div>
 
-      {elegir_canchas()}
-
       <div
-        className={`${condicion_menu || condicion_cancha ? `cortina` : ``}`}
+        className={`${condicion_menu ? `cortina` : ``}`}
         onClick={() => {
           setCondicion_menu(false);
-          setCondicion_cancha(false);
         }}
       ></div>
     </div>

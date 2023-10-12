@@ -1,9 +1,8 @@
-import "./horarios.css";
+import "./horarios_gestionar.css";
 
 import { Contextos } from "../../../context/context";
 
 import { useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
@@ -11,7 +10,7 @@ import { EffectCoverflow } from "swiper/modules";
 import io from "socket.io-client";
 const socket = io();
 
-function Horarios({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
+function Horarios_gestionar({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
   const { setInfoReservas } = useContext(Contextos);
 
   const [horaseleccionada, setHoraseleccionada] = useState();
@@ -104,19 +103,7 @@ function Horarios({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
   }, [horarios, Index, num_cancha]);
 
   const Boton = () => {
-    if (horaseleccionada && tipo !== "auto-reservar") {
-      return (
-        <Link
-          className="boton boton_activado"
-          to={`/${nombre}/register/${horaseleccionada}/${num_cancha}/${dia}/${
-            fecha_de_hoy + contador
-          }
-          `}
-        >
-          Continuar
-        </Link>
-      );
-    } else if (horaseleccionada && tipo === "auto-reservar") {
+    if (horaseleccionada && tipo === "auto-reservar") {
       return (
         <div
           className="boton boton_activado"
@@ -132,12 +119,7 @@ function Horarios({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
           Auto-Reservar
         </div>
       );
-    } else
-      return (
-        <div className="boton">{`${
-          tipo === "auto-reservar" ? "Auto-Reservar" : "Continuar"
-        }`}</div>
-      );
+    } else return <div className="boton">Auto-Reservar</div>;
   };
 
   return (
@@ -206,4 +188,4 @@ function Horarios({ nombre, horarios, tipo, num_cancha, setCondicion_cancha }) {
   );
 }
 
-export default Horarios;
+export default Horarios_gestionar;
