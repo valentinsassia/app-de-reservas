@@ -24,7 +24,9 @@ const io = new SocketServer(server);
 
 const fecha = new Date();
 
-fecha.setMinutes(fecha.getMinutes() - fecha.getTimezoneOffset());
+console.log(fecha.toLocaleString())
+
+console.log(fecha.getDay())
 
 console.log(fecha)
 

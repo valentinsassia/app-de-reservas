@@ -24,14 +24,10 @@ export const info_complejo = async (datos) => {
       "Viernes",
       "Sabado",
     ];
-    console.log(fecha)
     let ayer = dias[fecha.getDay() - 1];
-    console.log(fecha)
     if (ayer == undefined) {
       ayer = "Sabado";
     }
-
-
 
     let complejo = await infocomplejo.find({
       nombre: { $eq: nombre },
