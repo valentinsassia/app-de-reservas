@@ -28,8 +28,6 @@ export const info_complejo = async (datos) => {
       ayer = "Sabado";
     }
 
-    console.log(ayer)
-
     let complejo = await infocomplejo.find({
       nombre: { $eq: nombre },
     });

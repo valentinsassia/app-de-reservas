@@ -45,7 +45,7 @@ function Register() {
     socket.on("confirmar_codigo_res", (respuesta) => {
       if (respuesta.condicion && hora) {
         localStorage.setItem("token", respuesta.token);
-        navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}`);
+        navigate(`/${nombre}/${hora}/${cancha}/${dia}/${fecha}/${precio}`);
       } else if (respuesta.condicion && !hora) {
         localStorage.setItem("token", respuesta.token);
         navigate(`/misreservas`);
