@@ -22,11 +22,8 @@ const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server);
 
-var fecha = new Date();
-
-console.log(fecha.getHours())
-console.log(fecha.getUTCHours())
-
+process.env.TZ = 'America/Argentina/Buenos_Aires';
+console.log(new Date().toString())
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
