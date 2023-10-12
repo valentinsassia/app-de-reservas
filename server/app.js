@@ -23,9 +23,6 @@ const server = http.createServer(app);
 const io = new SocketServer(server);
 
 process.env.TZ = 'America/Argentina/Buenos_Aires';
-let fecha = new Date()
-console.log(fecha.toLocaleTimeString())
-console.log(fecha.getDay())
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

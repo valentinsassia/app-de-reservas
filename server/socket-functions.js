@@ -12,9 +12,8 @@ export const info_complejo = async (datos) => {
 
     let nombre = datos.peticion.nombre;
 
-    const fecha = new Date();
-
-    fecha.setMinutes(fecha.getMinutes() - fecha.getTimezoneOffset());
+    let fecha = new Date()
+    fecha.toLocaleTimeString()
     let dias = [
       "Domingo",
       "Lunes",
@@ -28,6 +27,8 @@ export const info_complejo = async (datos) => {
     if (ayer == undefined) {
       ayer = "Sabado";
     }
+
+    console.log(ayer)
 
     let complejo = await infocomplejo.find({
       nombre: { $eq: nombre },
