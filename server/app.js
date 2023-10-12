@@ -22,11 +22,9 @@ const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server);
 
-const fecha = new Date();
+var fecha = new Date();
 
-console.log(fecha.toLocaleString())
-
-console.log(fecha.getDay())
+fecha = new Date(fecha.valueOf() - fecha.getTimezoneOffset() * 60000);
 
 console.log(fecha)
 
