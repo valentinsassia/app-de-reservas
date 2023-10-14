@@ -109,7 +109,7 @@ function Misreservas() {
       </div>
       <ion-icon name="person-circle-outline"></ion-icon>
       <div className="contenedor_inferior">
-        <div className="contenedor_informacion_">
+        <div className="contenedor_informacion_" onClick={() => localStorage.removeItem("token")}>
           <ion-icon name="person-outline"></ion-icon>
           <p>{`${informacion?.usuario ? informacion?.usuario : "Sin nombre"}`}</p>
         </div>

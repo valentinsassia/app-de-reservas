@@ -54,11 +54,11 @@ function Reservas({ nombre }) {
               >
                 <div>
                   <ion-icon name="person-outline"></ion-icon>
-                  <p>{elem.usuario === undefined ? "-" : elem.usuario}</p>
+                  <p>{elem.usuario === "" ? "-" : elem.usuario}</p>
                 </div>
                 <div>
                   <ion-icon name="call-outline"></ion-icon>
-                  <p>{elem.telefono === undefined ? "-" : elem.telefono}</p>
+                  <p>{elem.telefono === null ? "-" : elem.telefono}</p>
                 </div>
               </div>
             </>
