@@ -133,6 +133,7 @@ function Confirmar() {
               required: true,
             })}
             autoComplete="off"
+            disabled
           ></input>
           <label className="label">Telefono</label>
           {errors.telefono && (
