@@ -3,9 +3,6 @@ import infousuarios from "./models/infousuarios.js";
 
 import jwt from "jsonwebtoken";
 
-// import { transporter } from "./helpers/mail.js";
-// import { EMAIL } from "./config.js";
-
 import twilio from "twilio";
 
 import {
@@ -101,7 +98,6 @@ export const reservar = async (datos) => {
       {
         $set: {
           usuario,
-          telefono,
           dia,
           hora,
           cancha,
@@ -147,7 +143,7 @@ export const register_telefono = async (datos) => {
 
     let telefono = datos.peticion.telefono;
 
-    const { status } = await twilioClient.verify.v2
+    await twilioClient.verify.v2
       .services(TWILIO_SERVICE_SID)
       .verifications.create({
         to: telefono,
@@ -174,8 +170,24 @@ export const confirmar_codigo = async (datos) => {
       });
 
     if (status === "approved") {
-      console.log("correcto");
-    } else console.log("incorrecto");
+      jwt.sign({ telefono }, "secreto", async (error, token) => {
+        if (error) console.log(error);
+        const verificar = await infousuarios.find({
+          telefono: { $eq: telefono },
+        });
+        if (verificar.length) {
+          socket.emit("confirmar_codigo_res", { token, condicion: true });
+        }
+        if (!verificar.length) {
+          const newUsuario = new infousuarios({
+            telefono,
+            token,
+          });
+          await newUsuario.save();
+          socket.emit("confirmar_codigo_res", { token, condicion: true });
+        }
+      });
+    } else socket.emit("confirmar_codigo_res", { condicion: false });
   } catch (error) {
     console.log(error);
   }

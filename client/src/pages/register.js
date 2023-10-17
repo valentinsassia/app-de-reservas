@@ -95,7 +95,7 @@ function Register() {
               <button className="boton_formulario">Enviar</button>
             </form>
           </div>
-          <p className="p_2">Te enviaremos un codigo para verificar el telefono</p>
+          <p className="p_2">Te enviaremos un codigo a whatsapp para verificar</p>
         </>
       );
     }
@@ -126,7 +126,7 @@ function Register() {
               <button className="boton_formulario">Verificar codigo</button>
             </form>
           </div>
-          <p className="p_2">¡Revisa tu email!</p>
+          <p className="p_2">¡Revisa tu whatsapp!</p>
         </>
       );
     }
