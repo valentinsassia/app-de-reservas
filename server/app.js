@@ -12,7 +12,7 @@ import {
   confirmar_codigo,
   info_complejo,
   login,
-  register_email,
+  register_telefono,
   reservar,
 } from "./socket-functions.js";
 
@@ -34,8 +34,8 @@ io.on("connection", (socket) => {
     socket.on("reservar", (peticion) => {
       reservar({ peticion, socket });
     });
-    socket.on("register_email", (peticion) => {
-      register_email({ peticion });
+    socket.on("register_telefono", (peticion) => {
+      register_telefono({ peticion });
     });
     socket.on("confirmar_codigo", (peticion) => {
       confirmar_codigo({ peticion, socket });

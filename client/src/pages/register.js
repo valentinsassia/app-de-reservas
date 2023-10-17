@@ -73,29 +73,29 @@ function Register() {
 
   const formulario_email = () => {
     if (condicion && permiso) {
-      const onSubmit_email = handleSubmit((email) => {
-        socket.emit("register_email", email);
+      const onSubmit_telefono = handleSubmit((telefono) => {
+        socket.emit("register_telefono", telefono);
         setCondicion(false);
       });
       return (
         <>
           <div className="formulario">
-            <form onSubmit={onSubmit_email}>
+            <form onSubmit={onSubmit_telefono}>
               <input
                 type="text"
-                {...register("email", {
+                {...register("telefono", {
                   required: true,
                 })}
                 autoComplete="off"
               ></input>
-              <label>Email</label>
-              {errors.email && (
-                <span className="error">Email es requerido</span>
+              <label>Telefono</label>
+              {errors.telefono && (
+                <span className="error">Telefono es requerido</span>
               )}
               <button className="boton_formulario">Enviar</button>
             </form>
           </div>
-          <p className="p_2">Te enviaremos un codigo para verificar el email</p>
+          <p className="p_2">Te enviaremos un codigo para verificar el telefono</p>
         </>
       );
     }
@@ -105,7 +105,7 @@ function Register() {
     if (!condicion) {
       const onSubmit_codigo = handleSubmit((datos) => {
         socket.emit("confirmar_codigo", {
-          email: datos.email,
+          telefono: datos.telefono,
           codigo: datos.codigo,
         });
         setPermiso(false);

@@ -3,8 +3,16 @@ import infousuarios from "./models/infousuarios.js";
 
 import jwt from "jsonwebtoken";
 
-import { transporter } from "./helpers/mail.js";
-import { EMAIL } from "./config.js";
+// import { transporter } from "./helpers/mail.js";
+// import { EMAIL } from "./config.js";
+
+import twilio from "twilio";
+
+import {
+  TWILIO_ACCOUNT_SID,
+  TWILIO_SERVICE_SID,
+  TWILIO_AUTH_TOKEN,
+} from "./config.js";
 
 export const info_complejo = async (datos) => {
   try {
@@ -12,8 +20,8 @@ export const info_complejo = async (datos) => {
 
     let nombre = datos.peticion.nombre;
 
-    let fecha = new Date()
-    fecha.toLocaleTimeString()
+    let fecha = new Date();
+    fecha.toLocaleTimeString();
     let dias = [
       "Domingo",
       "Lunes",
@@ -133,44 +141,18 @@ export const reservar = async (datos) => {
   }
 };
 
-export const register_email = async (datos) => {
+export const register_telefono = async (datos) => {
   try {
-    let email = datos.peticion.email;
+    const twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
-    let codigo = "";
-    for (let index = 0; index <= 5; index++) {
-      let caracteres = Math.ceil(Math.random() * 9);
-      codigo += caracteres;
-    }
+    let telefono = datos.peticion.telefono;
 
-    const verificar = await infousuarios.find({
-      email: { $eq: email },
-    });
-    if (verificar.length) {
-      await infousuarios.updateOne(
-        {
-          email: { $eq: email },
-        },
-        {
-          $set: { codigo },
-        }
-      );
-    }
-    if (!verificar.length) {
-      const newUsuario = new infousuarios({
-        email,
-        codigo: codigo,
+    const { status } = await twilioClient.verify.v2
+      .services(TWILIO_SERVICE_SID)
+      .verifications.create({
+        to: telefono,
+        channel: "whatsapp",
       });
-
-      await newUsuario.save();
-    }
-
-    transporter.sendMail({
-      from: EMAIL,
-      to: `${email}`,
-      subject: `${codigo}`,
-      body: "hola",
-    });
   } catch (error) {
     console.log(error);
   }
@@ -179,22 +161,21 @@ export const register_email = async (datos) => {
 export const confirmar_codigo = async (datos) => {
   try {
     const socket = datos.socket;
-    let email = datos.peticion.email;
-    let codigo = datos.peticion.codigo;
+    let telefono = datos.peticion.telefono;
+    let code = datos.peticion.codigo;
 
-    jwt.sign({ email }, "secreto", async (error, token) => {
-      if (error) console.log(error);
-      const verificar = await infousuarios.updateOne(
-        {
-          email: { $eq: email },
-          codigo: { $eq: codigo },
-        },
-        { $set: { token } }
-      );
-      if (verificar.modifiedCount) {
-        socket.emit("confirmar_codigo_res", { token, condicion: true });
-      } else socket.emit("confirmar_codigo_res", { condicion: false });
-    });
+    const twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+
+    const { status } = await twilioClient.verify.v2
+      .services(TWILIO_SERVICE_SID)
+      .verificationChecks.create({
+        to: telefono,
+        code,
+      });
+
+    if (status === "approved") {
+      console.log("correcto");
+    } else console.log("incorrecto");
   } catch (error) {
     console.log(error);
   }
