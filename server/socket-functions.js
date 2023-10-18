@@ -143,7 +143,7 @@ export const register_telefono = async (datos) => {
 
     let telefono = datos.peticion.telefono;
 
-    console.log(telefono)
+    console.log(telefono);
 
     const { status } = await twilioClient.verify.v2
       .services(TWILIO_SERVICE_SID)
@@ -175,20 +175,22 @@ export const confirmar_codigo = async (datos) => {
     if (status === "approved") {
       jwt.sign({ telefono }, "secreto", async (error, token) => {
         if (error) console.log(error);
-        const verificar = await infousuarios.find({
-          telefono: { $eq: telefono },
-        });
-        if (verificar.length) {
-          socket.emit("confirmar_codigo_res", { token, condicion: true });
-        }
-        if (!verificar.length) {
+        const verificar = await infousuarios.findOneAndUpdate(
+          {
+            telefono: { $eq: telefono },
+          },
+          {
+            $set: { token: token },
+          }
+        );
+        if (verificar === null) {
           const newUsuario = new infousuarios({
             telefono,
             token,
           });
           await newUsuario.save();
-          socket.emit("confirmar_codigo_res", { token, condicion: true });
-        }
+        } 
+        socket.emit("confirmar_codigo_res", { token, condicion: true });
       });
     } else socket.emit("confirmar_codigo_res", { condicion: false });
   } catch (error) {
@@ -276,6 +278,7 @@ export const comprobar_reserva = async (datos) => {
         telefono,
       });
     } else if (reserva !== true) {
+      console.log(usuario)
       socket.emit("comprobar_reserva_res", {
         respuesta: "no hay reserva",
         usuario,
