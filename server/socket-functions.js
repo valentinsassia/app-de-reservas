@@ -143,11 +143,13 @@ export const register_telefono = async (datos) => {
 
     let telefono = datos.peticion.telefono;
 
+    console.log(telefono)
+
     const { status } = await twilioClient.verify.v2
       .services(TWILIO_SERVICE_SID)
       .verifications.create({
         to: telefono,
-        channel: "whatsapp",
+        channel: "sms",
       });
     console.log(status);
   } catch (error) {

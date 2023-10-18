@@ -95,7 +95,7 @@ function Register() {
               <button className="boton_formulario">Enviar</button>
             </form>
           </div>
-          <p className="p_2">Te enviaremos un codigo a whatsapp para verificar</p>
+          <p className="p_2">Te enviaremos un codigo para verificar tu numero</p>
         </>
       );
     }
