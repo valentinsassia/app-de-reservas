@@ -25,7 +25,7 @@ function Register() {
   let dia = params.dia;
   let cancha = params.cancha;
   let fecha = params.fecha;
-  let precio = params.precio
+  let precio = params.precio;
 
   const {
     register,
@@ -71,7 +71,7 @@ function Register() {
     }
   };
 
-  const formulario_email = () => {
+  const formulario_telefono = () => {
     if (condicion && permiso) {
       const onSubmit_telefono = handleSubmit((telefono) => {
         socket.emit("register_telefono", telefono);
@@ -81,7 +81,12 @@ function Register() {
         <>
           <div className="formulario">
             <form onSubmit={onSubmit_telefono}>
+              <div className="codigoarea">
+                <img src="https://alquilatucancha.com/static/flags/AR.png"></img>
+                <p>+54</p>
+              </div>
               <input
+              className="input_telefono"
                 type="text"
                 {...register("telefono", {
                   required: true,
@@ -95,7 +100,9 @@ function Register() {
               <button className="boton_formulario">Enviar</button>
             </form>
           </div>
-          <p className="p_2">Te enviaremos un codigo para verificar tu numero</p>
+          <p className="p_2">
+            Te enviaremos un codigo para verificar tu numero
+          </p>
         </>
       );
     }
@@ -126,7 +133,7 @@ function Register() {
               <button className="boton_formulario">Verificar codigo</button>
             </form>
           </div>
-          <p className="p_2">¡Revisa tu whatsapp!</p>
+          <p className="p_2">¡Revisa tu celular!</p>
         </>
       );
     }
@@ -148,7 +155,7 @@ function Register() {
       >
         <ion-icon name="arrow-back-outline"></ion-icon>
       </div>
-      {formulario_email()}
+      {formulario_telefono()}
       {formulario_codigo()}
     </div>
   );

@@ -137,21 +137,19 @@ export const reservar = async (datos) => {
   }
 };
 
+
 export const register_telefono = async (datos) => {
   try {
     const twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
     let telefono = datos.peticion.telefono;
 
-    console.log(telefono);
-
     const { status } = await twilioClient.verify.v2
       .services(TWILIO_SERVICE_SID)
       .verifications.create({
-        to: telefono,
+        to: "+54"+telefono,
         channel: "sms",
       });
-    console.log(status);
   } catch (error) {
     console.log(error);
   }
@@ -197,6 +195,7 @@ export const confirmar_codigo = async (datos) => {
     console.log(error);
   }
 };
+
 
 export const login = async (datos) => {
   try {
@@ -249,6 +248,7 @@ export const comprobar_token = async (datos) => {
     console.log(error);
   }
 };
+
 
 export const comprobar_reserva = async (datos) => {
   try {
