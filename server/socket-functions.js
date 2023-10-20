@@ -142,7 +142,7 @@ export const register_telefono = async (datos) => {
   try {
     const twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
-    let telefono = "54"+datos.peticion.telefono;
+    let telefono = "+54"+datos.peticion.telefono;
 
     const { status } = await twilioClient.verify.v2
       .services(TWILIO_SERVICE_SID)
@@ -158,7 +158,7 @@ export const register_telefono = async (datos) => {
 export const confirmar_codigo = async (datos) => {
   try {
     const socket = datos.socket;
-    let telefono = "54"+datos.peticion.telefono;
+    let telefono = "+54"+datos.peticion.telefono;
     let code = datos.peticion.codigo;
 
     const twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
