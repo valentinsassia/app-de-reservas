@@ -7,6 +7,8 @@ function Informacion({ informacion }) {
   return (
     <>
       <div className="contenedor_datos">
+        <p className="titulo">Información del club</p>
+        <span></span>
         <p className="primario">Complejo</p>
         <p className="secundario">{informacion.nombre}</p>
         <p className="primario">Horarios</p>

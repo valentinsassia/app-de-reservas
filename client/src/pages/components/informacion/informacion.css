@@ -5,16 +5,31 @@
     display: flex;
     flex-direction: column;
     align-items: start;
-    padding-left: 15px;
+    padding: 0 15px 0 15px;
+}
+
+.titulo {
+    color: #b8b8b8;
+    font-size: 1em;
+    margin-bottom: 10px;
+    align-self: center;
+}
+
+.contenedor_datos > span {
+    width: 80%;
+    height: 1px;
+    align-self: center;
+    background-color: #b8b8b84a;
+    margin-bottom: 20px;
 }
 
 .primario {
     font-size: 1em;
-    color: #e1e1e1c7;
+    color: #b8b8b8;
 }
 
 .secundario {
     font-size: .9em;
-    color: #cccc;
+    color: #b8b8b887;
     margin-bottom: 10px;
 }
