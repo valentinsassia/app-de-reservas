@@ -16,14 +16,18 @@ function Confirmar() {
   const [permiso, setPermiso] = useState(false);
 
   useEffect(() => {
-    socket.emit("comprobar_reserva", token);
+    socket.emit("comprobar_reserva", {token, dia});
     socket.on("comprobar_reserva_res", (datos) => {
-      if (datos?.reserva === true) {
+      if (datos?.respuesta === "hay reserva") {
         return navigate("/misreservas");
       } else if (datos?.respuesta === "no hay reserva") {
         setPermiso(true);
         setValue("telefono", datos?.telefono);
         setValue("nombre", datos?.usuario);
+      }
+      else if (datos?.respuesta === "no hay usuario") {
+        localStorage.removeItem("token")
+        navigate(`/${nombre}`);
       }
     });
   }, []);

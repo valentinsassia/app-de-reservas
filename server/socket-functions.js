@@ -61,13 +61,10 @@ export const info_complejo = async (datos) => {
       ];
       await infousuarios.updateMany(
         {
-          dia: { $eq: ayer },
-          reserva: true,
+          "reservas.dia": ayer,
         },
         {
-          $set: {
-            reserva: false,
-          },
+          $pull: { reservas: { dia: ayer } },
         }
       );
     }
@@ -96,13 +93,14 @@ export const reservar = async (datos) => {
         token: { $eq: token },
       },
       {
-        $set: {
-          usuario,
-          dia,
-          hora,
-          cancha,
-          reserva: true,
-          complejo: nombre,
+        usuario,
+        $addToSet: {
+          reservas: {
+            dia,
+            hora,
+            cancha,
+            complejo: nombre,
+          },
         },
       }
     );
@@ -137,12 +135,11 @@ export const reservar = async (datos) => {
   }
 };
 
-
 export const register_telefono = async (datos) => {
   try {
     const twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
-    let telefono = "+54"+datos.peticion.telefono;
+    let telefono = "+54" + datos.peticion.telefono;
 
     const { status } = await twilioClient.verify.v2
       .services(TWILIO_SERVICE_SID)
@@ -158,7 +155,7 @@ export const register_telefono = async (datos) => {
 export const confirmar_codigo = async (datos) => {
   try {
     const socket = datos.socket;
-    let telefono = "+54"+datos.peticion.telefono;
+    let telefono = "+54" + datos.peticion.telefono;
     let code = datos.peticion.codigo;
 
     const twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
@@ -187,7 +184,7 @@ export const confirmar_codigo = async (datos) => {
             token,
           });
           await newUsuario.save();
-        } 
+        }
         socket.emit("confirmar_codigo_res", { token, condicion: true });
       });
     } else socket.emit("confirmar_codigo_res", { condicion: false });
@@ -195,7 +192,6 @@ export const confirmar_codigo = async (datos) => {
     console.log(error);
   }
 };
-
 
 export const login = async (datos) => {
   try {
@@ -249,36 +245,40 @@ export const comprobar_token = async (datos) => {
   }
 };
 
-
 export const comprobar_reserva = async (datos) => {
   try {
     const socket = datos.socket;
-    let token = datos.peticion;
+    let token = datos.peticion?.token;
+    let dia_frontend = datos.peticion?.dia;
 
     let Usuario = await infousuarios.find({
       token: { $eq: token },
     });
 
-    let reserva = Usuario[0]?.reserva;
-    let cancha = Usuario[0]?.cancha;
-    let dia = Usuario[0]?.dia;
-    let hora = Usuario[0]?.hora;
-    let complejo = Usuario[0]?.complejo;
+    if (!Usuario.length) {
+      return socket.emit("comprobar_reserva_res", {
+        respuesta: "no hay usuario",
+      });
+    }
+
+    let reservas = Usuario[0]?.reservas;
+
+    let comprobar = reservas?.filter((e) => e.dia === dia_frontend);
+
+    let dia = comprobar[0]?.dia;
+
     let usuario = Usuario[0]?.usuario;
     let telefono = Usuario[0]?.telefono;
 
-    if (reserva === true) {
+    if (dia !== undefined || dia_frontend === undefined) {
       socket.emit("comprobar_reserva_res", {
-        reserva,
-        complejo,
-        dia,
-        hora,
-        cancha,
+        respuesta: "hay reserva",
+        reservas,
         usuario,
         telefono,
       });
-    } else if (reserva !== true) {
-      console.log(usuario)
+    }
+    if (dia === undefined && dia_frontend !== undefined) {
       socket.emit("comprobar_reserva_res", {
         respuesta: "no hay reserva",
         usuario,
@@ -301,16 +301,12 @@ export const cancelar_reserva = async (datos) => {
 
     const token = datos.peticion.token;
 
-    let Usuario = await infousuarios.updateOne(
-      { token: { $eq: token } },
+    await infousuarios.updateOne(
       {
-        $set: {
-          complejo: "",
-          hora: "",
-          dia: "",
-          cancha: "",
-          reserva: false,
-        },
+        token: { $eq: token },
+      },
+      {
+        $pull: { reservas: { dia: dia } },
       }
     );
 

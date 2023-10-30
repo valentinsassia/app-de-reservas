@@ -2,12 +2,6 @@ import mongoose from "mongoose";
 
 const infousuarios = new mongoose.Schema(
   {
-    email: {
-      type: String,
-    },
-    codigo: {
-      type: String,
-    },
     token: {
       type: String,
     },
@@ -18,6 +12,12 @@ const infousuarios = new mongoose.Schema(
     cancha: { type: Number },
     reserva: { type: Boolean },
     complejo: { type: String },
+    reservas: [{
+      dia: { type: String },
+      hora: { type: Number },
+      cancha: { type: Number },
+      complejo: { type: String },
+    }]
   },
   {
     timestamps: true,

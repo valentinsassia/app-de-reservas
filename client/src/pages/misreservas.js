@@ -6,6 +6,11 @@ import { useNavigate } from "react-router-dom";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
+import { Autoplay, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css/navigation";
+import "swiper/css";
+
 import io from "socket.io-client";
 const socket = io();
 
@@ -18,8 +23,12 @@ function Misreservas() {
   const [permiso, setPermiso] = useState(false);
 
   useEffect(() => {
-    socket.emit("comprobar_reserva", token);
+    socket.emit("comprobar_reserva", { token });
     socket.on("comprobar_reserva_res", (datos) => {
+      if (datos?.respuesta === "no hay usuario") {
+        localStorage.removeItem("token");
+        navigate(`/La%20Esquina`);
+      }
       setInformacion(datos);
       setPermiso(true);
     });
@@ -49,49 +58,101 @@ function Misreservas() {
   };
 
   const con_reserva = () => {
-    if (informacion?.reserva === true) {
+    if (informacion?.reservas.length) {
       return (
         <>
           <div className="reserva con">
-            <div className="con_div">
-              <p>Complejo</p>
-              <p>{informacion.complejo}</p>
-            </div>
-            <div className="con_div">
-              <p>Hora</p>
-              <p>{informacion.hora}:00</p>
-            </div>
-            <div className="con_div">
-              <p>Dia</p>
-              <p>{informacion.dia}</p>
-            </div>
-            <div className="con_div">
-              <p>Cancha</p>
-              <p>{informacion.cancha}</p>
-            </div>
-          </div>
-          <div
-            className="boton_con boton boton_activado"
-            onClick={() => {
-              socket.emit("cancelar_reserva", {
-                nombre: informacion.complejo,
-                dia: informacion.dia,
-                hora: informacion.hora,
-                cancha: informacion.cancha,
-                token
-              });
-              setPermiso(false);
-            }}
-          >
-            Cancelar
+            <Swiper modules={[Navigation]} navigation={true}>
+              {informacion.reservas.map((elem, index) => {
+                return (
+                  <>
+                    <SwiperSlide key={index}>
+                      <div className="con_div">
+                        <p>Complejo</p>
+                        <p>{elem.complejo}</p>
+                      </div>
+                      <div className="con_div">
+                        <p>Hora</p>
+                        <p>{elem.hora}:00</p>
+                      </div>
+                      <div className="con_div">
+                        <p>Dia</p>
+                        <p>{elem.dia}</p>
+                      </div>
+                      <div className="con_div">
+                        <p>Cancha</p>
+                        <p>{elem.cancha}</p>
+                      </div>
+                    </SwiperSlide>
+                    <div
+                      className="boton_con boton boton_activado"
+                      onClick={() => {
+                        socket.emit("cancelar_reserva", {
+                          nombre: elem.complejo,
+                          dia: elem.dia,
+                          hora: elem.hora,
+                          cancha: elem.cancha,
+                          token,
+                        });
+                        setPermiso(false);
+                      }}
+                    >
+                      Cancelar
+                    </div>
+                  </>
+                );
+              })}
+            </Swiper>
           </div>
         </>
       );
     }
   };
 
+  // const con_reserva = () => {
+  //   if (informacion?.reservas.length) {
+  //     return (
+  //       <>
+  //         <div className="reserva con">
+  //           <div className="con_div">
+  //             <p>Complejo</p>
+  //             <p>{informacion.complejo}</p>
+  //           </div>
+  //           <div className="con_div">
+  //             <p>Hora</p>
+  //             <p>{informacion.hora}:00</p>
+  //           </div>
+  //           <div className="con_div">
+  //             <p>Dia</p>
+  //             <p>{informacion.dia}</p>
+  //           </div>
+  //           <div className="con_div">
+  //             <p>Cancha</p>
+  //             <p>{informacion.cancha}</p>
+  //           </div>
+  //         </div>
+  //         <div
+  //           className="boton_con boton boton_activado"
+  //           onClick={() => {
+  //             socket.emit("cancelar_reserva", {
+  //               nombre: informacion.complejo,
+  //               dia: informacion.dia,
+  //               hora: informacion.hora,
+  //               cancha: informacion.cancha,
+  //               token
+  //             });
+  //             setPermiso(false);
+  //           }}
+  //         >
+  //           Cancelar
+  //         </div>
+  //       </>
+  //     );
+  //   }
+  // };
+
   const sin_reserva = () => {
-    if (informacion?.reserva !== true) {
+    if (!informacion?.reservas.length) {
       return (
         <div className="reserva sin">
           <ion-icon name="close-circle-outline"></ion-icon>
@@ -109,13 +170,20 @@ function Misreservas() {
       </div>
       <ion-icon name="person-circle-outline"></ion-icon>
       <div className="contenedor_inferior">
-        <div className="contenedor_informacion_" onClick={() => localStorage.removeItem("token")}>
+        <div
+          className="contenedor_informacion_"
+          onClick={() => localStorage.removeItem("token")}
+        >
           <ion-icon name="person-outline"></ion-icon>
-          <p>{`${informacion?.usuario ? informacion?.usuario : "Sin nombre"}`}</p>
+          <p>{`${
+            informacion?.usuario ? informacion?.usuario : "Sin nombre"
+          }`}</p>
         </div>
         <div className="contenedor_informacion_">
           <ion-icon name="call-outline"></ion-icon>
-          <p>{`${informacion?.telefono ? informacion?.telefono : "Sin telefono"}`}</p>
+          <p>{`${
+            informacion?.telefono ? informacion?.telefono : "Sin telefono"
+          }`}</p>
         </div>
         <span></span>
         {con_reserva()}

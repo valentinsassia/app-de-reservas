@@ -7,7 +7,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
 
 function Horarios_complejo({ horarios, num_cancha, nombre }) {
-
   const [horaseleccionada, setHoraseleccionada] = useState();
   const [Index, setIndex] = useState(0);
 
@@ -77,15 +76,7 @@ function Horarios_complejo({ horarios, num_cancha, nombre }) {
 
   let fecha = `${dia} ${fecha_de_hoy + contador}`;
 
-  let cancha = horarios.filter((elem) => {
-    return elem.cancha == num_cancha;
-  });
-
-  let informacion_dia = cancha[0].horario.filter((elem) => {
-    return elem.dia == dia;
-  });
-
-  let horas = informacion_dia[0].horas;
+  let horas = horarios[0].horario[0].horas;
 
   return (
     <>
