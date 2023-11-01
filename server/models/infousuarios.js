@@ -7,11 +7,6 @@ const infousuarios = new mongoose.Schema(
     },
     usuario: { type: String },
     telefono: { type: Number },
-    dia: { type: String },
-    hora: { type: Number },
-    cancha: { type: Number },
-    reserva: { type: Boolean },
-    complejo: { type: String },
     reservas: [{
       dia: { type: String },
       hora: { type: Number },

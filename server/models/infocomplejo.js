@@ -19,13 +19,13 @@ const infocomplejo = new mongoose.Schema({
   horarios: [
     {
       cancha: { type: Number },
-      costo: { type: Number },
       horario: [
         {
           dia: { type: String },
           horas: [
             {
               estado: { type: Boolean },
+              precio: { type: Number },
               fijado: { type: Boolean },
               hora: { type: Number },
               usuario: { type: String },

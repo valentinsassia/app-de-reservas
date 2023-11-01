@@ -55,7 +55,7 @@ function Confirmar() {
   let cancha = params.cancha;
   let dia = params.dia;
   let fecha = dia + " " + params.fecha;
-  let precio = params.precio
+  let precio = params?.precio
 
   const sin_informacion = () => {
     if (!permiso) {

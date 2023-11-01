@@ -24,7 +24,7 @@
     background-color: #0a0a0a;
     display: flex;
     flex-direction: column;
-    padding: 70px 13px 13px 13px;
+    padding: 70px 0 0 0;
 }
 
 .contenedor_informacion_ {
@@ -32,6 +32,7 @@
     align-items: center;
     color: #6a6a6a;
     margin-top: 17px;
+    margin-left: 13px;
 }
 
 .contenedor_informacion_ > ion-icon {
@@ -44,7 +45,7 @@
     font-size: .9em;
 }
 
-.contenedor_inferior > span {
+.contenedor_inferior > span, .con > span {
     width: 90%;
     height: 1px;
     margin-top: 13px;
@@ -52,21 +53,37 @@
     align-self: center;
 }
 
+.swiper-slide_ {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.swiper-button-prev, .swiper-button-next {
+    transform: scale(.5);
+    color: #ccccccb5;
+}
+
 .reserva {
-    width: 285px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.con {
+    width: 230px;
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     background-color: #131313;
     color: #6a6a6a;
-    border-radius: 20px;
+    border-radius: 5px;
     align-self: center;
-    margin-top: 40px;
-}
-
-.con {
-    padding: 20px;
 }
 
 .con_div {
@@ -87,6 +104,7 @@
 }
 
 .sin {
+    width: 285px;
     height: 175px;
     font-size: 1.1em !important;
     font-weight: 200;

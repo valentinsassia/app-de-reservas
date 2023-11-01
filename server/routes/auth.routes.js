@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 router.get("/", (req, res) => {
-  res.redirect("/La%20Esquina");
+  res.redirect("/La%20esquina%20del%20futbol");
 });
 
 router.get("/:nombre", (req, res) => {
