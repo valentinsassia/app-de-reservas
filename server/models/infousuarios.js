@@ -12,6 +12,7 @@ const infousuarios = new mongoose.Schema(
       hora: { type: Number },
       cancha: { type: Number },
       complejo: { type: String },
+      precio: {type: Number}
     }]
   },
   {

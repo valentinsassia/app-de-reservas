@@ -82,6 +82,7 @@ export const reservar = async (datos) => {
     const hora = datos.peticion.hora;
     const dia = datos.peticion.dia;
     const cancha = datos.peticion.cancha;
+    const precio = datos.peticion?.precio;
     const usuario =
       datos.peticion?.usuario !== undefined ? datos.peticion?.usuario : "";
     const telefono =
@@ -99,6 +100,7 @@ export const reservar = async (datos) => {
             dia,
             hora,
             cancha,
+            precio,
             complejo: nombre,
           },
         },

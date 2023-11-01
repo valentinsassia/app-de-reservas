@@ -58,7 +58,7 @@ function Reservas({ nombre }) {
                 </div>
                 <div>
                   <ion-icon name="call-outline"></ion-icon>
-                  <p>{elem.telefono === null || elem.telefono === undefined ? "-" : elem.telefono}</p>
+                  <p>{elem.telefono === null || elem.telefono === undefined ? "-" : "+" + elem.telefono}</p>
                 </div>
               </div>
             </>

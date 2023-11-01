@@ -27,7 +27,7 @@ function Misreservas() {
     socket.on("comprobar_reserva_res", (datos) => {
       if (datos?.respuesta === "no hay usuario") {
         localStorage.removeItem("token");
-        navigate(`/La%20Esquina`);
+        navigate(`/La%20esquina%20del%20futbol`);
       }
       setInformacion(datos);
       setPermiso(true);
@@ -80,6 +80,10 @@ function Misreservas() {
                           <p>Cancha</p>
                           <p>{elem.cancha}</p>
                         </div>
+                        <div className="con_div">
+                          <p>Precio</p>
+                          <p>${elem.precio}</p>
+                        </div>
                         <span></span>
                         <div
                           className="boton_con boton boton_activado"
@@ -111,9 +115,11 @@ function Misreservas() {
   const sin_reserva = () => {
     if (!informacion?.reservas.length) {
       return (
-        <div className="reserva sin">
-          <ion-icon name="close-circle-outline"></ion-icon>
-          <p>Sin reserva</p>
+        <div className="reserva">
+          <div className="sin">
+            <ion-icon name="close-circle-outline"></ion-icon>
+            <p>Sin reserva</p>
+          </div>
         </div>
       );
     }
@@ -122,7 +128,10 @@ function Misreservas() {
   return (
     <div className="contenedor_misreservas">
       {sin_permiso()}
-      <div onClick={() => navigate(`/La%20esquina%20del%20futbol`)} className="back">
+      <div
+        onClick={() => navigate(`/La%20esquina%20del%20futbol`)}
+        className="back"
+      >
         <ion-icon name="arrow-back-outline"></ion-icon>
       </div>
       <ion-icon name="person-circle-outline"></ion-icon>

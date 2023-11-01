@@ -27,6 +27,8 @@ function Register() {
   let fecha = params.fecha;
   let precio = params.precio;
 
+  const [telefono, setTelefono] = useState("Numero error")
+
   const {
     register,
     handleSubmit,
@@ -75,6 +77,7 @@ function Register() {
     if (condicion && permiso) {
       const onSubmit_telefono = handleSubmit((telefono) => {
         socket.emit("register_telefono", telefono);
+        setTelefono(telefono)
         setCondicion(false);
       });
       return (
@@ -133,7 +136,7 @@ function Register() {
               <button className="boton_formulario">Verificar codigo</button>
             </form>
           </div>
-          <p className="p_2">¡Revisa tu celular!</p>
+          <p className="p_2">{`¡Enviamos un codigo al +${telefono}!`}</p>
         </>
       );
     }

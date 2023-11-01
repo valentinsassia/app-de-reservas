@@ -78,6 +78,7 @@ function Confirmar() {
       cancha,
       hora,
       dia,
+      precio,
       usuario: datos.nombre,
       telefono: datos.telefono,
       token,

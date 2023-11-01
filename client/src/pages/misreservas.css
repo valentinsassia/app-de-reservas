@@ -104,8 +104,13 @@
 }
 
 .sin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     width: 285px;
     height: 175px;
+    color: #6a6a6a;
     font-size: 1.1em !important;
     font-weight: 200;
 }
