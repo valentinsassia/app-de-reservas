@@ -37,7 +37,7 @@ function Misreservas() {
   useEffect(() => {
     socket.on("cancelar_reserva_res", (res) => {
       if (res) {
-        navigate(`/La%20Esquina`);
+        navigate(`/La%20esquina%20del%20futbol`);
       } else setPermiso(true);
     });
   }, []);
