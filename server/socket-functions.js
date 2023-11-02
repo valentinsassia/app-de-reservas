@@ -258,8 +258,16 @@ export const comprobar_reserva = async (datos) => {
     });
 
     if (!Usuario.length) {
-      return socket.emit("comprobar_reserva_res", {
-        respuesta: "no hay usuario",
+      let dueño = await infocomplejo.find({
+        token: { $eq: token },
+      });
+      if (!dueño.length) {
+        return socket.emit("comprobar_reserva_res", {
+          respuesta: "no hay usuario",
+        });
+      }
+      else return socket.emit("comprobar_reserva_res", {
+        respuesta: "es dueño",
       });
     }
 

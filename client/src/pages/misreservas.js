@@ -58,10 +58,10 @@ function Misreservas() {
   };
 
   const con_reserva = () => {
-    if (informacion?.reservas.length) {
+    if (informacion?.reservas?.length) {
       return (
         <>
-          <Swiper modules={[Navigation]} navigation={true}>
+          <Swiper className="swiper_" modules={[Navigation]} navigation={true}>
             {informacion.reservas.map((elem, index) => {
               return (
                 <>
@@ -113,7 +113,7 @@ function Misreservas() {
   };
 
   const sin_reserva = () => {
-    if (!informacion?.reservas.length) {
+    if (!informacion?.reservas?.length) {
       return (
         <div className="reserva">
           <div className="sin">
@@ -136,10 +136,7 @@ function Misreservas() {
       </div>
       <ion-icon name="person-circle-outline"></ion-icon>
       <div className="contenedor_inferior">
-        <div
-          className="contenedor_informacion_"
-          onClick={() => localStorage.removeItem("token")}
-        >
+        <div className="contenedor_informacion_">
           <ion-icon name="person-outline"></ion-icon>
           <p>{`${
             informacion?.usuario ? informacion?.usuario : "Sin nombre"

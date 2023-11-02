@@ -16,7 +16,7 @@ function Confirmar() {
   const [permiso, setPermiso] = useState(false);
 
   useEffect(() => {
-    socket.emit("comprobar_reserva", {token, dia});
+    socket.emit("comprobar_reserva", { token, dia });
     socket.on("comprobar_reserva_res", (datos) => {
       if (datos?.respuesta === "hay reserva") {
         return navigate("/misreservas");
@@ -24,10 +24,11 @@ function Confirmar() {
         setPermiso(true);
         setValue("telefono", datos?.telefono);
         setValue("nombre", datos?.usuario);
-      }
-      else if (datos?.respuesta === "no hay usuario") {
-        localStorage.removeItem("token")
+      } else if (datos?.respuesta === "no hay usuario") {
+        localStorage.removeItem("token");
         navigate(`/${nombre}`);
+      } else if (datos?.respuesta === "es dueño") {
+        setPermiso(true);
       }
     });
   }, []);
@@ -35,7 +36,7 @@ function Confirmar() {
   useEffect(() => {
     socket.on("resultado", (condicion) => {
       if (condicion) {
-        navigate(`/${nombre}`);
+        navigate(`/misreservas`);
       }
     });
   }, []);
@@ -55,7 +56,7 @@ function Confirmar() {
   let cancha = params.cancha;
   let dia = params.dia;
   let fecha = dia + " " + params.fecha;
-  let precio = params?.precio
+  let precio = params?.precio;
 
   const sin_informacion = () => {
     if (!permiso) {

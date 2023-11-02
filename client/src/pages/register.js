@@ -136,7 +136,7 @@ function Register() {
               <button className="boton_formulario">Verificar codigo</button>
             </form>
           </div>
-          <p className="p_2">{`¡Enviamos un codigo al +${telefono}!`}</p>
+          <p className="p_2">{`¡Enviamos un codigo al +${telefono.telefono}!`}</p>
         </>
       );
     }
