@@ -131,7 +131,8 @@ function Horarios_complejo({ horarios, num_cancha, nombre }) {
             return elem.dia === dia[0];
           })[0].horas;
 
-          let precio = dia_cancha.filter(e => e.hora === horaseleccionada)[0]?.precio
+          let precio = dia_cancha.filter((e) => e.hora === horaseleccionada)[0]
+            ?.precio;
 
           let estado_cancha = dia_cancha.some(
             (elem) => elem.estado === true && elem.hora === horaseleccionada
@@ -139,6 +140,7 @@ function Horarios_complejo({ horarios, num_cancha, nombre }) {
 
           return (
             <Link
+              key={index}
               className={`${
                 estado_cancha ? "disponible" : "nodisponible"
               } link_cancha`}

@@ -1,4 +1,4 @@
-import "./slider.css"
+import "./slider.css";
 
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,8 +6,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css";
 
-function Slider({imagenes}) {
+import laesquinadelfutbol from "./../../../img/laesquinadelfutbol.jpeg";
+import laesquinadelfutbol1 from "./../../../img/laesquinadelfutbol1.jpeg";
 
+function Slider() {
+  console.log(laesquinadelfutbol)
   return (
     <div className="swiperContenedor">
       <Swiper
@@ -23,13 +26,12 @@ function Slider({imagenes}) {
         }}
         loop={true}
       >
-        {imagenes.map((imagen, index) => {
-          return (
-            <SwiperSlide key={index}>
-              <img src={imagen}></img>
-            </SwiperSlide>
-          );
-        })}
+        <SwiperSlide>
+          <img src={laesquinadelfutbol}></img>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={laesquinadelfutbol1}></img>
+        </SwiperSlide>
         <div className="pagination"></div>
       </Swiper>
     </div>

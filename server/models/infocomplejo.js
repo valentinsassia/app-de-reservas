@@ -13,9 +13,6 @@ const infocomplejo = new mongoose.Schema({
   password: {
     type: String,
   },
-  imagenes: {
-    type: Array,
-  },
   horarios: [
     {
       cancha: { type: Number },

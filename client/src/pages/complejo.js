@@ -27,7 +27,6 @@ function Complejo() {
 
   const nombre = params.nombre;
   const horarios = respuesta.horarios;
-  const imagenes = respuesta.imagenes;
 
   useEffect(() => {
     socket.emit("info-complejo", {
@@ -71,12 +70,6 @@ function Complejo() {
     }
   };
 
-  const imagenes_contenedor = () => {
-    if (imagenes !== undefined) {
-      return <Slider imagenes={imagenes} />;
-    }
-  };
-
   return (
     <div className="complejo">
       {sin_informacion()}
@@ -93,7 +86,9 @@ function Complejo() {
         />
       }
 
-      <div className="contenedor medio">{imagenes_contenedor()}</div>
+      <div className="contenedor medio">
+        <Slider />
+      </div>
       <div className="contenedor abajo">{horarios_contenedor()}</div>
 
       <div
