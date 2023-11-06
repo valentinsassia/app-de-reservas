@@ -142,11 +142,18 @@ function Misreservas() {
             informacion?.usuario ? informacion?.usuario : "Sin nombre"
           }`}</p>
         </div>
-        <div className="contenedor_informacion_">
+        <div
+          className="contenedor_informacion_"
+          onClick={() => {
+            localStorage.removeItem("token");
+          }}
+        >
           <ion-icon name="call-outline"></ion-icon>
           <p>
             {`${
-              informacion?.telefono ? "+" + informacion?.telefono : "Sin telefono"
+              informacion?.telefono
+                ? "+" + informacion?.telefono
+                : "Sin telefono"
             }`}
           </p>
         </div>
