@@ -19,7 +19,6 @@ function Complejo() {
   const params = useParams();
 
   const [condicion_menu, setCondicion_menu] = useState(false);
-  const [num_cancha, setNum_cancha] = useState(1);
   const [navegacion, setNavegacion] = useState(true);
 
   const [respuesta, setRespuesta] = useState("0");
@@ -62,11 +61,16 @@ function Complejo() {
         <Horarios_complejo
           nombre={nombre}
           horarios={horarios}
-          num_cancha={num_cancha}
         />
       );
     } else if (respuesta !== "0" && !navegacion) {
       return <Informacion informacion={respuesta} />;
+    }
+  };
+
+  const slider = () => {
+    if (horarios !== undefined) {
+      return <Slider />;
     }
   };
 
@@ -86,9 +90,7 @@ function Complejo() {
         />
       }
 
-      <div className="contenedor medio">
-        <Slider />
-      </div>
+      <div className="contenedor medio">{slider()}</div>
       <div className="contenedor abajo">{horarios_contenedor()}</div>
 
       <div

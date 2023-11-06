@@ -1,12 +1,12 @@
 import "./horarios_complejo.css";
 
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow } from "swiper/modules";
 
-function Horarios_complejo({ horarios, num_cancha, nombre }) {
+function Horarios_complejo({ horarios, nombre }) {
   const [horaseleccionada, setHoraseleccionada] = useState();
   const [Index, setIndex] = useState(0);
 
@@ -39,11 +39,11 @@ function Horarios_complejo({ horarios, num_cancha, nombre }) {
   const [contador, setContador] = useState(0);
   const [fecha_de_hoy, setFecha_de_hoy] = useState(hoy.getDate());
 
-  if (fecha_de_hoy + contador == dias_del_mes + 1) {
+  if (fecha_de_hoy + contador === dias_del_mes + 1) {
     setFecha_de_hoy(1);
     setContador(0);
   }
-  if (fecha_de_hoy + contador == 0) {
+  if (fecha_de_hoy + contador === 0) {
     setFecha_de_hoy(dias_del_mes);
     setContador(0);
   }

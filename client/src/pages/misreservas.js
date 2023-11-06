@@ -144,9 +144,11 @@ function Misreservas() {
         </div>
         <div className="contenedor_informacion_">
           <ion-icon name="call-outline"></ion-icon>
-          <p>{`${
-            informacion?.telefono ? informacion?.telefono : "Sin telefono"
-          }`}</p>
+          <p>
+            {`${
+              informacion?.telefono ? "+" + informacion?.telefono : "Sin telefono"
+            }`}
+          </p>
         </div>
         <span></span>
         {con_reserva()}
